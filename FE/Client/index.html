@@ -7,7 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Lexend:wght@600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -98,70 +98,51 @@
             }
         }
     </script>
-<style>
-        .glass-card {
-            background: rgba(30, 31, 35, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background-image: linear-gradient(to bottom right, rgba(255,255,255,0.05), rgba(255,255,255,0));
-        }
-        .neon-glow {
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
-        }
-        .neon-glow-active {
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
-        }
-        .badge-emissive {
-            background: rgba(57, 255, 20, 0.1);
-            border: 1px solid #39ff14;
-            box-shadow: 0 0 12px rgba(57, 255, 20, 0.5);
-        }
-    </style>
+<!-- styles.css: glass-card, neon-glow, badge-emissive, nav-link, btn-primary -->
 </head>
 <body class="bg-background text-on-surface font-body-main min-h-screen flex flex-col md:flex-row">
 <!-- TopNavBar (Mobile Only) -->
-<nav class="md:hidden flex justify-between items-center px-margin h-20 w-full bg-background/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-[0_0_15px_rgba(57,255,20,0.1)] fixed top-0 z-50">
-<div class="font-h1-display text-h2-headline font-bold text-primary tracking-tighter">QuanLiSport</div>
-<div class="flex gap-4">
-<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="notifications">notifications</span>
-<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="settings">settings</span>
-</div>
+<nav class="topnav md:hidden">
+  <div class="font-h1-display text-h2-headline font-bold text-primary tracking-tighter">QuanLiSport</div>
+  <div class="flex gap-4">
+    <span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">notifications</span>
+    <span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">settings</span>
+  </div>
 </nav>
-<!-- SideNavBar (Web Only) -->
-<nav class="hidden md:flex flex-col py-md px-sm gap-xs bg-surface-container dark:bg-surface-container-lowest backdrop-blur-2xl border-r border-outline-variant/20 shadow-xl h-screen w-64 fixed left-0 top-0 z-40">
-<div class="mb-lg px-xs mt-4">
-<div class="font-h2-headline text-h3-metric text-primary mb-6">QuanLiSport</div>
-<div class="flex items-center gap-4">
-<img alt="User Dashboard Avatar" class="w-12 h-12 rounded-full border-2 border-primary object-cover" data-alt="A close-up portrait of a professional athlete, shot against a dark, moody background with subtle neon green rim lighting. The subject has an intense, focused expression, embodying the high-performance aesthetic of an elite sports dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhFvfMaja3Y_7mCcCdLWB9BiE0XOqSNb6P2_nGCpAtfaQHmsVYlPQwk7rpFgXfTLIfkigW6GfSRBMZLADkBlSe9_tE0lahCZzpLOvTCpSwabFGe_TS5Uy9zlkwqKst7cyg9zkkJ4xY15wyojQnba2Dx3pKo-bT1FSXsaOI0AkojmxlTE02Nw3QqRxE0rc7RCXndCeyBcpGeRM_-ieNIQtTslbzZdgvJO0KYccizgxWk-uYeAZCP1Pi4yENJxwBW4E53ZsRh-Avm17X"/>
-<div>
-<div class="font-bold text-on-surface text-body-main">Pro Athlete</div>
-<div class="text-primary font-bold text-body-sm">DiemUyTin: 98</div>
-</div>
-</div>
-</div>
-<div class="flex-1 flex flex-col gap-2">
-<div class="flex items-center gap-3 p-3 bg-primary/10 text-primary border-r-4 border-primary font-bold cursor-pointer group rounded-l-lg" id="nav-profile">
-<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
-<span>Tài khoản cá nhân</span>
-</div>
-<a href="booking.html" class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all cursor-pointer group rounded-lg" id="nav-booking">
-<span class="material-symbols-outlined" data-icon="stadium">stadium</span>
-<span>Đặt sân</span>
-</a>
-<div class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all cursor-pointer group rounded-lg" id="nav-matchmaking">
-<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-<span>Matchmaking</span>
-</div>
-<div class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all cursor-pointer group rounded-lg" id="nav-parking">
-<span class="material-symbols-outlined" data-icon="local_parking">local_parking</span>
-<span>Parking</span>
-</div>
-</div>
-<button class="mt-auto bg-primary text-on-primary-container font-bold py-3 rounded-lg neon-glow hover:neon-glow-active transition-all">Create Match</button>
+<!-- SideNavBar (Desktop) -->
+<nav class="sidebar hidden md:flex">
+  <div class="mb-8 px-1">
+    <div class="font-h2-headline text-xl text-primary font-bold mb-6">QuanLiSport</div>
+    <div class="flex items-center gap-3">
+      <img alt="User Dashboard Avatar" class="w-10 h-10 rounded-full border-2 border-primary object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhFvfMaja3Y_7mCcCdLWB9BiE0XOqSNb6P2_nGCpAtfaQHmsVYlPQwk7rpFgXfTLIfkigW6GfSRBMZLADkBlSe9_tE0lahCZzpLOvTCpSwabFGe_TS5Uy9zlkwqKst7cyg9zkkJ4xY15wyojQnba2Dx3pKo-bT1FSXsaOI0AkojmxlTE02Nw3QqRxE0rc7RCXndCeyBcpGeRM_-ieNIQtTslbzZdgvJO0KYccizgxWk-uYeAZCP1Pi4yENJxwBW4E53ZsRh-Avm17X"/>
+      <div>
+        <div class="font-bold text-on-surface text-body-sm">Pro Athlete</div>
+        <div class="text-primary font-bold text-xs">DiemUyTin: 98</div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-1 flex flex-col gap-1">
+    <div class="nav-link active" id="nav-profile">
+      <span class="material-symbols-outlined">analytics</span>
+      <span>Tài khoản cá nhân</span>
+    </div>
+    <a href="booking.html" class="nav-link" id="nav-booking">
+      <span class="material-symbols-outlined">stadium</span>
+      <span>Đặt sân</span>
+    </a>
+    <div class="nav-link" id="nav-matchmaking">
+      <span class="material-symbols-outlined">handshake</span>
+      <span>Matchmaking</span>
+    </div>
+    <div class="nav-link" id="nav-parking">
+      <span class="material-symbols-outlined">local_parking</span>
+      <span>Parking</span>
+    </div>
+  </div>
+  <button class="btn-primary btn-full mt-4">Create Match</button>
 </nav>
 <!-- Main Content Canvas -->
-<main class="flex-1 w-full mt-20 md:mt-0 md:ml-64 p-sm md:p-margin pb-24 md:pb-margin relative overflow-y-auto">
+<main class="main-content flex-1 w-full p-sm md:p-margin relative overflow-y-auto">
 <!-- Profile Tab -->
 <section class="block" id="tab-profile">
 <header class="mb-lg">
@@ -529,23 +510,23 @@
 </section>
 </main>
 <!-- BottomNavBar (Mobile Only) -->
-<nav class="md:hidden flex justify-around items-center h-16 px-4 bg-surface-container-highest/90 backdrop-blur-lg border-t border-outline-variant/50 shadow-[0_-4px_20px_rgba(0,0,0,0.5)] fixed bottom-0 w-full rounded-t-xl z-50">
-<div class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-xl px-4 py-1 shadow-[0_0_10px_rgba(57,255,20,0.4)] active:scale-90 duration-150 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="person">person</span>
-<span class="font-label-caps text-label-caps mt-1">Profile</span>
-</div>
-<a href="booking.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-fixed active:scale-90 duration-150 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="sports_soccer">sports_soccer</span>
-<span class="font-label-caps text-label-caps mt-1">Pitches</span>
-</a>
-<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-fixed active:scale-90 duration-150 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="groups">groups</span>
-<span class="font-label-caps text-label-caps mt-1">Matches</span>
-</div>
-<div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-fixed active:scale-90 duration-150 cursor-pointer">
-<span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
-<span class="font-label-caps text-label-caps mt-1">Parking</span>
-</div>
+<nav class="bottomnav md:hidden">
+  <div class="bottomnav-item active">
+    <span class="material-symbols-outlined">person</span>
+    <span>Profile</span>
+  </div>
+  <a href="booking.html" class="bottomnav-item">
+    <span class="material-symbols-outlined">sports_soccer</span>
+    <span>Pitches</span>
+  </a>
+  <div class="bottomnav-item">
+    <span class="material-symbols-outlined">groups</span>
+    <span>Matches</span>
+  </div>
+  <div class="bottomnav-item">
+    <span class="material-symbols-outlined">directions_car</span>
+    <span>Parking</span>
+  </div>
 </nav>
 <script>
   // Tab switching
@@ -567,15 +548,9 @@
       document.getElementById(targetId).classList.add('block');
     }
     // Update sidebar active states
-    document.querySelectorAll('nav .flex.items-center.gap-3').forEach(el => {
-      el.classList.remove('bg-primary/10', 'text-primary', 'border-r-4', 'border-primary', 'font-bold', 'rounded-l-lg');
-      el.classList.add('text-on-surface-variant', 'hover:text-on-surface', 'hover:bg-white/5', 'rounded-lg');
-    });
+    document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
     const activeNav = document.getElementById(navId);
-    if (activeNav) {
-      activeNav.classList.add('bg-primary/10', 'text-primary', 'border-r-4', 'border-primary', 'font-bold');
-      activeNav.classList.remove('text-on-surface-variant', 'hover:text-on-surface', 'hover:bg-white/5');
-    }
+    if (activeNav) activeNav.classList.add('active');
   }
 
   document.getElementById('nav-profile').addEventListener('click', () => switchTab('nav-profile'));
