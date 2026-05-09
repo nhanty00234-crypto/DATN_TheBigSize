@@ -1,0 +1,626 @@
+/* =====================================================
+   QuanLiSport — Shared Design System
+   Single source of truth cho toàn bộ project
+   ===================================================== */
+
+/* ─── 1. CSS CUSTOM PROPERTIES ──────────────────────── */
+:root {
+  /* Color Palette — khớp 1:1 với Tailwind config */
+  --clr-primary:                #efffe3;
+  --clr-primary-fixed:          #79ff5b;
+  --clr-primary-fixed-dim:      #2ae500;
+  --clr-primary-container:      #39ff14;
+  --clr-on-primary:             #053900;
+  --clr-on-primary-container:   #107100;
+  --clr-inverse-primary:        #106e00;
+
+  --clr-secondary:              #c6c6c6;
+  --clr-secondary-container:    #474747;
+  --clr-on-secondary:           #303030;
+
+  --clr-surface:                #121317;
+  --clr-surface-dim:            #121317;
+  --clr-surface-bright:         #38393d;
+  --clr-surface-variant:        #343539;
+  --clr-surface-container-lowest:  #0d0e12;
+  --clr-surface-container-low:     #1a1b1f;
+  --clr-surface-container:         #1e1f23;
+  --clr-surface-container-high:    #292a2e;
+  --clr-surface-container-highest: #343539;
+  --clr-surface-tint:           #2ae500;
+
+  --clr-on-surface:             #e3e2e7;
+  --clr-on-surface-variant:     #baccb0;
+  --clr-on-background:          #e3e2e7;
+  --clr-background:             #121317;
+  --clr-inverse-surface:        #e3e2e7;
+  --clr-inverse-on-surface:     #2f3034;
+
+  --clr-outline:                #85967c;
+  --clr-outline-variant:        #3c4b35;
+
+  --clr-error:                  #ffb4ab;
+  --clr-error-container:        #93000a;
+  --clr-on-error:               #690005;
+  --clr-on-error-container:     #ffdad6;
+
+  /* Raw neon green — dùng cho glow effects */
+  --clr-neon:                   #39ff14;
+  --clr-neon-rgb:               57, 255, 20;
+
+  /* Typography */
+  --font-display: 'Lexend', sans-serif;
+  --font-body:    'Inter', sans-serif;
+
+  /* Spacing Scale */
+  --space-xs:     8px;
+  --space-sm:     16px;
+  --space-md:     24px;
+  --space-lg:     40px;
+  --space-xl:     64px;
+  --space-gutter: 20px;
+  --space-margin: 32px;
+
+  /* Border Radius */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  20px;
+  --radius-full: 9999px;
+
+  /* Glow Scale — chuẩn hóa, dùng thống nhất cả 2 trang */
+  --glow-xs:  0 0 8px  rgba(var(--clr-neon-rgb), 0.20);
+  --glow-sm:  0 0 15px rgba(var(--clr-neon-rgb), 0.25);
+  --glow-md:  0 0 20px rgba(var(--clr-neon-rgb), 0.45);  /* active state */
+  --glow-lg:  0 0 30px rgba(var(--clr-neon-rgb), 0.65);
+
+  /* Layout */
+  --topnav-height:  64px;   /* unified: index was 80px, booking was 64px → 64px */
+  --sidebar-width:  256px;
+  --bottomnav-height: 64px;
+
+  /* Transition */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.2s ease;
+  --transition-slow:   0.35s ease;
+}
+
+/* ─── 2. RESET & BASE ────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--clr-surface-container); }
+::-webkit-scrollbar-thumb { background: var(--clr-outline-variant); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--clr-neon); }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
+}
+
+/* ─── 3. GLASS CARD ──────────────────────────────────── */
+/* Dùng cho mọi khung nội dung trên cả 2 trang */
+.glass-card {
+  background: rgba(30, 31, 35, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.00) 100%
+  );
+}
+
+/* ─── 4. GLOW UTILITIES ──────────────────────────────── */
+.neon-glow        { box-shadow: var(--glow-sm); }
+.neon-glow-active { box-shadow: var(--glow-md); }
+
+/* ─── 5. BADGE / STATUS ──────────────────────────────── */
+.badge-emissive {
+  background: rgba(var(--clr-neon-rgb), 0.10);
+  border: 1px solid var(--clr-neon);
+  box-shadow: 0 0 12px rgba(var(--clr-neon-rgb), 0.45);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.badge-available {
+  background: rgba(var(--clr-neon-rgb), 0.10);
+  border: 1px solid var(--clr-neon);
+  color: var(--clr-primary);
+  box-shadow: 0 0 10px rgba(var(--clr-neon-rgb), 0.40);
+}
+.badge-booked {
+  background: rgba(255, 70, 70, 0.12);
+  border: 1px solid rgba(255, 90, 90, 0.50);
+  color: #ff7575;
+}
+.badge-confirmed {
+  background: rgba(var(--clr-neon-rgb), 0.10);
+  border: 1px solid var(--clr-neon);
+  color: var(--clr-primary);
+  box-shadow: 0 0 10px rgba(var(--clr-neon-rgb), 0.40);
+}
+.badge-pending {
+  background: rgba(234, 179, 8, 0.14);
+  border: 1px solid rgba(234, 179, 8, 0.55);
+  color: #fbbf24;
+}
+
+/* ─── 6. BUTTONS ─────────────────────────────────────── */
+/*
+  .btn-primary  — CTA chính (nền xanh neon, chữ đậm)
+  .btn-ghost    — nút phụ (viền + hover)
+  .btn-icon     — nút icon vuông nhỏ
+  Kết hợp .btn-sm để thu nhỏ padding
+*/
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--clr-primary);
+  color: var(--clr-on-primary-container);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  border: none;
+  border-radius: var(--radius-xl);    /* 16px — thống nhất, loại bỏ rounded-lg vs rounded-xl */
+  cursor: pointer;
+  box-shadow: var(--glow-sm);
+  transition: box-shadow var(--transition-base), transform var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary:hover  { box-shadow: var(--glow-md); }
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.btn-primary.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 13px;
+  border-radius: var(--radius-lg);
+}
+.btn-primary.btn-full { width: 100%; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.625rem 1rem;
+  background: transparent;
+  color: var(--clr-on-surface-variant);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--clr-outline-variant);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: border-color var(--transition-base), color var(--transition-base);
+  white-space: nowrap;
+}
+.btn-ghost:hover {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+}
+.btn-ghost:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: transparent;
+  color: var(--clr-on-surface-variant);
+  border: 1px solid var(--clr-outline-variant);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: border-color var(--transition-base), color var(--transition-base), background var(--transition-base);
+}
+.btn-icon:hover         { border-color: var(--clr-primary); color: var(--clr-primary); }
+.btn-icon.btn-icon--active {
+  background: rgba(var(--clr-neon-rgb), 0.10);
+  border-color: var(--clr-primary-fixed-dim);
+  color: var(--clr-primary);
+}
+
+/* ─── 7. FORM FIELDS ──────────────────────────────────── */
+/*
+  !important cần thiết để thắng Tailwind @tailwindcss/forms plugin
+  vốn reset background về trắng trên input/select.
+*/
+.input-field,
+.input-field[type="text"],
+.input-field[type="date"],
+.input-field[type="email"],
+.input-field[type="password"],
+.input-field[type="number"],
+.input-field[type="search"],
+textarea.input-field,
+.select-field {
+  width: 100%;
+  background-color: var(--clr-surface-container-high) !important;
+  border: 1px solid var(--clr-outline-variant) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 0.75rem 1rem !important;
+  color: var(--clr-on-surface) !important;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-color var(--transition-base);
+  appearance: none;
+  -webkit-appearance: none;
+}
+.input-field::placeholder {
+  color: rgba(186, 204, 176, 0.50) !important;
+  opacity: 1;
+}
+/* Date input — webkit tô màu phần placeholder text */
+.input-field[type="date"]::-webkit-datetime-edit {
+  color: var(--clr-on-surface);
+}
+.input-field[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  background: transparent;
+}
+.input-field:focus,
+.select-field:focus {
+  border-color: var(--clr-primary-fixed-dim) !important;
+  box-shadow: 0 0 0 1px var(--clr-primary-fixed-dim) !important;
+}
+.input-field.with-icon { padding-left: 2.6rem !important; }
+
+/* Select arrow màu sáng */
+.select-field {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23baccb0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 12px center !important;
+  padding-right: 2.5rem !important;
+  cursor: pointer;
+}
+
+.input-icon-wrap {
+  position: relative;
+}
+.input-icon-wrap .icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--clr-on-surface-variant);
+  font-size: 20px;
+  pointer-events: none;
+}
+
+/* ─── 8. FILTER TAGS ─────────────────────────────────── */
+.filter-tag {
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--clr-outline-variant);
+  color: var(--clr-on-surface-variant);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base),
+    background var(--transition-base);
+}
+.filter-tag:hover {
+  border-color: var(--clr-primary-fixed-dim);
+  color: var(--clr-primary);
+}
+.filter-tag.active {
+  border-color: var(--clr-primary-fixed-dim);
+  color: var(--clr-primary);
+  background: rgba(var(--clr-neon-rgb), 0.10);
+}
+
+/* ─── 9. CHIP (Amenity / Feature tags nhỏ) ───────────── */
+.chip {
+  display: inline-block;
+  background: var(--clr-surface-container-high);
+  border: 1px solid rgba(60, 75, 53, 0.5);
+  border-radius: var(--radius-full);
+  padding: 3px 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--clr-on-surface-variant);
+}
+
+/* ─── 10. TIME SLOT BUTTONS ──────────────────────────── */
+.time-slot-btn {
+  padding: 8px 4px;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--clr-outline-variant);
+  color: var(--clr-on-surface-variant);
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.4;
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base),
+    background var(--transition-base),
+    box-shadow var(--transition-base);
+}
+.time-slot-btn:hover:not(:disabled) {
+  border-color: var(--clr-primary-fixed-dim);
+  color: var(--clr-primary);
+}
+.time-slot-btn.active {
+  border-color: var(--clr-neon) !important;
+  color: var(--clr-primary) !important;
+  background: rgba(var(--clr-neon-rgb), 0.15) !important;
+  box-shadow: var(--glow-xs);
+}
+.time-slot-btn:disabled,
+.time-slot-btn.booked {
+  border-color: rgba(255, 90, 90, 0.40);
+  color: #ff7575;
+  background: rgba(255, 70, 70, 0.10);
+  cursor: not-allowed;
+}
+
+/* ─── 11. DURATION BUTTONS ───────────────────────────── */
+.duration-btn {
+  flex: 1;
+  min-width: 70px;
+  padding: 10px 8px;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid var(--clr-outline-variant);
+  color: var(--clr-on-surface-variant);
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base),
+    background var(--transition-base);
+}
+.duration-btn:hover {
+  border-color: var(--clr-primary-fixed-dim);
+  color: var(--clr-primary);
+}
+.duration-btn.active {
+  border-color: var(--clr-neon) !important;
+  color: var(--clr-primary) !important;
+  background: rgba(var(--clr-neon-rgb), 0.15) !important;
+}
+
+/* ─── 12. NAVIGATION ──────────────────────────────────── */
+
+/* Sidebar nav link */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-lg);
+  color: var(--clr-on-surface-variant);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--transition-base), background var(--transition-base);
+  border: none;
+  background: transparent;
+}
+.nav-link:hover {
+  color: var(--clr-on-surface);
+  background: rgba(255, 255, 255, 0.05);
+}
+.nav-link.active {
+  background: rgba(239, 255, 227, 0.10);
+  color: var(--clr-primary);
+  font-weight: 700;
+  /* Active indicator: border kéo ra ngoài sidebar */
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  position: relative;
+}
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  right: -1px;   /* khớp với border-right của sidebar */
+  top: 0; bottom: 0;
+  width: 3px;
+  background: var(--clr-primary-fixed-dim);
+  border-radius: var(--radius-full) 0 0 var(--radius-full);
+}
+
+/* Sidebar wrapper */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  left: 0; top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
+  gap: 4px;
+  background: var(--clr-surface-container-lowest);
+  border-right: 1px solid rgba(60, 75, 53, 0.20);
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.45);
+  z-index: 40;
+  overflow-y: auto;
+}
+
+/* Top nav — Mobile only */
+.topnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--topnav-height);   /* 64px — thống nhất */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-margin);
+  background: rgba(18, 19, 23, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(60, 75, 53, 0.30);
+  box-shadow: 0 0 15px rgba(var(--clr-neon-rgb), 0.08);
+  z-index: 50;
+}
+
+/* Bottom nav — Mobile only */
+.bottomnav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--bottomnav-height);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 16px;
+  background: rgba(52, 53, 57, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(60, 75, 53, 0.50);
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.50);
+  z-index: 50;
+}
+.bottomnav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 16px;
+  color: var(--clr-on-surface-variant);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: color var(--transition-base);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+.bottomnav-item:hover { color: var(--clr-primary-fixed); }
+.bottomnav-item.active {
+  background: var(--clr-primary);
+  color: var(--clr-on-primary-container);
+  box-shadow: 0 0 12px rgba(var(--clr-neon-rgb), 0.40);
+}
+
+/* ─── 13. SECTION LABEL ───────────────────────────────── */
+/* Tiêu đề nhỏ dạng ALL CAPS — "TÌM KIẾM & LỌC", v.v. */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-on-surface-variant);
+}
+
+/* ─── 14. BOOKING ROW ─────────────────────────────────── */
+.booking-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  background: var(--clr-surface-container-high);
+  border: 1px solid rgba(60, 75, 53, 0.50);
+  border-radius: var(--radius-xl);
+  transition: border-color var(--transition-base);
+}
+.booking-row:hover { border-color: rgba(var(--clr-neon-rgb), 0.30); }
+
+/* ─── 15. COURT CARD IMAGE ZOOM ───────────────────────── */
+.court-img {
+  transition: transform var(--transition-slow);
+}
+.court-card:hover .court-img {
+  transform: scale(1.06);
+}
+
+/* ─── 16. PAGE HEADER ─────────────────────────────────── */
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--clr-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.page-subtitle {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--clr-on-surface-variant);
+  line-height: 1.6;
+  margin-top: 6px;
+}
+
+/* ─── 17. RESPONSIVE LAYOUT ───────────────────────────── */
+/*
+  Breakpoints thống nhất:
+    Mobile:  < 768px  (--bp-md)
+    Tablet:  768px – 1023px
+    Desktop: ≥ 1024px (--bp-lg)
+
+  Tailwind md: = 768px  ← khớp với breakpoint của chúng ta
+*/
+
+/* Mobile */
+@media (max-width: 767px) {
+  .sidebar       { display: none !important; }
+  .topnav        { display: flex !important; }
+  .bottomnav     { display: flex !important; }
+
+  .main-content {
+    margin-left: 0 !important;
+    margin-top: var(--topnav-height) !important;
+    padding-bottom: calc(var(--bottomnav-height) + 16px) !important;
+  }
+}
+
+/* Tablet + Desktop */
+@media (min-width: 768px) {
+  .sidebar       { display: flex !important; }
+  .topnav        { display: none !important; }
+  .bottomnav     { display: none !important; }
+
+  .main-content {
+    margin-left: var(--sidebar-width) !important;
+    margin-top: 0 !important;
+  }
+}

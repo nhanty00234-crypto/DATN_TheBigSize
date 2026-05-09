@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Move-Item \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\styles.css\" \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\Client\\\\styles.css\")"
+    ]
+  }
+}

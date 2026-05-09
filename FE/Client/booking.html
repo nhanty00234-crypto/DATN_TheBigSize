@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html class="dark" lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đặt Sân - QuanLiSport</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lexend:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-error": "#690005",
+          "surface-container-low": "#1a1b1f",
+          "on-primary": "#053900",
+          "surface-dim": "#121317",
+          "on-surface": "#e3e2e7",
+          "on-secondary": "#303030",
+          "inverse-surface": "#e3e2e7",
+          "inverse-on-surface": "#2f3034",
+          "error": "#ffb4ab",
+          "surface-container": "#1e1f23",
+          "surface-tint": "#2ae500",
+          "on-primary-container": "#107100",
+          "secondary": "#c6c6c6",
+          "surface-container-lowest": "#0d0e12",
+          "surface-variant": "#343539",
+          "error-container": "#93000a",
+          "primary-fixed": "#79ff5b",
+          "background": "#121317",
+          "surface-bright": "#38393d",
+          "tertiary": "#fdf9f9",
+          "secondary-container": "#474747",
+          "surface-container-highest": "#343539",
+          "primary-container": "#39ff14",
+          "outline": "#85967c",
+          "on-secondary-fixed": "#1b1b1b",
+          "primary-fixed-dim": "#2ae500",
+          "inverse-primary": "#106e00",
+          "on-surface-variant": "#baccb0",
+          "surface": "#121317",
+          "outline-variant": "#3c4b35",
+          "on-primary-fixed-variant": "#095300",
+          "on-background": "#e3e2e7",
+          "on-error-container": "#ffdad6",
+          "primary": "#efffe3",
+          "surface-container-high": "#292a2e"
+        },
+        borderRadius: {
+          DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"
+        },
+        fontFamily: {
+          "h2-headline": ["Lexend"],
+          "label-caps": ["Inter"],
+          "body-main": ["Inter"],
+          "body-sm": ["Inter"],
+          "h3-metric": ["Inter"],
+          "h1-display": ["Lexend"]
+        },
+        fontSize: {
+          "h2-headline": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+          "label-caps": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "600" }],
+          "body-main": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+          "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+          "h3-metric": ["24px", { lineHeight: "1.2", letterSpacing: "0.05em", fontWeight: "700" }],
+          "h1-display": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }]
+        }
+      }
+    }
+  }
+</script>
+<!-- styles.css: tất cả component styles đã được chuyển vào styles.css -->
+</head>
+<body class="bg-background text-on-surface font-body-main min-h-screen flex flex-col md:flex-row">
+
+<!-- ===== SIDEBAR (Desktop) ===== -->
+<nav class="sidebar hidden md:flex">
+  <div class="mb-8 px-1">
+    <a href="index.html" class="font-h2-headline text-xl text-primary font-bold block mb-6 hover:opacity-80 transition-opacity">QuanLiSport</a>
+    <div class="flex items-center gap-3">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS4WW7BBkXrZrom44s6XjAanIYvn1OswwCHJt2pcawTNEyoKZVUI6vOdO2mAAJTa287M5fsm64CsrJacXLk-Mv8mAqMBLo22ufxN-y8enfAn3R2UYqPIGaODBOMqE9qa-n_1jXyLRkcnJ9DT7keBgx1fVbRQs1-BFz8d8CeKszPwbu1C2yOdHZnvSa4qLUM9_4JBS-iLZ7UoH3PCLcJWgFGKxCs1Z5ORy-uunNNseYVBbsPvGm6WO9HR5kiHj564QZ1O6wweYugwyf" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-primary object-cover"/>
+      <div>
+        <div class="font-bold text-on-surface text-body-sm">Pro Athlete</div>
+        <div class="text-primary text-xs font-bold">DiemUyTin: 98</div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-1 flex flex-col gap-1">
+    <a href="index.html" class="nav-link">
+      <span class="material-symbols-outlined">analytics</span><span>Tài khoản cá nhân</span>
+    </a>
+    <div class="nav-link active">
+      <span class="material-symbols-outlined">stadium</span><span>Đặt sân</span>
+    </div>
+    <a href="#" class="nav-link">
+      <span class="material-symbols-outlined">handshake</span><span>Matchmaking</span>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="material-symbols-outlined">local_parking</span><span>Parking</span>
+    </a>
+  </div>
+  <button class="btn-primary btn-full mt-4">Create Match</button>
+</nav>
+
+<!-- ===== TOP NAV (Mobile) ===== -->
+<nav class="topnav md:hidden">
+  <a href="index.html" class="font-bold text-primary text-lg">← QuanLiSport</a>
+  <span class="font-bold text-on-surface">Đặt Sân</span>
+  <span class="material-symbols-outlined text-primary cursor-pointer">notifications</span>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="main-content flex-1 w-full overflow-y-auto">
+
+  <!-- Hero Banner -->
+  <div class="relative h-52 md:h-72 overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1551958219-acbc8e4a1b0a?w=1400&q=80" alt="Hero" class="w-full h-full object-cover"/>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+    <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-12">
+      <h1 class="font-h1-display text-3xl md:text-h1-display text-primary mb-2">Đặt Sân Thể Thao</h1>
+      <p class="text-on-surface/80 text-body-sm md:text-body-main max-w-md">Chọn sân, đặt lịch và thi đấu. Nhanh chóng – Tiện lợi – Minh bạch.</p>
+    </div>
+  </div>
+
+  <div class="p-4 md:p-8 space-y-8">
+
+    <!-- ===== SEARCH & FILTER ===== -->
+    <div class="glass-card rounded-2xl p-5 md:p-6">
+      <h2 class="section-label mb-4">
+        <span class="material-symbols-outlined text-primary text-base">filter_list</span> Tìm kiếm & Lọc
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="sm:col-span-2">
+          <label class="section-label mb-2 block">Tên sân / Địa điểm</label>
+          <div class="input-icon-wrap">
+            <span class="material-symbols-outlined icon">search</span>
+            <input id="search-input" type="text" placeholder="Tìm tên sân, khu vực..." class="input-field with-icon"/>
+          </div>
+        </div>
+        <div>
+          <label class="section-label mb-2 block">Ngày đặt</label>
+          <input id="filter-date" type="date" class="input-field"/>
+        </div>
+        <div>
+          <label class="section-label mb-2 block">Loại sân</label>
+          <select id="filter-type" class="select-field">
+            <option value="">Tất cả loại sân</option>
+            <option value="5">Sân 5 người</option>
+            <option value="7">Sân 7 người</option>
+            <option value="11">Sân 11 người</option>
+          </select>
+        </div>
+      </div>
+      <!-- Amenity filters -->
+      <div class="flex flex-wrap gap-3 mt-4">
+        <button class="filter-tag active" data-tag="all">Tất cả</button>
+        <button class="filter-tag" data-tag="indoor">Có mái</button>
+        <button class="filter-tag" data-tag="led">Đèn LED</button>
+        <button class="filter-tag" data-tag="natural">Cỏ tự nhiên</button>
+        <button class="filter-tag" data-tag="available">Còn trống hôm nay</button>
+      </div>
+    </div>
+
+    <!-- ===== COURTS GRID ===== -->
+    <div>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-bold text-on-surface text-xl flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">stadium</span> Danh sách sân
+          <span class="text-on-surface-variant text-body-sm font-normal ml-1" id="court-count">(4 sân)</span>
+        </h2>
+        <div class="flex gap-2">
+          <button id="view-grid" class="btn-icon btn-icon--active">
+            <span class="material-symbols-outlined text-lg">grid_view</span>
+          </button>
+          <button id="view-list" class="btn-icon">
+            <span class="material-symbols-outlined text-lg">list</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="courts-grid">
+
+        <!-- Court 1 -->
+        <div class="court-card glass-card rounded-2xl overflow-hidden cursor-pointer hover:border-primary/60 border border-transparent transition-all duration-300 group" data-type="5" data-tags="indoor led available" onclick="openModal('Sân 5 - A1','Khu A, Tầng 1','150,000','5',['Cỏ nhân tạo','Đèn LED','Có mái'])">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80" alt="Sân 5 A1" class="court-img w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+            <div class="absolute top-3 left-3 badge-emissive rounded-full px-3 py-1 text-primary text-xs font-bold">● Còn trống</div>
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur rounded-full px-3 py-1 text-white text-xs font-bold">Sân 5</div>
+            <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+              <span class="text-white font-bold text-base">Sân 5 - A1</span>
+              <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span> 4.8
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 text-on-surface-variant text-body-sm mb-3">
+              <span class="material-symbols-outlined text-sm">location_on</span> Khu A, Tầng 1
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="chip">Cỏ nhân tạo</span>
+              <span class="chip">Đèn LED</span>
+              <span class="chip">Có mái</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div><span class="text-primary font-bold text-xl">150,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Court 2 -->
+        <div class="court-card glass-card rounded-2xl overflow-hidden cursor-pointer hover:border-primary/60 border border-transparent transition-all duration-300 group" data-type="7" data-tags="natural available" onclick="openModal('Sân 7 - B2','Khu B, Tầng 2','200,000','7',['Cỏ tự nhiên','Ngoài trời','Khán đài'])">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600&q=80" alt="Sân 7 B2" class="court-img w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+            <div class="absolute top-3 left-3 badge-emissive rounded-full px-3 py-1 text-primary text-xs font-bold">● Còn trống</div>
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur rounded-full px-3 py-1 text-white text-xs font-bold">Sân 7</div>
+            <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+              <span class="text-white font-bold text-base">Sân 7 - B2</span>
+              <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span> 4.6
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 text-on-surface-variant text-body-sm mb-3">
+              <span class="material-symbols-outlined text-sm">location_on</span> Khu B, Tầng 2
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="chip">Cỏ tự nhiên</span>
+              <span class="chip">Ngoài trời</span>
+              <span class="chip">Khán đài</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div><span class="text-primary font-bold text-xl">200,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Court 3 - Booked -->
+        <div class="court-card glass-card rounded-2xl overflow-hidden border border-red-500/30 transition-all duration-300 opacity-60 cursor-not-allowed" data-type="11" data-tags="indoor">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1487466365202-1afdb86c764e?w=600&q=80" alt="Sân 11 C1" class="court-img w-full h-full object-cover grayscale"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+            <div class="absolute top-3 left-3 bg-red-500/20 border border-red-500 rounded-full px-3 py-1 text-red-400 text-xs font-bold">● Đã đặt</div>
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur rounded-full px-3 py-1 text-white text-xs font-bold">Sân 11</div>
+            <div class="absolute bottom-3 left-4">
+              <span class="text-white font-bold text-base">Sân 11 - C1</span>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 text-on-surface-variant text-body-sm mb-3">
+              <span class="material-symbols-outlined text-sm">location_on</span> Khu C, Tầng 1
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="chip">Cỏ nhân tạo</span>
+              <span class="chip">Có mái</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div><span class="text-on-surface-variant font-bold text-xl">350,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
+              <button class="bg-surface-container-high text-on-surface-variant font-bold py-2 px-5 rounded-xl text-sm cursor-not-allowed" disabled>Không có</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Court 4 -->
+        <div class="court-card glass-card rounded-2xl overflow-hidden cursor-pointer hover:border-primary/60 border border-transparent transition-all duration-300 group" data-type="5" data-tags="led available" onclick="openModal('Sân 5 - D3','Khu D, Tầng 3','120,000','5',['Cỏ nhân tạo','Đèn LED'])">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600&q=80" alt="Sân 5 D3" class="court-img w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+            <div class="absolute top-3 left-3 badge-emissive rounded-full px-3 py-1 text-primary text-xs font-bold">● Còn trống</div>
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur rounded-full px-3 py-1 text-white text-xs font-bold">Sân 5</div>
+            <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+              <span class="text-white font-bold text-base">Sân 5 - D3</span>
+              <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span> 4.5
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 text-on-surface-variant text-body-sm mb-3">
+              <span class="material-symbols-outlined text-sm">location_on</span> Khu D, Tầng 3
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="chip">Cỏ nhân tạo</span>
+              <span class="chip">Đèn LED</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div><span class="text-primary font-bold text-xl">120,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Court 5 -->
+        <div class="court-card glass-card rounded-2xl overflow-hidden cursor-pointer hover:border-primary/60 border border-transparent transition-all duration-300 group" data-type="7" data-tags="indoor led available" onclick="openModal('Sân 7 - E1','Khu E, Tầng 1','180,000','7',['Cỏ nhân tạo','Đèn LED','Có mái','Phòng thay đồ'])">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=600&q=80" alt="Sân 7 E1" class="court-img w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+            <div class="absolute top-3 left-3 badge-emissive rounded-full px-3 py-1 text-primary text-xs font-bold">● Còn trống</div>
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur rounded-full px-3 py-1 text-white text-xs font-bold">Sân 7</div>
+            <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+              <span class="text-white font-bold text-base">Sân 7 - E1</span>
+              <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span> 4.9
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 text-on-surface-variant text-body-sm mb-3">
+              <span class="material-symbols-outlined text-sm">location_on</span> Khu E, Tầng 1
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="chip">Cỏ nhân tạo</span>
+              <span class="chip">Đèn LED</span>
+              <span class="chip">Có mái</span>
+              <span class="chip">Phòng thay đồ</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div><span class="text-primary font-bold text-xl">180,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Court 6 -->
+        <div class="court-card glass-card rounded-2xl overflow-hidden cursor-pointer hover:border-primary/60 border border-transparent transition-all duration-300 group" data-type="11" data-tags="natural available" onclick="openModal('Sân 11 - F2','Khu F, Tầng 2','400,000','11',['Cỏ tự nhiên','Ngoài trời','Khán đài VIP','Phòng thay đồ'])">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1508098682722-e99c643e7f0b?w=600&q=80" alt="Sân 11 F2" class="court-img w-full h-full object-cover"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent"></div>
+            <div class="absolute top-3 left-3 badge-emissive rounded-full px-3 py-1 text-primary text-xs font-bold">● Còn trống</div>
+            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur rounded-full px-3 py-1 text-white text-xs font-bold">Sân 11</div>
+            <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+              <span class="text-white font-bold text-base">Sân 11 - F2</span>
+              <div class="flex items-center gap-1 text-yellow-400 text-xs">
+                <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">star</span> 4.7
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 text-on-surface-variant text-body-sm mb-3">
+              <span class="material-symbols-outlined text-sm">location_on</span> Khu F, Tầng 2
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="chip">Cỏ tự nhiên</span>
+              <span class="chip">Khán đài VIP</span>
+              <span class="chip">Phòng thay đồ</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div><span class="text-primary font-bold text-xl">400,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== MY BOOKINGS ===== -->
+    <div class="glass-card rounded-2xl p-5 md:p-6">
+      <h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 border-b border-outline-variant/30 pb-3 flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-base">event_note</span> Lịch đặt sân của tôi
+      </h2>
+      <div class="space-y-3" id="my-bookings-list">
+        <div class="flex items-center justify-between p-4 bg-surface-container-high rounded-xl border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <div class="flex items-center gap-4">
+            <div class="bg-primary/20 p-3 rounded-xl">
+              <span class="material-symbols-outlined text-primary">stadium</span>
+            </div>
+            <div>
+              <div class="text-on-surface font-semibold">Sân 5 - A1</div>
+              <div class="text-on-surface-variant text-xs mt-1 flex flex-wrap gap-3">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">calendar_today</span> Hôm nay</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">schedule</span> 18:00 - 19:30</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">payments</span> 225,000 đ</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 ml-4">
+            <span class="badge badge-confirmed">Đã xác nhận</span>
+            <button onclick="cancelBooking(this)" class="text-on-surface-variant hover:text-red-400 transition-colors p-1">
+              <span class="material-symbols-outlined text-base">delete</span>
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center justify-between p-4 bg-surface-container-high rounded-xl border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <div class="flex items-center gap-4">
+            <div class="bg-yellow-500/20 p-3 rounded-xl">
+              <span class="material-symbols-outlined text-yellow-400">stadium</span>
+            </div>
+            <div>
+              <div class="text-on-surface font-semibold">Sân 7 - B2</div>
+              <div class="text-on-surface-variant text-xs mt-1 flex flex-wrap gap-3">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">calendar_today</span> Ngày mai</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">schedule</span> 07:00 - 08:30</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">payments</span> 300,000 đ</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 ml-4">
+            <span class="badge badge-pending">Chờ xác nhận</span>
+            <button onclick="cancelBooking(this)" class="text-on-surface-variant hover:text-red-400 transition-colors p-1">
+              <span class="material-symbols-outlined text-base">delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-on-surface-variant/50 text-body-sm py-6 hidden" id="no-bookings">Chưa có lịch đặt sân nào.</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===== BOTTOM NAV (Mobile) ===== -->
+<nav class="bottomnav md:hidden">
+  <a href="index.html" class="bottomnav-item">
+    <span class="material-symbols-outlined">person</span>
+    <span>Profile</span>
+  </a>
+  <div class="bottomnav-item active">
+    <span class="material-symbols-outlined">sports_soccer</span>
+    <span>Pitches</span>
+  </div>
+  <a href="#" class="bottomnav-item">
+    <span class="material-symbols-outlined">groups</span>
+    <span>Matches</span>
+  </a>
+  <a href="#" class="bottomnav-item">
+    <span class="material-symbols-outlined">directions_car</span>
+    <span>Parking</span>
+  </a>
+</nav>
+
+<!-- ===== BOOKING MODAL ===== -->
+<div class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 items-center justify-center p-4 hidden" id="booking-modal" style="display:none;">
+  <div class="glass-card rounded-2xl w-full max-w-lg shadow-2xl border border-outline-variant/50 flex flex-col" style="max-height:92vh;">
+    <!-- Modal Header -->
+    <div class="flex items-start justify-between p-6 border-b border-outline-variant/30 shrink-0">
+      <div>
+        <h2 class="text-on-surface font-bold text-2xl" id="modal-court-name">Sân 5 - A1</h2>
+        <p class="text-on-surface-variant text-sm mt-1 flex items-center gap-1" id="modal-court-loc">
+          <span class="material-symbols-outlined text-sm">location_on</span> Khu A, Tầng 1
+        </p>
+      </div>
+      <button onclick="closeModal()" class="text-on-surface-variant hover:text-on-surface transition-colors p-2 rounded-full hover:bg-white/10 shrink-0">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Modal Amenities -->
+    <div class="px-6 pt-4 shrink-0">
+      <div class="flex flex-wrap gap-2" id="modal-amenities"></div>
+    </div>
+
+    <!-- Modal Scrollable Body -->
+    <div class="overflow-y-auto flex-1 px-6 py-4 space-y-5">
+
+      <!-- Date -->
+      <div>
+        <label class="section-label mb-2 block">Ngày đặt sân</label>
+        <input type="date" id="modal-date" class="input-field"/>
+      </div>
+
+      <!-- Time Slots -->
+      <div>
+        <label class="section-label mb-3 block">Chọn giờ bắt đầu</label>
+        <div class="grid grid-cols-4 gap-2" id="time-slots">
+          <!-- Generated by JS -->
+        </div>
+      </div>
+
+      <!-- Duration -->
+      <div>
+        <label class="section-label mb-3 block">Thời lượng</label>
+        <div class="flex gap-2 flex-wrap">
+          <button class="duration-btn" data-dur="1">1 giờ</button>
+          <button class="duration-btn" data-dur="1.5">1.5 giờ</button>
+          <button class="duration-btn" data-dur="2">2 giờ</button>
+          <button class="duration-btn" data-dur="3">3 giờ</button>
+        </div>
+      </div>
+
+      <!-- Player count -->
+      <div>
+        <label class="section-label mb-2 block">Số người chơi</label>
+        <div class="flex items-center gap-4 bg-surface-container-high border border-outline-variant rounded-xl px-4 py-3">
+          <button id="player-minus" class="text-on-surface-variant hover:text-primary transition-colors text-xl font-bold w-8 h-8 flex items-center justify-center">−</button>
+          <span class="flex-1 text-center text-on-surface font-bold text-lg" id="player-count">10</span>
+          <button id="player-plus" class="text-on-surface-variant hover:text-primary transition-colors text-xl font-bold w-8 h-8 flex items-center justify-center">+</button>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div>
+        <label class="section-label mb-2 block">Ghi chú</label>
+        <textarea id="modal-note" placeholder="Yêu cầu đặc biệt, áo, bóng..." rows="2" class="input-field resize-none"></textarea>
+      </div>
+
+      <!-- Summary Box -->
+      <div class="bg-surface-container-high rounded-xl p-4 border border-outline-variant/70 space-y-2">
+        <div class="text-on-surface-variant text-xs uppercase tracking-widest mb-3">Tóm tắt đơn đặt</div>
+        <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Sân</span><span class="text-on-surface font-semibold" id="sum-court">—</span></div>
+        <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Ngày</span><span class="text-on-surface font-semibold" id="sum-date">—</span></div>
+        <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Giờ</span><span class="text-on-surface font-semibold" id="sum-time">—</span></div>
+        <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Thời lượng</span><span class="text-on-surface font-semibold" id="sum-dur">—</span></div>
+        <div class="border-t border-outline-variant/50 pt-2 mt-2 flex justify-between">
+          <span class="text-on-surface font-bold">Tổng tiền</span>
+          <span class="text-primary font-bold text-lg" id="sum-price">—</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="p-6 pt-0 shrink-0">
+      <button onclick="confirmBooking()" class="btn-primary btn-full" style="padding:14px;">
+        Xác nhận đặt sân
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SUCCESS TOAST ===== -->
+<div class="fixed top-6 right-6 z-[60] transition-all duration-300 translate-y-0 opacity-100 hidden" id="toast-success">
+  <div class="glass-card border border-primary/60 rounded-2xl px-6 py-4 flex items-center gap-3 shadow-2xl neon-glow">
+    <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1">check_circle</span>
+    <div>
+      <div class="text-on-surface font-bold">Đặt sân thành công!</div>
+      <div class="text-on-surface-variant text-xs" id="toast-detail">Sân 5 - A1 | 18:00 - 19:00</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─── State ───────────────────────────────────────────────────
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('filter-date').value = today;
+  document.getElementById('modal-date').value = today;
+
+  let state = {
+    courtName: '', courtLoc: '', pricePerHour: 0,
+    selectedTime: null, selectedDur: null, players: 10
+  };
+
+  // Booked slots (for demo)
+  const bookedSlots = ['10:00', '11:00', '12:00'];
+
+  // ─── Time Slots Generator ─────────────────────────────────────
+  const allSlots = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00',
+                    '13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00'];
+
+  function renderTimeSlots() {
+    const grid = document.getElementById('time-slots');
+    grid.innerHTML = '';
+    allSlots.forEach(t => {
+      const isBooked = bookedSlots.includes(t);
+      const btn = document.createElement('button');
+      btn.dataset.time = t;
+      btn.className = isBooked ? 'time-slot-btn booked' : 'time-slot-btn';
+      btn.disabled = isBooked;
+      btn.innerHTML = isBooked ? `${t}<br><span style="font-size:9px">Đã đặt</span>` : t;
+      if (!isBooked) {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#time-slots .time-slot-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          state.selectedTime = t;
+          updateSummary();
+        });
+      }
+      grid.appendChild(btn);
+    });
+  }
+
+  // ─── Duration Buttons ─────────────────────────────────────────
+  document.querySelectorAll('.duration-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.selectedDur = parseFloat(btn.dataset.dur);
+      updateSummary();
+    });
+  });
+
+  // ─── Player Count ─────────────────────────────────────────────
+  document.getElementById('player-minus').addEventListener('click', () => {
+    if (state.players > 2) { state.players--; document.getElementById('player-count').textContent = state.players; }
+  });
+  document.getElementById('player-plus').addEventListener('click', () => {
+    if (state.players < 22) { state.players++; document.getElementById('player-count').textContent = state.players; }
+  });
+
+  // ─── Summary Updater ──────────────────────────────────────────
+  function updateSummary() {
+    document.getElementById('sum-court').textContent = state.courtName || '—';
+    const dateVal = document.getElementById('modal-date').value;
+    document.getElementById('sum-date').textContent = dateVal
+      ? new Date(dateVal + 'T00:00:00').toLocaleDateString('vi-VN', {weekday:'short', day:'2-digit', month:'2-digit', year:'numeric'})
+      : '—';
+
+    if (state.selectedTime && state.selectedDur) {
+      const [h, m] = state.selectedTime.split(':').map(Number);
+      const totalMins = h * 60 + m + state.selectedDur * 60;
+      const eh = Math.floor(totalMins / 60), em = totalMins % 60;
+      const endTime = `${String(eh).padStart(2,'0')}:${String(em).padStart(2,'0')}`;
+      document.getElementById('sum-time').textContent = `${state.selectedTime} - ${endTime}`;
+      document.getElementById('sum-dur').textContent = `${state.selectedDur} giờ`;
+      const total = state.pricePerHour * state.selectedDur;
+      document.getElementById('sum-price').textContent = total.toLocaleString('vi-VN') + ' đ';
+    } else {
+      document.getElementById('sum-time').textContent = state.selectedTime ? state.selectedTime + ' - (chọn thời lượng)' : '—';
+      document.getElementById('sum-dur').textContent = state.selectedDur ? state.selectedDur + ' giờ' : '—';
+      document.getElementById('sum-price').textContent = '—';
+    }
+  }
+
+  document.getElementById('modal-date').addEventListener('change', updateSummary);
+
+  // ─── Open / Close Modal ───────────────────────────────────────
+  function openModal(name, loc, price, type, amenities) {
+    state.courtName = name;
+    state.courtLoc = loc;
+    state.pricePerHour = parseInt(price.replace(/,/g, ''));
+    state.selectedTime = null;
+    state.selectedDur = null;
+    state.players = type === '5' ? 10 : type === '7' ? 14 : 22;
+    document.getElementById('player-count').textContent = state.players;
+
+    document.getElementById('modal-court-name').textContent = name;
+    document.getElementById('modal-court-loc').innerHTML = `<span class="material-symbols-outlined text-sm">location_on</span> ${loc}`;
+    document.getElementById('modal-date').value = today;
+    document.getElementById('modal-note').value = '';
+
+    const amenDiv = document.getElementById('modal-amenities');
+    amenDiv.innerHTML = amenities.map(a =>
+      `<span class="chip">${a}</span>`
+    ).join('');
+
+    // Reset selections
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+
+    renderTimeSlots();
+    updateSummary();
+
+    const modal = document.getElementById('booking-modal');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('booking-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('booking-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('booking-modal')) closeModal();
+  });
+
+  // ─── Confirm Booking ──────────────────────────────────────────
+  function confirmBooking() {
+    if (!state.selectedTime) { alert('Vui lòng chọn khung giờ!'); return; }
+    if (!state.selectedDur) { alert('Vui lòng chọn thời lượng!'); return; }
+
+    closeModal();
+
+    const toast = document.getElementById('toast-success');
+    const dur = state.selectedDur;
+    const [h, m] = state.selectedTime.split(':').map(Number);
+    const totalMins = h * 60 + m + dur * 60;
+    const eh = Math.floor(totalMins / 60), em = totalMins % 60;
+    const endTime = `${String(eh).padStart(2,'0')}:${String(em).padStart(2,'0')}`;
+    document.getElementById('toast-detail').textContent = `${state.courtName} | ${state.selectedTime} - ${endTime}`;
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 4000);
+
+    // Add to my bookings
+    addBookingRow(state.courtName, state.selectedTime, endTime, state.pricePerHour * dur);
+  }
+
+  function addBookingRow(court, start, end, total) {
+    const list = document.getElementById('my-bookings-list');
+    const row = document.createElement('div');
+    row.className = 'flex items-center justify-between p-4 bg-surface-container-high rounded-xl border border-outline-variant/50 hover:border-primary/30 transition-colors';
+    row.innerHTML = `
+      <div class="flex items-center gap-4">
+        <div class="bg-primary/20 p-3 rounded-xl">
+          <span class="material-symbols-outlined text-primary">stadium</span>
+        </div>
+        <div>
+          <div class="text-on-surface font-semibold">${court}</div>
+          <div class="text-on-surface-variant text-xs mt-1 flex flex-wrap gap-3">
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">calendar_today</span> Hôm nay</span>
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">schedule</span> ${start} - ${end}</span>
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">payments</span> ${total.toLocaleString('vi-VN')} đ</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 ml-4">
+        <span class="badge badge-pending">Chờ xác nhận</span>
+        <button onclick="cancelBooking(this)" class="text-on-surface-variant hover:text-red-400 transition-colors p-1">
+          <span class="material-symbols-outlined text-base">delete</span>
+        </button>
+      </div>`;
+    list.prepend(row);
+  }
+
+  // ─── Cancel Booking ───────────────────────────────────────────
+  function cancelBooking(btn) {
+    const row = btn.closest('.flex.items-center.justify-between');
+    row.style.opacity = '0';
+    row.style.transform = 'translateX(20px)';
+    row.style.transition = 'all 0.3s ease';
+    setTimeout(() => {
+      row.remove();
+      const list = document.getElementById('my-bookings-list');
+      if (!list.children.length) {
+        document.getElementById('no-bookings').classList.remove('hidden');
+      }
+    }, 300);
+  }
+
+  // ─── Filter Logic ─────────────────────────────────────────────
+  function applyFilters() {
+    const q = document.getElementById('search-input').value.toLowerCase();
+    const type = document.getElementById('filter-type').value;
+    const activeTag = document.querySelector('.filter-tag.active')?.dataset.tag || 'all';
+    const cards = document.querySelectorAll('.court-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const name = card.querySelector('.text-white.font-bold')?.textContent.toLowerCase() || '';
+      const loc = card.querySelector('.text-on-surface-variant.text-body-sm')?.textContent.toLowerCase() || '';
+      const cardType = card.dataset.type || '';
+      const cardTags = card.dataset.tags || '';
+
+      const matchQ = !q || name.includes(q) || loc.includes(q);
+      const matchType = !type || cardType === type;
+      const matchTag = activeTag === 'all' || cardTags.includes(activeTag);
+
+      const show = matchQ && matchType && matchTag;
+      card.parentElement.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('court-count').textContent = `(${visible} sân)`;
+  }
+
+  document.getElementById('search-input').addEventListener('input', applyFilters);
+  document.getElementById('filter-type').addEventListener('change', applyFilters);
+
+  document.querySelectorAll('.filter-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      applyFilters();
+    });
+  });
+
+  // ─── View Toggle ──────────────────────────────────────────────
+  document.getElementById('view-grid').addEventListener('click', () => {
+    document.getElementById('courts-grid').className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6';
+    document.getElementById('view-grid').classList.add('btn-icon--active');
+    document.getElementById('view-list').classList.remove('btn-icon--active');
+  });
+  document.getElementById('view-list').addEventListener('click', () => {
+    document.getElementById('courts-grid').className = 'grid grid-cols-1 gap-4';
+    document.getElementById('view-list').classList.add('btn-icon--active');
+    document.getElementById('view-grid').classList.remove('btn-icon--active');
+  });
+</script>
+</body>
+</html>
