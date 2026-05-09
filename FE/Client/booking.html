@@ -7,6 +7,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lexend:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
 <script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
@@ -72,46 +73,13 @@
     }
   }
 </script>
-<style>
-  .glass-card {
-    background: rgba(30, 31, 35, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background-image: linear-gradient(to bottom right, rgba(255,255,255,0.05), rgba(255,255,255,0));
-  }
-  .neon-glow { box-shadow: 0 0 15px rgba(57,255,20,0.2); }
-  .neon-glow-active { box-shadow: 0 0 25px rgba(57,255,20,0.5); }
-  .badge-emissive {
-    background: rgba(57,255,20,0.1);
-    border: 1px solid #39ff14;
-    box-shadow: 0 0 12px rgba(57,255,20,0.5);
-  }
-  .time-slot-active {
-    border-color: #39ff14 !important;
-    color: #efffe3 !important;
-    background: rgba(57,255,20,0.15) !important;
-    box-shadow: 0 0 8px rgba(57,255,20,0.3);
-  }
-  .duration-active {
-    border-color: #39ff14 !important;
-    color: #efffe3 !important;
-    background: rgba(57,255,20,0.15) !important;
-  }
-  .court-card:hover .court-img { transform: scale(1.06); }
-  .court-img { transition: transform 0.5s ease; }
-  input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.8); cursor: pointer; }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #1e1f23; }
-  ::-webkit-scrollbar-thumb { background: #3c4b35; border-radius: 9999px; }
-  ::-webkit-scrollbar-thumb:hover { background: #39ff14; }
-</style>
+<!-- styles.css: tất cả component styles đã được chuyển vào styles.css -->
 </head>
 <body class="bg-background text-on-surface font-body-main min-h-screen flex flex-col md:flex-row">
 
 <!-- ===== SIDEBAR (Desktop) ===== -->
-<nav class="hidden md:flex flex-col py-6 px-4 gap-2 bg-surface-container-lowest border-r border-outline-variant/20 shadow-xl h-screen w-64 fixed left-0 top-0 z-40">
-  <div class="mb-8 px-2">
+<nav class="sidebar hidden md:flex">
+  <div class="mb-8 px-1">
     <a href="index.html" class="font-h2-headline text-xl text-primary font-bold block mb-6 hover:opacity-80 transition-opacity">QuanLiSport</a>
     <div class="flex items-center gap-3">
       <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS4WW7BBkXrZrom44s6XjAanIYvn1OswwCHJt2pcawTNEyoKZVUI6vOdO2mAAJTa287M5fsm64CsrJacXLk-Mv8mAqMBLo22ufxN-y8enfAn3R2UYqPIGaODBOMqE9qa-n_1jXyLRkcnJ9DT7keBgx1fVbRQs1-BFz8d8CeKszPwbu1C2yOdHZnvSa4qLUM9_4JBS-iLZ7UoH3PCLcJWgFGKxCs1Z5ORy-uunNNseYVBbsPvGm6WO9HR5kiHj564QZ1O6wweYugwyf" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-primary object-cover"/>
@@ -121,34 +89,32 @@
       </div>
     </div>
   </div>
-  <a href="index.html" class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all rounded-lg">
-    <span class="material-symbols-outlined">analytics</span><span>Tài khoản cá nhân</span>
-  </a>
-  <div class="flex items-center gap-3 p-3 bg-primary/10 text-primary border-r-4 border-primary font-bold rounded-l-lg">
-    <span class="material-symbols-outlined">stadium</span><span>Đặt sân</span>
+  <div class="flex-1 flex flex-col gap-1">
+    <a href="index.html" class="nav-link">
+      <span class="material-symbols-outlined">analytics</span><span>Tài khoản cá nhân</span>
+    </a>
+    <div class="nav-link active">
+      <span class="material-symbols-outlined">stadium</span><span>Đặt sân</span>
+    </div>
+    <a href="#" class="nav-link">
+      <span class="material-symbols-outlined">handshake</span><span>Matchmaking</span>
+    </a>
+    <a href="#" class="nav-link">
+      <span class="material-symbols-outlined">local_parking</span><span>Parking</span>
+    </a>
   </div>
-  <a href="#" class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all rounded-lg">
-    <span class="material-symbols-outlined">handshake</span><span>Matchmaking</span>
-  </a>
-  <a href="#" class="flex items-center gap-3 p-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all rounded-lg">
-    <span class="material-symbols-outlined">local_parking</span><span>Parking</span>
-  </a>
-  <div class="mt-auto">
-    <button class="w-full bg-primary text-on-primary-container font-bold py-3 rounded-lg neon-glow hover:neon-glow-active transition-all">
-      Create Match
-    </button>
-  </div>
+  <button class="btn-primary btn-full mt-4">Create Match</button>
 </nav>
 
 <!-- ===== TOP NAV (Mobile) ===== -->
-<nav class="md:hidden flex justify-between items-center px-6 h-16 w-full bg-background/90 backdrop-blur-xl border-b border-outline-variant/30 fixed top-0 z-50">
+<nav class="topnav md:hidden">
   <a href="index.html" class="font-bold text-primary text-lg">← QuanLiSport</a>
   <span class="font-bold text-on-surface">Đặt Sân</span>
   <span class="material-symbols-outlined text-primary cursor-pointer">notifications</span>
 </nav>
 
 <!-- ===== MAIN CONTENT ===== -->
-<main class="flex-1 w-full mt-16 md:mt-0 md:ml-64 pb-20 md:pb-0 overflow-y-auto">
+<main class="main-content flex-1 w-full overflow-y-auto">
 
   <!-- Hero Banner -->
   <div class="relative h-52 md:h-72 overflow-hidden">
@@ -164,24 +130,24 @@
 
     <!-- ===== SEARCH & FILTER ===== -->
     <div class="glass-card rounded-2xl p-5 md:p-6">
-      <h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 flex items-center gap-2">
+      <h2 class="section-label mb-4">
         <span class="material-symbols-outlined text-primary text-base">filter_list</span> Tìm kiếm & Lọc
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="sm:col-span-2">
-          <label class="block text-on-surface-variant text-xs uppercase tracking-widest mb-2">Tên sân / Địa điểm</label>
-          <div class="relative">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
-            <input id="search-input" type="text" placeholder="Tìm tên sân, khu vực..." class="w-full bg-surface-container-high border border-outline-variant rounded-xl pl-10 pr-4 py-3 text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary transition-colors"/>
+          <label class="section-label mb-2 block">Tên sân / Địa điểm</label>
+          <div class="input-icon-wrap">
+            <span class="material-symbols-outlined icon">search</span>
+            <input id="search-input" type="text" placeholder="Tìm tên sân, khu vực..." class="input-field with-icon"/>
           </div>
         </div>
         <div>
-          <label class="block text-on-surface-variant text-xs uppercase tracking-widest mb-2">Ngày đặt</label>
-          <input id="filter-date" type="date" class="w-full bg-surface-container-high border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-colors"/>
+          <label class="section-label mb-2 block">Ngày đặt</label>
+          <input id="filter-date" type="date" class="input-field"/>
         </div>
         <div>
-          <label class="block text-on-surface-variant text-xs uppercase tracking-widest mb-2">Loại sân</label>
-          <select id="filter-type" class="w-full bg-surface-container-high border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-colors">
+          <label class="section-label mb-2 block">Loại sân</label>
+          <select id="filter-type" class="select-field">
             <option value="">Tất cả loại sân</option>
             <option value="5">Sân 5 người</option>
             <option value="7">Sân 7 người</option>
@@ -189,13 +155,13 @@
           </select>
         </div>
       </div>
-      <!-- Price range & amenity filters -->
+      <!-- Amenity filters -->
       <div class="flex flex-wrap gap-3 mt-4">
-        <button class="filter-tag active-tag px-4 py-2 rounded-full text-xs font-bold border border-primary text-primary bg-primary/10 transition-all" data-tag="all">Tất cả</button>
-        <button class="filter-tag px-4 py-2 rounded-full text-xs font-bold border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-tag="indoor">Có mái</button>
-        <button class="filter-tag px-4 py-2 rounded-full text-xs font-bold border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-tag="led">Đèn LED</button>
-        <button class="filter-tag px-4 py-2 rounded-full text-xs font-bold border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-tag="natural">Cỏ tự nhiên</button>
-        <button class="filter-tag px-4 py-2 rounded-full text-xs font-bold border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-tag="available">Còn trống hôm nay</button>
+        <button class="filter-tag active" data-tag="all">Tất cả</button>
+        <button class="filter-tag" data-tag="indoor">Có mái</button>
+        <button class="filter-tag" data-tag="led">Đèn LED</button>
+        <button class="filter-tag" data-tag="natural">Cỏ tự nhiên</button>
+        <button class="filter-tag" data-tag="available">Còn trống hôm nay</button>
       </div>
     </div>
 
@@ -207,10 +173,10 @@
           <span class="text-on-surface-variant text-body-sm font-normal ml-1" id="court-count">(4 sân)</span>
         </h2>
         <div class="flex gap-2">
-          <button id="view-grid" class="p-2 rounded-lg bg-primary/10 text-primary border border-primary transition-all">
+          <button id="view-grid" class="btn-icon btn-icon--active">
             <span class="material-symbols-outlined text-lg">grid_view</span>
           </button>
-          <button id="view-list" class="p-2 rounded-lg text-on-surface-variant border border-outline-variant hover:border-primary hover:text-primary transition-all">
+          <button id="view-list" class="btn-icon">
             <span class="material-symbols-outlined text-lg">list</span>
           </button>
         </div>
@@ -237,13 +203,13 @@
               <span class="material-symbols-outlined text-sm">location_on</span> Khu A, Tầng 1
             </div>
             <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Cỏ nhân tạo</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Đèn LED</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Có mái</span>
+              <span class="chip">Cỏ nhân tạo</span>
+              <span class="chip">Đèn LED</span>
+              <span class="chip">Có mái</span>
             </div>
             <div class="flex items-center justify-between">
               <div><span class="text-primary font-bold text-xl">150,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
-              <button class="bg-primary text-on-primary-container font-bold py-2 px-5 rounded-xl text-sm neon-glow hover:neon-glow-active transition-all">Đặt ngay</button>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
             </div>
           </div>
         </div>
@@ -267,13 +233,13 @@
               <span class="material-symbols-outlined text-sm">location_on</span> Khu B, Tầng 2
             </div>
             <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Cỏ tự nhiên</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Ngoài trời</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Khán đài</span>
+              <span class="chip">Cỏ tự nhiên</span>
+              <span class="chip">Ngoài trời</span>
+              <span class="chip">Khán đài</span>
             </div>
             <div class="flex items-center justify-between">
               <div><span class="text-primary font-bold text-xl">200,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
-              <button class="bg-primary text-on-primary-container font-bold py-2 px-5 rounded-xl text-sm neon-glow hover:neon-glow-active transition-all">Đặt ngay</button>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
             </div>
           </div>
         </div>
@@ -294,8 +260,8 @@
               <span class="material-symbols-outlined text-sm">location_on</span> Khu C, Tầng 1
             </div>
             <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Cỏ nhân tạo</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Có mái</span>
+              <span class="chip">Cỏ nhân tạo</span>
+              <span class="chip">Có mái</span>
             </div>
             <div class="flex items-center justify-between">
               <div><span class="text-on-surface-variant font-bold text-xl">350,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
@@ -323,12 +289,12 @@
               <span class="material-symbols-outlined text-sm">location_on</span> Khu D, Tầng 3
             </div>
             <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Cỏ nhân tạo</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Đèn LED</span>
+              <span class="chip">Cỏ nhân tạo</span>
+              <span class="chip">Đèn LED</span>
             </div>
             <div class="flex items-center justify-between">
               <div><span class="text-primary font-bold text-xl">120,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
-              <button class="bg-primary text-on-primary-container font-bold py-2 px-5 rounded-xl text-sm neon-glow hover:neon-glow-active transition-all">Đặt ngay</button>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
             </div>
           </div>
         </div>
@@ -352,14 +318,14 @@
               <span class="material-symbols-outlined text-sm">location_on</span> Khu E, Tầng 1
             </div>
             <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Cỏ nhân tạo</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Đèn LED</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Có mái</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Phòng thay đồ</span>
+              <span class="chip">Cỏ nhân tạo</span>
+              <span class="chip">Đèn LED</span>
+              <span class="chip">Có mái</span>
+              <span class="chip">Phòng thay đồ</span>
             </div>
             <div class="flex items-center justify-between">
               <div><span class="text-primary font-bold text-xl">180,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
-              <button class="bg-primary text-on-primary-container font-bold py-2 px-5 rounded-xl text-sm neon-glow hover:neon-glow-active transition-all">Đặt ngay</button>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
             </div>
           </div>
         </div>
@@ -383,13 +349,13 @@
               <span class="material-symbols-outlined text-sm">location_on</span> Khu F, Tầng 2
             </div>
             <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Cỏ tự nhiên</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Khán đài VIP</span>
-              <span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">Phòng thay đồ</span>
+              <span class="chip">Cỏ tự nhiên</span>
+              <span class="chip">Khán đài VIP</span>
+              <span class="chip">Phòng thay đồ</span>
             </div>
             <div class="flex items-center justify-between">
               <div><span class="text-primary font-bold text-xl">400,000</span><span class="text-on-surface-variant text-xs"> đ/giờ</span></div>
-              <button class="bg-primary text-on-primary-container font-bold py-2 px-5 rounded-xl text-sm neon-glow hover:neon-glow-active transition-all">Đặt ngay</button>
+              <button class="btn-primary btn-sm">Đặt ngay</button>
             </div>
           </div>
         </div>
@@ -418,7 +384,7 @@
             </div>
           </div>
           <div class="flex items-center gap-3 ml-4">
-            <span class="badge-emissive rounded-full px-3 py-1 text-primary text-xs font-bold whitespace-nowrap">Đã xác nhận</span>
+            <span class="badge badge-confirmed">Đã xác nhận</span>
             <button onclick="cancelBooking(this)" class="text-on-surface-variant hover:text-red-400 transition-colors p-1">
               <span class="material-symbols-outlined text-base">delete</span>
             </button>
@@ -439,7 +405,7 @@
             </div>
           </div>
           <div class="flex items-center gap-3 ml-4">
-            <span class="bg-yellow-500/20 border border-yellow-500 rounded-full px-3 py-1 text-yellow-400 text-xs font-bold whitespace-nowrap">Chờ xác nhận</span>
+            <span class="badge badge-pending">Chờ xác nhận</span>
             <button onclick="cancelBooking(this)" class="text-on-surface-variant hover:text-red-400 transition-colors p-1">
               <span class="material-symbols-outlined text-base">delete</span>
             </button>
@@ -453,22 +419,22 @@
 </main>
 
 <!-- ===== BOTTOM NAV (Mobile) ===== -->
-<nav class="md:hidden flex justify-around items-center h-16 px-4 bg-surface-container-highest/90 backdrop-blur-lg border-t border-outline-variant/50 fixed bottom-0 w-full rounded-t-xl z-50">
-  <a href="index.html" class="flex flex-col items-center text-on-surface-variant hover:text-primary transition-colors">
+<nav class="bottomnav md:hidden">
+  <a href="index.html" class="bottomnav-item">
     <span class="material-symbols-outlined">person</span>
-    <span class="text-[10px] mt-0.5">Profile</span>
+    <span>Profile</span>
   </a>
-  <div class="flex flex-col items-center bg-primary text-on-primary rounded-xl px-4 py-1 shadow-[0_0_10px_rgba(57,255,20,0.4)]">
+  <div class="bottomnav-item active">
     <span class="material-symbols-outlined">sports_soccer</span>
-    <span class="text-[10px] mt-0.5">Pitches</span>
+    <span>Pitches</span>
   </div>
-  <a href="#" class="flex flex-col items-center text-on-surface-variant hover:text-primary transition-colors">
+  <a href="#" class="bottomnav-item">
     <span class="material-symbols-outlined">groups</span>
-    <span class="text-[10px] mt-0.5">Matches</span>
+    <span>Matches</span>
   </a>
-  <a href="#" class="flex flex-col items-center text-on-surface-variant hover:text-primary transition-colors">
+  <a href="#" class="bottomnav-item">
     <span class="material-symbols-outlined">directions_car</span>
-    <span class="text-[10px] mt-0.5">Parking</span>
+    <span>Parking</span>
   </a>
 </nav>
 
@@ -498,13 +464,13 @@
 
       <!-- Date -->
       <div>
-        <label class="block text-on-surface-variant text-xs uppercase tracking-widest mb-2">Ngày đặt sân</label>
-        <input type="date" id="modal-date" class="w-full bg-surface-container-high border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-colors"/>
+        <label class="section-label mb-2 block">Ngày đặt sân</label>
+        <input type="date" id="modal-date" class="input-field"/>
       </div>
 
       <!-- Time Slots -->
       <div>
-        <label class="block text-on-surface-variant text-xs uppercase tracking-widest mb-3">Chọn giờ bắt đầu</label>
+        <label class="section-label mb-3 block">Chọn giờ bắt đầu</label>
         <div class="grid grid-cols-4 gap-2" id="time-slots">
           <!-- Generated by JS -->
         </div>
@@ -512,18 +478,18 @@
 
       <!-- Duration -->
       <div>
-        <label class="block text-on-surface-variant text-xs uppercase tracking-widest mb-3">Thời lượng</label>
+        <label class="section-label mb-3 block">Thời lượng</label>
         <div class="flex gap-2 flex-wrap">
-          <button class="duration-btn flex-1 min-w-[70px] py-2.5 rounded-xl text-sm font-bold border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-dur="1">1 giờ</button>
-          <button class="duration-btn flex-1 min-w-[70px] py-2.5 rounded-xl text-sm font-bold border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-dur="1.5">1.5 giờ</button>
-          <button class="duration-btn flex-1 min-w-[70px] py-2.5 rounded-xl text-sm font-bold border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-dur="2">2 giờ</button>
-          <button class="duration-btn flex-1 min-w-[70px] py-2.5 rounded-xl text-sm font-bold border border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary transition-all" data-dur="3">3 giờ</button>
+          <button class="duration-btn" data-dur="1">1 giờ</button>
+          <button class="duration-btn" data-dur="1.5">1.5 giờ</button>
+          <button class="duration-btn" data-dur="2">2 giờ</button>
+          <button class="duration-btn" data-dur="3">3 giờ</button>
         </div>
       </div>
 
       <!-- Player count -->
       <div>
-        <label class="block text-on-surface-variant text-xs uppercase tracking-widest mb-2">Số người chơi</label>
+        <label class="section-label mb-2 block">Số người chơi</label>
         <div class="flex items-center gap-4 bg-surface-container-high border border-outline-variant rounded-xl px-4 py-3">
           <button id="player-minus" class="text-on-surface-variant hover:text-primary transition-colors text-xl font-bold w-8 h-8 flex items-center justify-center">−</button>
           <span class="flex-1 text-center text-on-surface font-bold text-lg" id="player-count">10</span>
@@ -533,8 +499,8 @@
 
       <!-- Note -->
       <div>
-        <label class="block text-on-surface-variant text-xs uppercase tracking-widest mb-2">Ghi chú</label>
-        <textarea id="modal-note" placeholder="Yêu cầu đặc biệt, áo, bóng..." rows="2" class="w-full bg-surface-container-high border border-outline-variant rounded-xl px-4 py-3 text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+        <label class="section-label mb-2 block">Ghi chú</label>
+        <textarea id="modal-note" placeholder="Yêu cầu đặc biệt, áo, bóng..." rows="2" class="input-field resize-none"></textarea>
       </div>
 
       <!-- Summary Box -->
@@ -554,7 +520,7 @@
 
     <!-- Modal Footer -->
     <div class="p-6 pt-0 shrink-0">
-      <button onclick="confirmBooking()" class="w-full bg-primary text-on-primary-container font-bold py-3.5 rounded-xl neon-glow hover:neon-glow-active transition-all text-base">
+      <button onclick="confirmBooking()" class="btn-primary btn-full" style="padding:14px;">
         Xác nhận đặt sân
       </button>
     </div>
@@ -597,19 +563,13 @@
       const isBooked = bookedSlots.includes(t);
       const btn = document.createElement('button');
       btn.dataset.time = t;
-      btn.className = `py-2 rounded-xl text-xs font-semibold border transition-all ${
-        isBooked
-          ? 'border-red-500/40 text-red-400 bg-red-500/10 cursor-not-allowed'
-          : 'border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary'
-      }`;
+      btn.className = isBooked ? 'time-slot-btn booked' : 'time-slot-btn';
       btn.disabled = isBooked;
-      btn.innerHTML = isBooked ? `${t}<br><span class="text-[9px]">Đã đặt</span>` : t;
+      btn.innerHTML = isBooked ? `${t}<br><span style="font-size:9px">Đã đặt</span>` : t;
       if (!isBooked) {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('#time-slots button:not([disabled])').forEach(b => {
-            b.classList.remove('time-slot-active');
-          });
-          btn.classList.add('time-slot-active');
+          document.querySelectorAll('#time-slots .time-slot-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
           state.selectedTime = t;
           updateSummary();
         });
@@ -621,8 +581,8 @@
   // ─── Duration Buttons ─────────────────────────────────────────
   document.querySelectorAll('.duration-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('duration-active'));
-      btn.classList.add('duration-active');
+      document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
       state.selectedDur = parseFloat(btn.dataset.dur);
       updateSummary();
     });
@@ -679,11 +639,11 @@
 
     const amenDiv = document.getElementById('modal-amenities');
     amenDiv.innerHTML = amenities.map(a =>
-      `<span class="bg-surface-container-high border border-outline-variant/50 rounded-full px-3 py-1 text-xs text-on-surface-variant">${a}</span>`
+      `<span class="chip">${a}</span>`
     ).join('');
 
     // Reset selections
-    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('duration-active'));
+    document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
 
     renderTimeSlots();
     updateSummary();
@@ -742,7 +702,7 @@
         </div>
       </div>
       <div class="flex items-center gap-3 ml-4">
-        <span class="bg-yellow-500/20 border border-yellow-500 rounded-full px-3 py-1 text-yellow-400 text-xs font-bold whitespace-nowrap">Chờ xác nhận</span>
+        <span class="badge badge-pending">Chờ xác nhận</span>
         <button onclick="cancelBooking(this)" class="text-on-surface-variant hover:text-red-400 transition-colors p-1">
           <span class="material-symbols-outlined text-base">delete</span>
         </button>
@@ -769,7 +729,7 @@
   function applyFilters() {
     const q = document.getElementById('search-input').value.toLowerCase();
     const type = document.getElementById('filter-type').value;
-    const activeTag = document.querySelector('.filter-tag.active-tag')?.dataset.tag || 'all';
+    const activeTag = document.querySelector('.filter-tag.active')?.dataset.tag || 'all';
     const cards = document.querySelectorAll('.court-card');
     let visible = 0;
     cards.forEach(card => {
@@ -794,12 +754,8 @@
 
   document.querySelectorAll('.filter-tag').forEach(tag => {
     tag.addEventListener('click', () => {
-      document.querySelectorAll('.filter-tag').forEach(t => {
-        t.classList.remove('active-tag', 'border-primary', 'text-primary', 'bg-primary/10');
-        t.classList.add('border-outline-variant', 'text-on-surface-variant');
-      });
-      tag.classList.add('active-tag', 'border-primary', 'text-primary', 'bg-primary/10');
-      tag.classList.remove('border-outline-variant', 'text-on-surface-variant');
+      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
       applyFilters();
     });
   });
@@ -807,13 +763,13 @@
   // ─── View Toggle ──────────────────────────────────────────────
   document.getElementById('view-grid').addEventListener('click', () => {
     document.getElementById('courts-grid').className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6';
-    document.getElementById('view-grid').classList.add('bg-primary/10', 'text-primary', 'border-primary');
-    document.getElementById('view-list').classList.remove('bg-primary/10', 'text-primary', 'border-primary');
+    document.getElementById('view-grid').classList.add('btn-icon--active');
+    document.getElementById('view-list').classList.remove('btn-icon--active');
   });
   document.getElementById('view-list').addEventListener('click', () => {
     document.getElementById('courts-grid').className = 'grid grid-cols-1 gap-4';
-    document.getElementById('view-list').classList.add('bg-primary/10', 'text-primary', 'border-primary');
-    document.getElementById('view-grid').classList.remove('bg-primary/10', 'text-primary', 'border-primary');
+    document.getElementById('view-list').classList.add('btn-icon--active');
+    document.getElementById('view-grid').classList.remove('btn-icon--active');
   });
 </script>
 </body>
