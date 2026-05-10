@@ -8,18 +8,20 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/login")
-public class servlet extends HttpServlet {
+
+@WebServlet ("/login")
+public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String usn = req.getParameter("username");
-        String pass = req.getParameter("password");
+        String Pass = req.getParameter("password");
 
-        if (usn.equals("Long") && pass.equals("12345")){
-            req.getRequestDispatcher("/LoginThanhCong.jsp").forward(req,resp);
-
+        if (usn.equals("Long") && Pass.equals("123")){
+            resp.getWriter().println("Da dang nhap thanh congggg!");
         }else {
-            req.getRequestDispatcher("/index.jsp").forward(req,resp);
+            req.setAttribute("thongbao", "sai tk hoac mk");
+            req.getRequestDispatcher("index.jsp").forward(req,resp);
         }
+
     }
 }

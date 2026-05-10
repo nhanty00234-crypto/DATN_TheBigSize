@@ -5,36 +5,37 @@
 
 /* ─── 1. CSS CUSTOM PROPERTIES ──────────────────────── */
 :root {
-  /* Color Palette — khớp 1:1 với Tailwind config */
-  --clr-primary:                #efffe3;
-  --clr-primary-fixed:          #79ff5b;
-  --clr-primary-fixed-dim:      #2ae500;
-  --clr-primary-container:      #39ff14;
-  --clr-on-primary:             #053900;
-  --clr-on-primary-container:   #107100;
-  --clr-inverse-primary:        #106e00;
+    /* Color Palette — Nâng cấp sang tone Sports Premium */
+  --clr-primary:                #00FF85; /* Electric Green */
+  --clr-primary-fixed:          #00FF85;
+  --clr-primary-fixed-dim:      #00CC6A;
+  --clr-primary-container:      #00FF85;
+  --clr-on-primary:             #000000;
+  --clr-on-primary-container:   #000000;
+  --clr-inverse-primary:        #008043;
 
-  --clr-secondary:              #c6c6c6;
-  --clr-secondary-container:    #474747;
-  --clr-on-secondary:           #303030;
+  --clr-secondary:              #94A3B8;
+  --clr-secondary-container:    #1E293B;
+  --clr-on-secondary:           #FFFFFF;
 
-  --clr-surface:                #121317;
-  --clr-surface-dim:            #121317;
-  --clr-surface-bright:         #38393d;
-  --clr-surface-variant:        #343539;
-  --clr-surface-container-lowest:  #0d0e12;
-  --clr-surface-container-low:     #1a1b1f;
-  --clr-surface-container:         #1e1f23;
-  --clr-surface-container-high:    #292a2e;
-  --clr-surface-container-highest: #343539;
-  --clr-surface-tint:           #2ae500;
+  --clr-surface:                #0F172A; /* Slate 900 */
+  --clr-surface-dim:            #0F172A;
+  --clr-surface-bright:         #1E293B;
+  --clr-surface-variant:        #334155;
+  --clr-surface-container-lowest:  #020617;
+  --clr-surface-container-low:     #0F172A;
+  --clr-surface-container:         #1E293B;
+  --clr-surface-container-high:    #334155;
+  --clr-surface-container-highest: #475569;
+  --clr-surface-tint:           #00FF85;
 
-  --clr-on-surface:             #e3e2e7;
-  --clr-on-surface-variant:     #baccb0;
-  --clr-on-background:          #e3e2e7;
-  --clr-background:             #121317;
-  --clr-inverse-surface:        #e3e2e7;
-  --clr-inverse-on-surface:     #2f3034;
+  --clr-on-surface:             #F8FAFC;
+  --clr-on-surface-variant:     #94A3B8;
+  --clr-on-background:          #F8FAFC;
+  --clr-background:             #020617; /* Deep Navy Black */
+  --clr-inverse-surface:        #F8FAFC;
+  --clr-inverse-on-surface:     #020617;
+
 
   --clr-outline:                #85967c;
   --clr-outline-variant:        #3c4b35;
@@ -100,18 +101,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 /* ─── 3. GLASS CARD ──────────────────────────────────── */
-/* Dùng cho mọi khung nội dung trên cả 2 trang */
 .glass-card {
-  background: rgba(30, 31, 35, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background-image: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.04) 0%,
-    rgba(255, 255, 255, 0.00) 100%
-  );
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
+
+.glass-card:hover {
+  border-color: rgba(0, 255, 133, 0.2);
+  transform: translateY(-2px);
+}
+
 
 /* ─── 4. GLOW UTILITIES ──────────────────────────────── */
 .neon-glow        { box-shadow: var(--glow-sm); }
@@ -590,7 +593,20 @@ textarea.input-field,
   margin-top: 6px;
 }
 
-/* ─── 17. RESPONSIVE LAYOUT ───────────────────────────── */
+/* ─── 18. ANIMATIONS ─────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+main > section {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.nav-link, .btn-primary, .court-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /*
   Breakpoints thống nhất:
     Mobile:  < 768px  (--bp-md)
