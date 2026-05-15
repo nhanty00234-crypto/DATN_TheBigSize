@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Court Schedule - V-SPORT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #0A58CA;
+            --primary-blue-hover: #084298;
+            --bg-main: #F4F7F9;
+            --bg-sidebar: #FFFFFF;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --border-color: #E2E8F0;
+            
+            --event-blue-bg: #E0E7FF;
+            --event-blue-border: #4F46E5;
+            --event-green-bg: #D1FAE5;
+            --event-green-border: #10B981;
+            --event-grey-bg: #F1F5F9;
+            
+            --sport-tennis: #3B82F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .page-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- LEFT SIDEBAR --- */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            padding: 32px 24px;
+        }
+
+        .brand h2 {
+            color: var(--primary-blue);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .brand span {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0 16px;
+            margin-bottom: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-item i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .nav-item:hover {
+            background-color: #F8FAFC;
+            color: var(--text-dark);
+        }
+
+        .nav-item.active {
+            background-color: #EFF6FF;
+            color: var(--primary-blue);
+            position: relative;
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: -16px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--primary-blue);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .btn-new-booking {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 16px;
+            margin-bottom: 32px;
+        }
+
+        .btn-new-booking:hover {
+            background-color: var(--primary-blue-hover);
+        }
+
+        .bottom-menu {
+            list-style: none;
+            padding: 0 16px 24px;
+        }
+
+        .bottom-menu .nav-item.sign-out {
+            color: #DC2626;
+        }
+
+        .bottom-menu .nav-item.sign-out i {
+            color: #DC2626;
+        }
+
+        /* --- TOP HEADER STYLES --- */
+        .top-header {
+            background-color: #FFFFFF;
+            height: 80px;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .logo {
+            color: var(--primary-blue);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 12px;
+            object-fit: contain;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        /* Thanh tìm kiếm */
+        .search-container {
+            position: relative;
+            background-color: #F3F4F6;
+            border-radius: 99px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            width: 320px;
+            transition: all 0.2s;
+        }
+
+        .search-container:focus-within {
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 2px rgba(0, 86, 210, 0.1);
+            border: 1px solid var(--primary-blue);
+        }
+
+        .search-container i {
+            color: #9CA3AF;
+            margin-right: 12px;
+        }
+
+        .search-container input {
+            background: none;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        /* Icon hành động */
+        .action-icons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #64748b;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:hover {
+            background-color: #F3F4F6;
+        }
+
+        .icon-btn .dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background-color: #EF4444;
+            border: 2px solid #FFFFFF;
+            border-radius: 50%;
+        }
+
+        /* Avatar người dùng */
+        .user-profile img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #F3F4F6;
+            cursor: pointer;
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Actions */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .page-title h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .view-btn {
+            background: none;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .view-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Sport Filters */
+        .sport-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .filter-pill {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .filter-pill.active {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        /* Calendar Area */
+        .calendar-container {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .calendar-toolbar {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .date-navigator {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .date-navigator i {
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .dot.green { background: #10B981; }
+        .dot.blue { background: #3B82F6; }
+        .dot.grey { background: #CBD5E1; }
+
+        /* Calendar Grid */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(6, 1fr);
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .calendar-header-row {
+            display: contents; /* Allows children to participate in the main grid */
+        }
+
+        .time-col-header {
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .day-header {
+            padding: 16px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .day-header .day-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .day-header .day-num {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .day-header.active .day-name, .day-header.active .day-num {
+            color: var(--primary-blue);
+        }
+
+        .time-cell {
+            padding: 16px 0;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .grid-cell {
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Event Blocks */
+        .event-block {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border-radius: 6px;
+            padding: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .event-maintenance {
+            background-color: var(--event-grey-bg);
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            left: 0; right: 0; top: 0; bottom: 0;
+            border-radius: 0;
+            z-index: 2;
+        }
+
+        .event-blue {
+            background-color: var(--event-blue-bg);
+            color: var(--event-blue-border);
+            border-top: 3px solid var(--event-blue-border);
+        }
+
+        .event-green {
+            background-color: var(--event-green-bg);
+            color: var(--event-green-border);
+            border-top: 3px solid var(--event-green-border);
+        }
+
+        /* --- RIGHT SIDEBAR --- */
+        .right-sidebar {
+            width: 320px;
+            padding: 32px 24px;
+            background-color: var(--bg-main);
+            overflow-y: auto;
+        }
+
+        .widget {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .widget-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .widget-title a {
+            font-size: 12px;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        /* Overview Cards */
+        .stat-card {
+            background: var(--bg-main);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+        }
+        .stat-card.blue::before { background-color: var(--primary-blue); }
+        .stat-card.green::before { background-color: #10B981; }
+
+        .stat-info span {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .stat-info strong {
+            font-size: 24px;
+            color: var(--text-dark);
+        }
+
+        .stat-trend {
+            font-size: 11px;
+            font-weight: 600;
+            color: #10B981;
+            text-align: right;
+            max-width: 60px;
+        }
+
+        .stat-trend.blue-text {
+            color: var(--primary-blue);
+        }
+
+        /* Upcoming List */
+        .upcoming-list {
+            list-style: none;
+        }
+
+        .upcoming-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .upcoming-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #EFF6FF;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .item-details h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .item-details p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Pro Tip Widget */
+        .widget-pro-tip {
+            background: linear-gradient(135deg, #1E40AF, #3B82F6);
+            color: white;
+            border: none;
+        }
+
+        .widget-pro-tip h4 {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: #BFDBFE;
+        }
+
+        .widget-pro-tip p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .widget-pro-tip a {
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="header-left">
+            <div class="logo">
+                <img src="../TaiNguyen/logo.jpg" alt="V-SPORT Logo">
+                V-SPORT
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Tìm trận đấu...">
+            </div>
+
+            <div class="action-icons">
+                <button class="icon-btn">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="dot"></span>
+                </button>
+                <button class="icon-btn">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
+
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/100?img=12" alt="Ảnh Đại Diện">
+            </div>
+        </div>
+    </header>
+
+    <div class="page-layout">
+        <aside class="sidebar">
+
+        <ul class="nav-menu">
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-table-columns"></i> Tổng Quan</a></li>
+            <li><a href="LichDatSan.html" class="nav-item active"><i class="fa-regular fa-calendar"></i> Đặt Sân</a></li>
+            <li><a href="Matchmaking.html" class="nav-item"><i class="fa-solid fa-user-group"></i> Ghép Trận</a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-robot"></i> Trợ Lý AI</a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-chart-line"></i> Doanh Thu</a></li>
+        </ul>
+
+        <button class="btn-new-booking">
+            <i class="fa-solid fa-plus"></i> Đặt Sân Mới
+        </button>
+
+        <ul class="bottom-menu">
+            <li><a href="#" class="nav-item"><i class="fa-regular fa-circle-question"></i> Hỗ Trợ</a></li>
+            <li><a href="#" class="nav-item sign-out"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng Xuất</a></li>
+        </ul>
+    </aside>
+
+    <div class="main-wrapper">
+
+        <main class="main-content">
+
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Lịch Đặt Sân</h1>
+                    <p>Quản lý và xem tất cả các lượt đặt sân trong tuần hiện tại.</p>
+                </div>
+                <div class="header-actions">
+                    <div class="view-toggle">
+                        <button class="view-btn active">Tuần</button>
+                        <button class="view-btn">Tháng</button>
+                        <button class="view-btn">Ngày</button>
+                    </div>
+                    <button class="btn-outline"><i class="fa-solid fa-filter"></i> Lọc</button>
+                    <button class="btn-primary"><i class="fa-solid fa-bolt"></i> Đặt Nhanh</button>
+                </div>
+            </div>
+
+            <div class="sport-filters">
+                <div class="filter-pill active"><i class="fa-solid fa-table-tennis-paddle-ball"></i> Tennis (4)</div>
+                <div class="filter-pill"><i class="fa-solid fa-basketball"></i> Bóng Rổ (2)</div>
+                <div class="filter-pill"><i class="fa-solid fa-shuttlecock"></i> Cầu Lông (6)</div>
+                <div class="filter-pill"><i class="fa-solid fa-volleyball"></i> Bóng Chuyền (1)</div>
+            </div>
+
+            <div class="calendar-container">
+
+                <div class="calendar-toolbar">
+                    <div class="date-navigator">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>21 - 27 Tháng 10, 2023</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item"><span class="dot green"></span> Còn Trống</div>
+                        <div class="legend-item"><span class="dot blue"></span> Đã Đặt</div>
+                        <div class="legend-item"><span class="dot grey"></span> Bảo Trì</div>
+                    </div>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="time-col-header"></div>
+                    <div class="day-header">
+                        <div class="day-name">T2</div>
+                        <div class="day-num">21</div>
+                    </div>
+                    <div class="day-header active">
+                        <div class="day-name">T3</div>
+                        <div class="day-num">22</div>
+                    </div>
+                    <div class="day-header">
+                        <div class="day-name">T4</div>
+                        <div class="day-num">23</div>
+                    </div>
+                    <div class="day-header">
+                        <div class="day-name">T5</div>
+                        <div class="day-num">24</div>
+                    </div>
+                    <div class="day-header">
+                        <div class="day-name">T6</div>
+                        <div class="day-num">25</div>
+                    </div>
+                    <div class="day-header">
+                        <div class="day-name">T7</div>
+                        <div class="day-num">26</div>
+                    </div>
+
+                    <div class="time-cell"></div>
+                    <div class="grid-cell" style="grid-column: 2 / span 6; background: #F8FAFC;">
+                        <div class="event-maintenance">
+                            <i class="fa-solid fa-wrench"></i>
+                        </div>
+                    </div>
+
+                    <div class="time-cell">09:00</div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell">
+                        <div class="event-block event-blue">
+                            HUẤN LUYỆN<br>RIÊNG
+                        </div>
+                    </div>
+                    <div class="grid-cell">
+                        <div class="event-block event-green">
+                            CÒN TRỐNG
+                        </div>
+                    </div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+
+                    <div class="time-cell">10:00</div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell">
+                        <div class="event-block event-blue">
+                            GIẢI<br>CỰU CHIẾN BINH
+                        </div>
+                    </div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+
+                    <div class="time-cell">11:00</div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    
+                    <div class="time-cell" style="border-bottom:none"></div>
+                    <div class="grid-cell" style="border-bottom:none"></div>
+                    <div class="grid-cell" style="border-bottom:none"></div>
+                    <div class="grid-cell" style="border-bottom:none"></div>
+                    <div class="grid-cell" style="border-bottom:none"></div>
+                    <div class="grid-cell" style="border-bottom:none"></div>
+                    <div class="grid-cell" style="border-bottom:none"></div>
+                </div>
+            </div>
+
+        </main>
+
+        <aside class="right-sidebar">
+            
+            <div class="widget">
+                <h3 class="widget-title">Tổng Quan Hôm Nay</h3>
+
+                <div class="stat-card blue">
+                    <div class="stat-info">
+                        <span>TỔNG LẤP ĐẦY</span>
+                        <strong>82%</strong>
+                    </div>
+                    <div class="stat-trend">
+                        +12% so với tuần trước
+                    </div>
+                </div>
+
+                <div class="stat-card green">
+                    <div class="stat-info">
+                        <span>SLOT CÒN TRỐNG</span>
+                        <strong>14</strong>
+                    </div>
+                    <div class="stat-trend blue-text">
+                        4 Giờ Vàng
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-title">
+                    <h3>Đặt Sân Sắp Tới</h3>
+                    <a href="#">Xem tất cả</a>
+                </div>
+
+                <ul class="upcoming-list">
+                    <li class="upcoming-item">
+                        <div class="icon-box"><i class="fa-solid fa-table-tennis-paddle-ball"></i></div>
+                        <div class="item-details">
+                            <h4>Sân 3 - Đơn Pro</h4>
+                            <p>Hôm nay, 14:00 • 45.000đ</p>
+                        </div>
+                    </li>
+                    <li class="upcoming-item">
+                        <div class="icon-box"><i class="fa-solid fa-basketball"></i></div>
+                        <div class="item-details">
+                            <h4>Sân 1 - Tập Đội</h4>
+                            <p>Hôm nay, 16:30 • 60.000đ</p>
+                        </div>
+                    </li>
+                    <li class="upcoming-item">
+                        <div class="icon-box"><i class="fa-solid fa-person-running"></i></div>
+                        <div class="item-details">
+                            <h4>Sân 6 - Vui Chơi</h4>
+                            <p>Hôm nay, 18:00 • 30.000đ</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="widget widget-pro-tip">
+                <h4>MẸO HAY</h4>
+                <p>Tăng tỷ lệ lấp đầy cuối tuần với mức giá "Giờ Vàng" từ 14:00 chiều.</p>
+                <a href="#">Tìm hiểu thêm</a>
+            </div>
+
+        </aside>
+
+    </div>
+    </div>
+
+</body>
+</html>
