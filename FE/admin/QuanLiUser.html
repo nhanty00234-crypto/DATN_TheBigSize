@@ -109,72 +109,81 @@
 </head>
 <body class="bg-background text-on-surface">
 <!-- SideNavBar (Shared Component) -->
-<aside class="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-lowest dark:bg-inverse-surface shadow-[0px_4px_12px_rgba(0,0,0,0.05)] flex flex-col py-6 gap-stack-md z-50">
-<div class="px-6 mb-4">
-<h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-inverse-primary">V-SPORT</h1>
-<p class="text-on-surface-variant font-label-md text-label-md">Hệ thống quản lý</p>
+<aside id="sidebar" class="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-lowest shadow-[0px_4px_12px_rgba(0,0,0,0.05)] shadow-sm z-30 flex flex-col py-container-padding transition-transform duration-300 -translate-x-full lg:translate-x-0">
+<div class="px-container-padding mb-8">
+<h1 class="font-display-lg text-display-lg text-primary">V-SPORT</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Hệ thống quản lý</p>
 </div>
-<nav class="flex-1 space-y-1">
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container" href="#">
-<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
-<span class="font-label-md text-label-md">Lịch đặt sân</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container" href="#">
-<span class="material-symbols-outlined" data-icon="domain">domain</span>
-<span class="font-label-md text-label-md">Quản lý chi nhánh</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-inverse-primary bg-primary-fixed dark:bg-primary-container border-l-4 border-primary rounded-r-full" href="#">
-<span class="material-symbols-outlined" data-icon="group">group</span>
-<span class="font-label-md text-label-md">Quản lý User</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container" href="#">
-<span class="material-symbols-outlined" data-icon="local_offer">local_offer</span>
-<span class="font-label-md text-label-md">Khuyến mãi</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container" href="#">
-<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
-<span class="font-label-md text-label-md">Cấu hình AI &amp; Giá động</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container" href="#">
-<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
-<span class="font-label-md text-label-md">Báo cáo POS</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors hover:bg-surface-container" href="#">
-<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
-<span class="font-label-md text-label-md">Báo cáo &amp; Thống kê</span>
-</a>
+<nav class="flex-1 overflow-y-auto">
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="Dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+                        Báo cáo &amp; Thống kê
+                    </a>
+</li>
+<li class="">
+<a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                        Lịch đặt sân
+                    </a>
+</li>
+<li class="">
+<a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="QuanLiChiNhanh.html">
+<span class="material-symbols-outlined">domain</span>
+                        Quản lý chi nhánh
+                    </a>
+</li>
+<li class="bg-primary/10 border-l-4 border-primary">
+<a class="flex items-center gap-stack-md px-container-padding py-stack-md text-primary font-bold transition-colors cursor-pointer active:scale-95 duration-200" href="QuanLiUser.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+                        Quản lý User
+                    </a>
+</li>
+<li class="">
+<a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="Sale.html">
+<span class="material-symbols-outlined">local_offer</span>
+                        Khuyến mãi
+                    </a>
+</li>
+<li class="">
+<a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+                        Báo cáo POS
+                    </a>
+</li>
+</ul>
 </nav>
-<div class="mt-auto px-6 pt-4 border-t border-surface-variant">
-<div class="flex items-center gap-3">
-<img alt="V-SPORT Admin Profile" class="w-8 h-8 rounded-full bg-surface-container-high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxDBCDpl2Vi9E5Iijz2PSDaeQu5m-sc3q9kdHjU7Cz7c_j7FusEyG5CzZJIzkkw3kYz9pBdtmY1kr8ozAPj0yHOGTTRtQ15EnlJNAFcfPVxrCwlOg2nFxMs3byE-Xv9H2y2Y7ach2-MUAGd4M9di2kLAva0si3AHD43rOPKi9ynHXi8gUjky1zxS06e3Eci70dQYWrD-YsuB-NRxcGxJdT9NxR9beLmnLKX5VT47PfJrJT_kU8XS_AvIate29mZRwhOUWJhCJmPeth">
-<div class="overflow-hidden">
-<p class="font-label-sm text-label-sm font-bold truncate">Admin Manager</p>
-<p class="text-[10px] text-on-surface-variant truncate">v-sport@admin.com</p>
-</div>
-</div>
-</div>
 </aside>
-<!-- TopNavBar (Shared Component) -->
-<header class="h-[72px] w-[calc(100%-260px)] fixed top-0 right-0 bg-surface dark:bg-background border-b border-surface-variant dark:border-outline-variant flex justify-between items-center px-container-padding z-40">
-<div class="flex items-center gap-stack-md flex-1">
-<div class="relative w-full max-w-md">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
-<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 font-body-md text-body-md focus:ring-2 focus:ring-primary" placeholder="Tìm kiếm người dùng, ID, số điện thoại..." type="text">
+<!-- TopNavBar -->
+<header class="h-[72px] fixed top-0 right-0 left-0 lg:left-[260px] bg-surface-container-lowest border-b border-outline-variant z-20 flex justify-between items-center px-4 lg:px-container-padding w-full lg:w-[calc(100%-260px)] transition-all duration-300">
+<div class="flex-1 flex items-center gap-4">
+<button id="mobileMenuBtn" class="lg:hidden p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="relative w-full max-w-sm hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow" placeholder="Tìm kiếm người dùng..." type="text">
 </div>
 </div>
 <div class="flex items-center gap-stack-md">
-<button class="hover:bg-surface-container-low rounded-full p-2 transition-transform scale-95 active:scale-90">
-<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">notifications</span>
 </button>
-<button class="hover:bg-surface-container-low rounded-full p-2 transition-transform scale-95 active:scale-90">
-<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">settings</span>
 </button>
-<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
-<img alt="Manager Avatar" class="w-10 h-10 rounded-full border-2 border-primary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG0wjGGg4hfC8Y5IlfuWHUJ3MUOWBwl32qShY_Le9JDD-SfoUAuYG5dhA9Or3p5vDZxXZk-QbJsM-L3g3-nw4eV6OT3Pg9w3cpFhSh9cW91G9ejv_iBAkTqlTe4rK5KYMGplbMJLQWWqQkgvtkIyEIo7J6OqUMM0DYWk5aFMB6PjvDlq-h9q9XxMNyxWv45ULKsrtYrI7K2c0KkFZmL-91rzFTQde1sxryCgODGgOopTDAfA1obKeSZIi5Z-e1s4HQzwyyaDror89Z">
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-3 cursor-pointer hover:bg-surface-container transition-all p-2 rounded-lg duration-200">
+<img alt="Admin Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3dZNt8jUzLHd_hdvJUiScg2lfEC6I8_b9aVVq94ehViShI0VmVnWJFTtS3JWhcRZhcwZvDzHiJ4lAoSREIdV1AGCn19YaDGdI6MS-y6G6eWHcjup-QmStlskX_uZRkU-BcYvzz5wzVPUAmRxvkTX9GZlnFmrlkniM84gL9xqFOBRuXcIqUIEIcf-jGCAbstukdOOjxa7NVO1Pq7c1DnYR_7_5FWi3q5bcZcoLiJcgBJfGkshWlX5DkfRCcih8Vqb0nAwT-pnsZhiV">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-bold">Quản trị viên</span>
+</div>
+</div>
 </div>
 </header>
 <!-- Main Content -->
-<main class="ml-[260px] pt-[72px] min-h-screen p-container-padding bg-background">
+<main class="lg:ml-[260px] mt-[72px] p-4 lg:p-container-padding">
 <!-- Header Section -->
 <div class="mb-stack-lg">
 <h2 class="font-headline-md text-headline-md text-on-surface">Quản lý Người dùng &amp; ELO</h2>
@@ -586,8 +595,33 @@ Hủy
 </div>
 </div>
 
+<!-- Mobile Sidebar Overlay -->
+<div id="sidebarOverlay" class="fixed inset-0 bg-on-background/40 z-20 hidden lg:hidden backdrop-blur-sm transition-opacity opacity-0 duration-300"></div>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // --- Responsive Sidebar Logic ---
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            sidebarOverlay.classList.remove('hidden');
+            setTimeout(() => sidebarOverlay.classList.remove('opacity-0'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('opacity-0');
+            setTimeout(() => sidebarOverlay.classList.add('hidden'), 300);
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
         const modal = document.getElementById('addUserModal');
         const openBtn = document.getElementById('addUserBtn');
         const closeBtn = document.getElementById('closeUserModalBtn');
@@ -645,5 +679,51 @@ Hủy
             });
         }
     });
+</script>
+
+<!-- Custom Blue Cursor Effect -->
+<div id="cursor-dot" style="position:fixed;pointer-events:none;z-index:99999;width:8px;height:8px;background:#0047a9;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 6px 2px rgba(0,71,169,0.45);transition:transform 0.08s ease,background 0.1s;"></div>
+<div id="cursor-ring" style="position:fixed;pointer-events:none;z-index:99998;width:28px;height:28px;border:1.5px solid rgba(0,71,169,0.5);border-radius:50%;transform:translate(-50%,-50%);transition:width 0.1s,height 0.1s,border-color 0.1s,opacity 0.15s;"></div>
+<style>* { cursor: none !important; }</style>
+<script>
+  (function() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0, hovering = false;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
+
+    (function lerp() {
+      rx += (mx - rx) * 0.35;
+      ry += (my - ry) * 0.35;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(lerp);
+    })();
+
+    document.addEventListener('mouseover', e => {
+      const el = e.target.closest('a,button,[role="button"],input,select,textarea');
+      if (el && !hovering) {
+        hovering = true;
+        dot.style.transform = 'translate(-50%,-50%) scale(1.5)';
+        ring.style.width = '44px'; ring.style.height = '44px';
+        ring.style.borderColor = 'rgba(0,87,204,0.65)';
+      } else if (!el && hovering) {
+        hovering = false;
+        dot.style.transform = 'translate(-50%,-50%) scale(1)';
+        ring.style.width = '28px'; ring.style.height = '28px';
+        ring.style.borderColor = 'rgba(0,71,169,0.5)';
+      }
+    });
+
+    document.addEventListener('mousedown', () => { dot.style.transform = 'translate(-50%,-50%) scale(0.75)'; });
+    document.addEventListener('mouseup',   () => { dot.style.transform = 'translate(-50%,-50%) scale(1)'; });
+    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+  })();
 </script>
 </body></html>
