@@ -1,6 +1,6 @@
 -- ====================================================================================
 -- DỰ ÁN: HỆ SINH THÁI QUẢN LÝ CHUỖI THỂ THAO (QUANLISPORT)
--- PHIÊN BẢN: V3 - TỐI ƯU CẤU HÌNH GIÁ SÂN (CÓ ĐÈN / KHÔNG ĐÈN) & GIÁ DỊCH VỤ
+-- PHIÊN BẢN: V4 - TÍCH HỢP SOCIAL LOGIN, INTERESTS & TỐI ƯU GIỜ LÊN ĐÈN THEO LOẠI SÂN
 -- NGÀY CẬP NHẬT: MAY 2026
 -- ====================================================================================
 
@@ -14,7 +14,7 @@ USE QuanLiSport;
 GO
 
 -- =====================================================================
--- 1. XÓA BẢNG CŨ (từ con → cha) TRÁNH CONFLICT
+-- 1. XÓA BẢNG CŨ (Xóa từ con → cha để tránh xung đột Khóa ngoại)
 -- =====================================================================
 IF OBJECT_ID('HoanTien',            'U') IS NOT NULL DROP TABLE HoanTien;
 IF OBJECT_ID('KhuyenMai',           'U') IS NOT NULL DROP TABLE KhuyenMai;
@@ -37,9 +37,8 @@ IF OBJECT_ID('LichDatSan',          'U') IS NOT NULL DROP TABLE LichDatSan;
 IF OBJECT_ID('SanPham_DichVu',      'U') IS NOT NULL DROP TABLE SanPham_DichVu;
 IF OBJECT_ID('DanhMucSanPham',      'U') IS NOT NULL DROP TABLE DanhMucSanPham;
 IF OBJECT_ID('San',                 'U') IS NOT NULL DROP TABLE San;
--- Đã xóa bảng KhungGioGia ở bản V3
-IF OBJECT_ID('KhungGioGia',         'U') IS NOT NULL DROP TABLE KhungGioGia;
 IF OBJECT_ID('LoaiSan',             'U') IS NOT NULL DROP TABLE LoaiSan;
+IF OBJECT_ID('MonTheThaoYeuThich',  'U') IS NOT NULL DROP TABLE MonTheThaoYeuThich;
 IF OBJECT_ID('MonTheThao',          'U') IS NOT NULL DROP TABLE MonTheThao;
 IF OBJECT_ID('Accounts',            'U') IS NOT NULL DROP TABLE Accounts;
 IF OBJECT_ID('Roles',               'U') IS NOT NULL DROP TABLE Roles;
@@ -47,42 +46,51 @@ IF OBJECT_ID('CoSo',                'U') IS NOT NULL DROP TABLE CoSo;
 GO
 
 -- =====================================================================
--- 2. HỆ THỐNG LÕI: CƠ SỞ & NGƯỜI DÙNG
+-- 2. HỆ THỐNG LÕI: CƠ SỞ & PHÂN QUYỀN
 -- =====================================================================
-
-CREATE TABLE CoSo (
-    CoSoID          INT PRIMARY KEY IDENTITY(1,1),
-    TenCoSo         NVARCHAR(100) NOT NULL,          
-    DiaChi          NVARCHAR(255),
-    SoDienThoai     VARCHAR(15),
-    TrangThai       NVARCHAR(50)  DEFAULT N'Hoạt động',
-    GioMoCua        TIME          NULL,               
-    GioDongCua      TIME          NULL,               
-    -- [V3 CẬP NHẬT] - Giờ hệ thống bắt đầu tự động tính giá "Có Đèn"
-    GioBatDauLenDen TIME          NULL,               -- VD: 17:30
-    HinhAnh         NVARCHAR(500) NULL,               
-    MoTa            NVARCHAR(MAX) NULL                
-);
 
 CREATE TABLE Roles (
     RoleID   INT PRIMARY KEY IDENTITY(1,1),
     RoleName NVARCHAR(50) NOT NULL                 
 );
 
+CREATE TABLE CoSo (
+    CoSoID              INT PRIMARY KEY IDENTITY(1,1),
+    TenCoSo             NVARCHAR(100) NOT NULL,          
+    DiaChi              NVARCHAR(255),
+    SoDienThoai         VARCHAR(15),
+    TrangThai           NVARCHAR(50)  DEFAULT N'Hoạt động',
+    GioMoCua            TIME          NULL,               
+    GioDongCua          TIME          NULL,               
+    HinhAnh             NVARCHAR(500) NULL,               
+    MoTa                NVARCHAR(MAX) NULL,
+    LoaiHinhKinhDoanh   NVARCHAR(255) NULL, 
+    SoLuongSanDuKien    INT           DEFAULT 0,
+    AccountID_QuanLy    INT           NULL -- Sẽ thiết lập Khóa ngoại sau khi tạo bảng Accounts
+);
+
+-- =====================================================================
+-- 3. HỆ THỐNG TÀI KHOẢN (Đã cập nhật GoogleID, FacebookID)
+-- =====================================================================
+
 CREATE TABLE Accounts (
     AccountID            INT PRIMARY KEY IDENTITY(1,1),
-    Username             VARCHAR(50)   UNIQUE NOT NULL,
-    Password             VARCHAR(255)  NOT NULL,
+    Username             VARCHAR(50)   UNIQUE NULL,  -- Cho phép NULL nếu khách đăng ký thuần bằng Social Login
+    Password             VARCHAR(255)  NULL,         -- Cho phép NULL nếu chỉ dùng Social Login
     PasswordSalt         VARCHAR(100)  NULL,        
     FailedLoginCount     TINYINT       DEFAULT 0,   
     IsLocked             BIT           DEFAULT 0,   
     LastLogin            DATETIME      NULL,        
 
+    -- [V4 CẬP NHẬT] Đăng nhập bên thứ ba
+    GoogleID             VARCHAR(100)  UNIQUE NULL,  -- Lưu định danh từ Google Sign-In
+    FacebookID           VARCHAR(100)  UNIQUE NULL,  -- Lưu định danh từ Facebook Login (Kiểu chuỗi lớn tránh tràn số)
+
     FullName             NVARCHAR(100),
     PhoneNumber          VARCHAR(15),
-    Email                VARCHAR(100),
+    Email                VARCHAR(100)  UNIQUE NULL,
     RoleID               INT,
-    CoSoID               INT NULL,                  
+    CoSoID               INT           NULL,                  
 
     ZaloID               VARCHAR(100)  NULL,        
     MessengerID          VARCHAR(100)  NULL,        
@@ -96,12 +104,15 @@ CREATE TABLE Accounts (
     GioiTinh             NVARCHAR(10)  NULL,        
     CreatedAt            DATETIME      DEFAULT GETDATE(),
 
-    CONSTRAINT FK_Acc_Role FOREIGN KEY (RoleID)  REFERENCES Roles(RoleID),
+    CONSTRAINT FK_Acc_Role FOREIGN KEY (RoleID) REFERENCES Roles(RoleID),
     CONSTRAINT FK_Acc_CoSo FOREIGN KEY (CoSoID) REFERENCES CoSo(CoSoID)
 );
 
+-- Thêm khóa ngoại cho Người quản lý cơ sở hướng về bảng Accounts
+ALTER TABLE CoSo ADD CONSTRAINT FK_CoSo_QuanLy FOREIGN KEY (AccountID_QuanLy) REFERENCES Accounts(AccountID);
+
 -- =====================================================================
--- 3. HỆ THỐNG SÂN BÃI ĐA MÔN THỂ THAO & CẤU HÌNH GIÁ (ADMIN)
+-- 4. BỘ MÔN THỂ THAO & DANH SÁCH YÊU THÍCH (M-M Relationship)
 -- =====================================================================
 
 CREATE TABLE MonTheThao (
@@ -109,13 +120,31 @@ CREATE TABLE MonTheThao (
     TenMon       NVARCHAR(50) NOT NULL               
 );
 
+-- [V4 CẬP NHẬT] Bảng trung gian giải quyết bài toán: Một tài khoản thích nhiều môn, một môn có nhiều người thích
+CREATE TABLE MonTheThaoYeuThich (
+    AccountID    INT NOT NULL,
+    MonTheThaoID INT NOT NULL,
+    NgayThêm     DATETIME DEFAULT GETDATE(),
+    PRIMARY KEY (AccountID, MonTheThaoID),
+    CONSTRAINT FK_MTTYT_Account FOREIGN KEY (AccountID)    REFERENCES Accounts(AccountID) ON DELETE CASCADE,
+    CONSTRAINT FK_MTTYT_Mon     FOREIGN KEY (MonTheThaoID) REFERENCES MonTheThao(MonTheThaoID) ON DELETE CASCADE
+);
+
+-- =====================================================================
+-- 5. CẤU HÌNH SÂN & TỐI ƯU CƠ CHẾ GIỜ LÊN ĐÈN
+-- =====================================================================
+
 CREATE TABLE LoaiSan (
     LoaiSanID        INT PRIMARY KEY IDENTITY(1,1),
     MonTheThaoID     INT           NOT NULL,
     TenLoai          NVARCHAR(50)  NOT NULL,          
-    -- [V3 CẬP NHẬT] - Nơi Admin cấu hình giá tiền sân duy nhất
-    GiaKhongDen      DECIMAL(18,2) NOT NULL, -- Giá ban ngày
-    GiaCoDen         DECIMAL(18,2) NOT NULL, -- Giá khi lên đèn (chiều/tối)
+    GiaKhongDen      DECIMAL(18,2) NOT NULL, 
+    GiaCoDen         DECIMAL(18,2) NOT NULL, 
+    
+    -- [V4 CẬP NHẬT GIỜ LÊN ĐÈN]: Chuyển từ bảng 'CoSo' về bảng 'LoaiSan' 
+    -- Lý do: Sân Pickleball ngoài trời cần lên đèn lúc 17:30, nhưng sân Cầu lông trong nhà bật đèn 100% full ca từ 06:00 sáng.
+    GioBatDauLenDen  TIME          NOT NULL DEFAULT '17:30:00', 
+    
     CONSTRAINT FK_LoaiSan_Mon FOREIGN KEY (MonTheThaoID) REFERENCES MonTheThao(MonTheThaoID)
 );
 
@@ -132,7 +161,7 @@ CREATE TABLE San (
 );
 
 -- =====================================================================
--- 4. KHO HÀNG & DỊCH VỤ - CẤU HÌNH GIÁ (ADMIN)
+-- 6. KHO HÀNG, DỊCH VỤ & LỊCH ĐẶT SÂN
 -- =====================================================================
 
 CREATE TABLE DanhMucSanPham (
@@ -145,7 +174,6 @@ CREATE TABLE SanPham_DichVu (
     DanhMucID    INT           NOT NULL,
     CoSoID       INT           NOT NULL,
     TenSanPham   NVARCHAR(100) NOT NULL,
-    -- [V3 CẬP NHẬT] - Nơi Admin cấu hình giá tiền sản phẩm/dịch vụ
     DonGia       DECIMAL(18,2) NOT NULL, 
     DonViTinh    NVARCHAR(20),                        
     SoLuongTon   INT           DEFAULT 0,
@@ -154,10 +182,6 @@ CREATE TABLE SanPham_DichVu (
     CONSTRAINT FK_SP_CoSo    FOREIGN KEY (CoSoID)    REFERENCES CoSo(CoSoID)
 );
 
--- =====================================================================
--- 5. LỊCH ĐẶT SÂN
--- =====================================================================
-
 CREATE TABLE LichDatSan (
     DatSanID        INT PRIMARY KEY IDENTITY(1,1),
     AccountID       INT,
@@ -165,8 +189,7 @@ CREATE TABLE LichDatSan (
     NgayDat         DATE          NOT NULL,
     GioBatDau       TIME          NOT NULL,
     GioKetThuc      TIME          NOT NULL,
-    -- [V3 CẬP NHẬT] - Lưu lại trạng thái giá lúc khách đặt (để làm bill không bị sai lệch nếu sau này Admin đổi giá)
-    ApDungGiaCoDen  BIT           DEFAULT 0,          -- 0: Tính giá Không Đèn | 1: Tính giá Có Đèn
+    ApDungGiaCoDen  BIT           DEFAULT 0,          -- 0: Không Đèn | 1: Có Đèn
     TongTienDuKien  DECIMAL(18,2),
     TrangThai       NVARCHAR(50)  DEFAULT N'Chờ xác nhận',
     GhiChu          NVARCHAR(255),
@@ -174,6 +197,10 @@ CREATE TABLE LichDatSan (
     CONSTRAINT FK_DatSan_Account FOREIGN KEY (AccountID) REFERENCES Accounts(AccountID),
     CONSTRAINT FK_DatSan_San     FOREIGN KEY (SanID)     REFERENCES San(SanID)
 );
+
+-- =====================================================================
+-- 7. CÁC TÍNH NĂNG MỞ RỘNG (GẮN KÈO, RATING, ELO, CHAT, PARKING)
+-- =====================================================================
 
 CREATE TABLE GhepKeo (
     KeoID               INT PRIMARY KEY IDENTITY(1,1),
@@ -248,19 +275,23 @@ CREATE TABLE TheGiuXe (
 );
 
 CREATE TABLE LichXeRaVao (
-    LichXeID          INT PRIMARY KEY IDENTITY(1,1),
-    TheID             INT,
-    DatSanID          INT           NULL,
-    BienSoXe          VARCHAR(20),
-    KieuGuiXe         NVARCHAR(20)  NULL,             
-    GioVao            DATETIME      DEFAULT GETDATE(),
-    GioRa             DATETIME      NULL,
-    PhiGuiXe          DECIMAL(18,2) DEFAULT 0,	
+    LichXeID           INT PRIMARY KEY IDENTITY(1,1),
+    TheID              INT,
+    DatSanID           INT           NULL,
+    BienSoXe           VARCHAR(20),
+    KieuGuiXe          NVARCHAR(20)  NULL,             
+    GioVao             DATETIME      DEFAULT GETDATE(),
+    GioRa              DATETIME      NULL,
+    PhiGuiXe           DECIMAL(18,2) DEFAULT 0,	
     AccountID_NhanVien INT          NULL,
     CONSTRAINT FK_Xe_The      FOREIGN KEY (TheID)              REFERENCES TheGiuXe(TheID),
     CONSTRAINT FK_Xe_DatSan   FOREIGN KEY (DatSanID)           REFERENCES LichDatSan(DatSanID),
     CONSTRAINT FK_Xe_NhanVien FOREIGN KEY (AccountID_NhanVien) REFERENCES Accounts(AccountID)
 );
+
+-- =====================================================================
+-- 8. TÀI CHÍNH: HÓA ĐƠN, KHUYẾN MÃI, CHIA BILL, HOÀN TIỀN
+-- =====================================================================
 
 CREATE TABLE KhuyenMai (
     KhuyenMaiID  INT PRIMARY KEY IDENTITY(1,1),
@@ -330,6 +361,10 @@ CREATE TABLE MaQR (
     CONSTRAINT FK_QR_Chia FOREIGN KEY (ChiaHoaDonID) REFERENCES ChiaHoaDon(ChiaHoaDonID)
 );
 
+-- =====================================================================
+-- 9. HỆ THỐNG SOS, VẬN HÀNH NHÂN SỰ & HOÀN TÁC
+-- =====================================================================
+
 CREATE TABLE YeuCauSOS (
     YeuCauSOSID     INT PRIMARY KEY IDENTITY(1,1),
     AccountID_Tao   INT           NOT NULL,
@@ -394,29 +429,29 @@ CREATE TABLE HoanTien (
 GO
 
 -- =====================================================================
--- 14. DỮ LIỆU MẪU CƠ BẢN (CẬP NHẬT THEO CẤU TRÚC MỚI)
+-- 10. DỮ LIỆU MẪU ĐẶC TRƯNG (MỚI)
 -- =====================================================================
 
 INSERT INTO Roles (RoleName) VALUES (N'Admin'), (N'Staff'), (N'Customer');
 
--- Giả sử 17:30 là giờ bắt đầu lên đèn (bắt đầu tính giá Có Đèn)
-INSERT INTO CoSo (TenCoSo, DiaChi, SoDienThoai, GioMoCua, GioDongCua, GioBatDauLenDen)
+INSERT INTO CoSo (TenCoSo, DiaChi, SoDienThoai, GioMoCua, GioDongCua, LoaiHinhKinhDoanh, SoLuongSanDuKien)
 VALUES
-    (N'CNH Sport Vũng Tàu',  N'123 Lê Lợi, Vũng Tàu',     '0909000001', '06:00', '23:00', '17:30'),
-    (N'CNH Sport Bà Rịa',    N'456 Phạm Văn Đồng, Bà Rịa', '0909000002', '06:00', '22:30', '17:30');
+    (N'CNH Sport Vũng Tàu',  N'123 Lê Lợi, Vũng Tàu',     '0909000001', '06:00', '23:00', N'Phức hợp thể thao ngoài trời & trong nhà', 15),
+    (N'CNH Sport Bà Rịa',    N'456 Phạm Văn Đồng, Bà Rịa', '0909000002', '06:00', '22:30', N'Chuyên biệt Cầu lông & Pickleball', 10);
 
 INSERT INTO MonTheThao (TenMon) VALUES (N'Bóng đá'), (N'Cầu lông'), (N'Pickleball'), (N'Tennis');
 
--- Data mẫu cho Bảng LoaiSan: Khởi tạo giá Không Đèn và Có Đèn
-INSERT INTO LoaiSan (MonTheThaoID, TenLoai, GiaKhongDen, GiaCoDen)
+-- Data mẫu kiểm thử logic Giờ lên đèn riêng biệt cho từng loại hình sân:
+INSERT INTO LoaiSan (MonTheThaoID, TenLoai, GiaKhongDen, GiaCoDen, GioBatDauLenDen)
 VALUES 
-    (1, N'Sân 5 người', 150000, 200000), -- Bóng đá: Ngày 150k, Tối lên đèn 200k
-    (3, N'Sân Pickleball chuẩn', 80000, 120000); -- Pickleball: Ngày 80k, Tối lên đèn 120k
+    (1, N'Sân bóng đá 5 người', 150000, 200000, '17:30:00'), -- Ngoài trời: 17:30 bắt đầu tính giá đèn
+    (3, N'Sân Pickleball chuẩn', 80000, 120000, '17:00:00'),  -- Ngoài trời: 17:00 tính giá đèn
+    (2, N'Sân Cầu lông thảm PVC', 60000, 60000, '06:00:00');  -- Trong nhà: Bật đèn full-time từ lúc mở cửa nên giá cố định
 
+-- Tạo tài khoản Admin mặc định
 INSERT INTO Accounts (Username, Password, FullName, PhoneNumber, RoleID, CoSoID)
 VALUES ('admin', '$2b$12$PLACEHOLDER_HASH_REPLACE_THIS', N'Quản trị viên', '0909999999', 1, NULL);
 
 GO
-
-PRINT N'✅ QuanLiSport V3 (Cấu hình giá thực tế Có Đèn/Không Đèn) khởi tạo thành công!';
+PRINT N'✅ Khởi tạo cấu trúc Database QuanLiSport V4 thành công!';
 GO
