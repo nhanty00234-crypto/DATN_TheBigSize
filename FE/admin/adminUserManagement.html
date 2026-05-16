@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-SPORT | Quản lý User & ELO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .filter-section {
+            background: var(--bg-white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group input, .filter-group select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .filter-group input:focus, .filter-group select:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-cell img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+        }
+
+        .user-info-cell h4 {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .user-info-cell p {
+            margin: 4px 0 0 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .elo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .elo-pro { background: rgba(155, 89, 182, 0.1); color: #8e44ad; } /* > 1500 */
+        .elo-high { background: rgba(25, 135, 84, 0.1); color: var(--primary-green); } /* 1200 - 1500 */
+        .elo-mid { background: rgba(11, 94, 215, 0.1); color: var(--primary-blue); } /* 900 - 1200 */
+        .elo-low { background: rgba(253, 203, 110, 0.2); color: #d35400; } /* < 900 */
+
+        .status.banned { background-color: rgba(214, 48, 49, 0.1); color: var(--danger-red); }
+
+        .medal-icon { margin-right: 5px; }
+        
+        .action-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.5); 
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--text-dark);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2><span class="text-blue">V</span>-<span class="text-green">SPORT</span></h2>
+            <p>Admin Portal</p>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="menu-title">TỔNG QUAN TÒA HỆ THỐNG</li>
+            <li><a href="adminDasboard.html"><i class="fas fa-chart-pie"></i> Báo cáo Tổng thể & Dữ liệu</a></li>
+            
+            <li class="menu-title">QUẢN TRỊ ADMIN (CORE)</li>
+            <li><a href="#"><i class="fas fa-building"></i> Quản lý Đa chi nhánh</a></li>
+            <li><a href="adminAIConfig.html"><i class="fas fa-robot"></i> Cấu hình AI & Giá động</a></li>
+            <li><a href="adminUserManagement.html" class="active"><i class="fas fa-users-cog"></i> Quản lý User & ELO</a></li>
+            <li><a href="#"><i class="fas fa-tags"></i> Khuyến mãi & Marketing</a></li>
+
+            <li class="menu-title">GIÁM SÁT (KẾ THỪA QUẢN LÝ/LỄ TÂN)</li>
+            <li><a href="#"><i class="fas fa-calendar-check"></i> Giám sát Lịch đặt sân</a></li>
+            <li><a href="#"><i class="fas fa-cash-register"></i> Báo cáo POS & Dịch vụ</a></li>
+            <li><a href="#"><i class="fas fa-handshake"></i> Giám sát Matchmaking</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Tìm kiếm người dùng, sđt...">
+            </div>
+            <div class="user-profile">
+                <div class="notification">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">5</span>
+                </div>
+                <img src="https://ui-avatars.com/api/?name=Admin&background=0b5ed7&color=fff" alt="Admin">
+                <div class="user-info">
+                    <span class="name">Quản trị viên</span>
+                    <span class="role">System Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <h1 class="page-title">Quản lý Người Dùng & Điểm ELO</h1>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon bg-blue"><i class="fas fa-users"></i></div>
+                    <div class="stat-details">
+                        <h3>Tổng User</h3>
+                        <p>1,245</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(155, 89, 182, 0.1); color: #8e44ad;"><i class="fas fa-trophy"></i></div>
+                    <div class="stat-details">
+                        <h3>Cao thủ (ELO >1500)</h3>
+                        <p>84</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon bg-green"><i class="fas fa-handshake"></i></div>
+                    <div class="stat-details">
+                        <h3>Đã tham gia Matchmaking</h3>
+                        <p>856</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon bg-red"><i class="fas fa-user-slash"></i></div>
+                    <div class="stat-details">
+                        <h3>Tài khoản bị khóa</h3>
+                        <p>12</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <input type="text" placeholder="Tên, Email hoặc Số điện thoại">
+                </div>
+                <div class="filter-group">
+                    <select>
+                        <option value="">-- Mức ELO --</option>
+                        <option value="pro">Chuyên nghiệp (>1500)</option>
+                        <option value="high">Khá (1200 - 1500)</option>
+                        <option value="mid">Trung bình (900 - 1200)</option>
+                        <option value="low">Tân binh (< 900)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select>
+                        <option value="">-- Trạng thái --</option>
+                        <option value="active">Hoạt động</option>
+                        <option value="banned">Bị khóa</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary"><i class="fas fa-filter"></i> Lọc dữ liệu</button>
+            </div>
+
+            <div class="card table-card">
+                <div class="card-header">
+                    <h2>Danh sách Người Dùng</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-primary" style="background-color: var(--primary-green);"><i class="fas fa-file-excel"></i> Xuất Excel</button>
+                        <button class="btn btn-primary" onclick="openAddUserModal()"><i class="fas fa-plus"></i> Thêm Tài Khoản</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Người Dùng</th>
+                                <th>Liên Hệ</th>
+                                <th>Ngày Tham Gia</th>
+                                <th>Điểm ELO</th>
+                                <th>Số Trận</th>
+                                <th>Trạng Thái</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <img src="https://ui-avatars.com/api/?name=Nguyen+Van+A&background=random" alt="Avatar">
+                                        <div class="user-info-cell">
+                                            <h4>Nguyễn Văn A</h4>
+                                            <p>ID: USR-001</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <h4>0901234567</h4>
+                                        <p>nva@gmail.com</p>
+                                    </div>
+                                </td>
+                                <td>15/01/2026</td>
+                                <td><span class="elo-badge elo-pro"><i class="fas fa-crown medal-icon"></i> 1650</span></td>
+                                <td>142 trận</td>
+                                <td><span class="status active">Hoạt động</span></td>
+                                <td class="actions">
+                                    <button class="btn-icon text-blue" title="Chỉnh sửa ELO" onclick="openEloModal('Nguyễn Văn A', 1650)"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon text-green" title="Xem lịch sử trận"><i class="fas fa-history"></i></button>
+                                    <button class="btn-icon text-red" title="Khóa tài khoản"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <img src="https://ui-avatars.com/api/?name=Tran+Thi+B&background=random" alt="Avatar">
+                                        <div class="user-info-cell">
+                                            <h4>Trần Thị B</h4>
+                                            <p>ID: USR-045</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <h4>0987654321</h4>
+                                        <p>ttb12@gmail.com</p>
+                                    </div>
+                                </td>
+                                <td>02/03/2026</td>
+                                <td><span class="elo-badge elo-high"><i class="fas fa-medal medal-icon"></i> 1320</span></td>
+                                <td>45 trận</td>
+                                <td><span class="status active">Hoạt động</span></td>
+                                <td class="actions">
+                                    <button class="btn-icon text-blue" title="Chỉnh sửa ELO" onclick="openEloModal('Trần Thị B', 1320)"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon text-green" title="Xem lịch sử trận"><i class="fas fa-history"></i></button>
+                                    <button class="btn-icon text-red" title="Khóa tài khoản"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <img src="https://ui-avatars.com/api/?name=Le+Van+C&background=random" alt="Avatar">
+                                        <div class="user-info-cell">
+                                            <h4>Lê Văn C</h4>
+                                            <p>ID: USR-089</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <h4>0911223344</h4>
+                                        <p>lvc_sport@gmail.com</p>
+                                    </div>
+                                </td>
+                                <td>20/04/2026</td>
+                                <td><span class="elo-badge elo-mid"><i class="fas fa-star medal-icon"></i> 1050</span></td>
+                                <td>12 trận</td>
+                                <td><span class="status active">Hoạt động</span></td>
+                                <td class="actions">
+                                    <button class="btn-icon text-blue" title="Chỉnh sửa ELO" onclick="openEloModal('Lê Văn C', 1050)"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon text-green" title="Xem lịch sử trận"><i class="fas fa-history"></i></button>
+                                    <button class="btn-icon text-red" title="Khóa tài khoản"><i class="fas fa-ban"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <img src="https://ui-avatars.com/api/?name=Hoang+D&background=random" alt="Avatar">
+                                        <div class="user-info-cell">
+                                            <h4>Hoàng D</h4>
+                                            <p>ID: USR-112</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-info-cell">
+                                        <h4>0933445566</h4>
+                                        <p>hoangd99@gmail.com</p>
+                                    </div>
+                                </td>
+                                <td>10/05/2026</td>
+                                <td><span class="elo-badge elo-low"><i class="fas fa-seedling medal-icon"></i> 850</span></td>
+                                <td>3 trận</td>
+                                <td><span class="status banned">Bị khóa</span></td>
+                                <td class="actions">
+                                    <button class="btn-icon text-blue" title="Chỉnh sửa ELO" onclick="openEloModal('Hoàng D', 850)"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon text-green" title="Xem lịch sử trận"><i class="fas fa-history"></i></button>
+                                    <button class="btn-icon text-green" title="Mở khóa tài khoản"><i class="fas fa-unlock"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div style="padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted); font-size: 14px;">Hiển thị 1-4 trên tổng số 1,245</span>
+                    <div style="display: flex; gap: 5px;">
+                        <button class="btn" style="padding: 5px 10px; border: 1px solid var(--border-color); background: white;"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn" style="padding: 5px 12px; background: var(--primary-blue); color: white;">1</button>
+                        <button class="btn" style="padding: 5px 12px; border: 1px solid var(--border-color); background: white;">2</button>
+                        <button class="btn" style="padding: 5px 12px; border: 1px solid var(--border-color); background: white;">3</button>
+                        <button class="btn" style="padding: 5px 10px; border: 1px solid var(--border-color); background: white;"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Thêm Tài Khoản -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content" style="width: 600px;">
+            <div class="modal-header">
+                <h3>Thêm Tài Khoản Mới</h3>
+                <button class="close-btn" onclick="closeAddUserModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Tên đăng nhập *</label>
+                        <input type="text" class="form-control" placeholder="Nhập username...">
+                    </div>
+                    <div class="form-group">
+                        <label>Mật khẩu *</label>
+                        <input type="password" class="form-control" placeholder="Nhập mật khẩu...">
+                    </div>
+                    <div class="form-group">
+                        <label>Họ và tên</label>
+                        <input type="text" class="form-control" placeholder="Nhập họ và tên...">
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <input type="text" class="form-control" placeholder="Nhập số điện thoại...">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" placeholder="Nhập email...">
+                    </div>
+                    <div class="form-group">
+                        <label>Ngày sinh</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Giới tính</label>
+                        <select class="form-control">
+                            <option value="">-- Chọn giới tính --</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                            <option value="Khác">Khác</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Vai trò</label>
+                        <select class="form-control" id="roleSelect" onchange="handleRoleChange()">
+                            <option value="2">User (Người chơi)</option>
+                            <option value="3">Lễ tân</option>
+                            <option value="4">Quản lý chi nhánh</option>
+                            <option value="1">Admin</option>
+                        </select>
+                    </div>
+                    <!-- Nhóm thông tin cho Lễ tân & Quản lý chi nhánh -->
+                    <div class="form-group" id="groupCoSo" style="display: none;">
+                        <label>Cơ sở quản lý *</label>
+                        <select class="form-control">
+                            <option value="">-- Chọn Cơ Sở --</option>
+                            <option value="1">CNH Sport Vũng Tàu</option>
+                            <option value="2">CNH Sport Bà Rịa</option>
+                        </select>
+                    </div>
+                    <!-- Nhóm thông tin chỉ dành cho User (Cầu thủ) -->
+                    <div class="form-group group-user">
+                        <label>Vị trí sở trường</label>
+                        <input type="text" class="form-control" placeholder="VD: Tiền đạo, Hậu vệ...">
+                    </div>
+                    <div class="form-group group-user">
+                        <label>Zalo ID</label>
+                        <input type="text" class="form-control" placeholder="Link hoặc SĐT Zalo...">
+                    </div>
+                    <div class="form-group group-user">
+                        <label>Messenger ID</label>
+                        <input type="text" class="form-control" placeholder="Link Messenger...">
+                    </div>
+                    <div class="form-group group-user">
+                        <label>Tài khoản Ngân hàng</label>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="text" class="form-control" placeholder="Mã NH..." style="flex: 1;">
+                            <input type="text" class="form-control" placeholder="Số TK..." style="flex: 2;">
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button class="btn btn-primary btn-block" onclick="closeAddUserModal()" style="margin-top: 0;"><i class="fas fa-save"></i> Lưu Tài Khoản</button>
+                    <button class="btn btn-block" style="background: #f1f3f5; color: #333; margin-top: 0;" onclick="closeAddUserModal()">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Chỉnh Sửa ELO -->
+    <div id="eloModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chỉnh sửa Điểm ELO</h3>
+                <button class="close-btn" onclick="closeEloModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 15px; font-size: 14px; color: var(--text-muted);">
+                    Điều chỉnh ELO thủ công cho: <strong id="modalUserName" style="color: var(--text-dark);">Nguyễn Văn A</strong>
+                </p>
+                <div class="form-group">
+                    <label>Điểm ELO hiện tại</label>
+                    <input type="number" id="currentElo" class="form-control" disabled>
+                </div>
+                <div class="form-group">
+                    <label>Điểm ELO mới</label>
+                    <input type="number" id="newElo" class="form-control" placeholder="Nhập điểm ELO mới...">
+                </div>
+                <div class="form-group">
+                    <label>Lý do điều chỉnh</label>
+                    <input type="text" class="form-control" placeholder="Ví dụ: Xử lý lỗi hệ thống tính sai...">
+                </div>
+                <button class="btn btn-primary btn-block" onclick="closeEloModal()">Cập nhật Điểm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('eloModal');
+        const userNameElem = document.getElementById('modalUserName');
+        const currentEloElem = document.getElementById('currentElo');
+        const newEloElem = document.getElementById('newElo');
+
+        function openEloModal(name, elo) {
+            userNameElem.textContent = name;
+            currentEloElem.value = elo;
+            newEloElem.value = elo;
+            modal.classList.add('show');
+        }
+
+        function closeEloModal() {
+            modal.classList.remove('show');
+        }
+
+        const addUserModalElem = document.getElementById('addUserModal');
+
+        function openAddUserModal() {
+            addUserModalElem.classList.add('show');
+        }
+
+        function closeAddUserModal() {
+            addUserModalElem.classList.remove('show');
+        }
+
+        // Handle Role Change logic for Add User Modal
+        function handleRoleChange() {
+            const role = document.getElementById('roleSelect').value;
+            const groupCoSo = document.getElementById('groupCoSo');
+            const groupUsers = document.querySelectorAll('.group-user');
+
+            // Ẩn tất cả trước
+            groupCoSo.style.display = 'none';
+            groupUsers.forEach(el => el.style.display = 'none');
+
+            if (role === '2') { // User
+                groupUsers.forEach(el => el.style.display = 'block');
+            } else if (role === '3' || role === '4') { // Lễ tân hoặc Quản lý chi nhánh
+                groupCoSo.style.display = 'block';
+            }
+            // Admin (Role=1) thì ẩn hết các trường phụ trợ này
+        }
+
+        // Gọi ngay 1 lần để render mặc định lúc mở
+        handleRoleChange();
+
+        // Close when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeEloModal();
+            }
+            if (event.target == addUserModalElem) {
+                closeAddUserModal();
+            }
+        }
+    </script>
+</body>
+</html>
