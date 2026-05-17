@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(Move-Item \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\styles.css\" \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\Client\\\\styles.css\")"
+      "Bash(Move-Item \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\styles.css\" \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\Client\\\\styles.css\")",
+      "Bash(Select-String -Path \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\admin\\\\*.html\" -Pattern \"</body>\")",
+      "Bash(Select-Object Filename, LineNumber)"
     ]
   }
 }
