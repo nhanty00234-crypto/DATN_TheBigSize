@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hóa đơn — Chi nhánh</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .nav-link { display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#71717a;font-size:14px;font-weight:500;text-decoration:none;transition:all .15s;white-space:nowrap; }
+  .nav-link:hover { background:#f4f4f5;color:#18181b; }
+  .nav-link.active { background:#f4f4f5;color:#18181b;font-weight:600;border-left:3px solid #27272a;padding-left:9px; }
+  .card { background:#fff;border:1px solid #e4e4e7;border-radius:12px; }
+  .badge { display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600; }
+  .badge-green { background:#f0fdf4;color:#16a34a; }
+  .badge-amber { background:#fffbeb;color:#d97706; }
+  .badge-red { background:#fef2f2;color:#dc2626; }
+  .badge-blue { background:#eff6ff;color:#2563eb; }
+  .badge-gray { background:#f4f4f5;color:#71717a; }
+  ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d4d4d8;border-radius:4px}
+</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 min-h-screen">
+
+<!-- Sidebar -->
+<aside id="sidebar" class="w-[240px] h-screen fixed left-0 top-0 bg-white border-r border-zinc-200 z-30 flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
+  <div class="px-5 py-4 border-b border-zinc-100 flex items-center gap-3">
+    <div class="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-white text-[16px]">sports</span></div>
+    <div><p class="text-sm font-bold text-zinc-900 leading-tight">V-SPORT</p><p class="text-[10px] text-zinc-400">Quản lý chi nhánh</p></div>
+  </div>
+  <div class="px-4 py-3 border-b border-zinc-100">
+    <div class="flex items-center gap-2.5 px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200">
+      <span class="material-symbols-outlined text-[15px] text-zinc-500">business</span>
+      <div class="min-w-0 flex-1"><p class="text-[11px] font-semibold text-zinc-800 truncate">CNH Sport Vũng Tàu</p><p class="text-[10px] text-zinc-400">CS01 · Quản lý</p></div>
+      <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+    </div>
+  </div>
+  <nav class="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-1">
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mb-1">Vận hành</p>
+    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">dashboard</span>Tổng quan</a>
+    <a href="LichDatSan.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">calendar_today</span>Lịch đặt sân</a>
+    <a href="QuanLySan.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">sports_tennis</span>Quản lý sân</a>
+    <a href="KhoDichVu.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">inventory_2</span>Kho & Dịch vụ</a>
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mt-4 mb-1">Quản lý</p>
+    <a href="NhanSu.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">people</span>Nhân sự</a>
+    <a href="HoaDon.html" class="nav-link active"><span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1">receipt_long</span>Hóa đơn</a>
+    <a href="KhuyenMai.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">local_offer</span>Khuyến mãi</a>
+  </nav>
+  <div class="px-3 py-3 border-t border-zinc-100">
+    <a href="../admin/Dashboard.html" class="nav-link text-zinc-400 text-xs"><span class="material-symbols-outlined text-[16px]">arrow_back</span>Về trang Admin</a>
+  </div>
+</aside>
+
+<!-- Header -->
+<header class="h-[60px] fixed top-0 right-0 left-0 lg:left-[240px] bg-white border-b border-zinc-200 z-20 flex items-center justify-between px-4 lg:px-6">
+  <div class="flex items-center gap-3">
+    <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">menu</span></button>
+    <div><h1 class="text-sm font-semibold text-zinc-900">Hóa đơn & Hoàn tiền</h1><p class="text-xs text-zinc-400">Bảng HoaDon · ChiTietHoaDon · HoanTien</p></div>
+  </div>
+  <div class="flex items-center gap-2">
+    <button class="relative p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500"></span></button>
+    <div class="relative">
+      <button id="profileBtn" class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors">
+        <div class="w-7 h-7 rounded-full bg-zinc-200 flex items-center justify-center"><span class="material-symbols-outlined text-[14px] text-zinc-600">person</span></div>
+        <span class="text-sm font-semibold text-zinc-800 hidden sm:block">Nguyễn Văn Quản</span>
+        <span id="profileChevron" class="material-symbols-outlined text-[14px] text-zinc-400 hidden sm:block transition-transform duration-150">expand_more</span>
+      </button>
+      <div id="profileDrop" class="hidden absolute right-0 top-[calc(100%+6px)] w-[220px] bg-white rounded-xl shadow-lg border border-zinc-200 z-50 py-1">
+        <div class="px-4 py-2.5 border-b border-zinc-100"><p class="text-sm font-semibold text-zinc-900">Nguyễn Văn Quản</p><p class="text-xs text-zinc-500 mt-0.5">Quản lý chi nhánh · CS01</p></div>
+        <button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"><span class="material-symbols-outlined text-[16px]">manage_accounts</span>Hồ sơ cá nhân</button>
+        <button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"><span class="material-symbols-outlined text-[16px]">lock_reset</span>Đổi mật khẩu</button>
+        <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"><span class="material-symbols-outlined text-[16px]">logout</span>Đăng xuất</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="lg:ml-[240px] mt-[60px] p-4 lg:p-6 flex flex-col gap-5">
+
+  <!-- Stats -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <div class="card p-4">
+      <p class="text-xs text-zinc-500 mb-1">Doanh thu hôm nay</p>
+      <p class="text-xl font-bold text-zinc-900">3.240.000 đ</p>
+      <p class="text-xs text-green-600 mt-1 flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px]">trending_up</span>+12% so với hôm qua</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs text-zinc-500 mb-1">Hóa đơn hôm nay</p>
+      <p class="text-xl font-bold text-zinc-900">28</p>
+      <p class="text-xs text-zinc-400 mt-1">Tổng tháng: 412</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs text-zinc-500 mb-1">Chờ thanh toán</p>
+      <p class="text-xl font-bold text-amber-600">5</p>
+      <p class="text-xs text-zinc-400 mt-1">Tổng: 1.250.000 đ</p>
+    </div>
+    <div class="card p-4">
+      <p class="text-xs text-zinc-500 mb-1">Yêu cầu hoàn tiền</p>
+      <p class="text-xl font-bold text-red-500">3</p>
+      <p class="text-xs text-zinc-400 mt-1">Chờ duyệt</p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex items-center gap-1 border-b border-zinc-200">
+    <button id="tabInvoice" onclick="switchTab('invoice')" class="px-4 py-2.5 text-sm font-semibold text-zinc-900 border-b-2 border-zinc-900 -mb-px flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-[16px]">receipt_long</span>Hóa đơn <span class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-medium text-zinc-600">412</span>
+    </button>
+    <button id="tabRefund" onclick="switchTab('refund')" class="px-4 py-2.5 text-sm font-medium text-zinc-500 hover:text-zinc-700 flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-[16px]">currency_exchange</span>Hoàn tiền <span class="text-xs bg-red-100 px-1.5 py-0.5 rounded font-medium text-red-600">3</span>
+    </button>
+  </div>
+
+  <!-- Invoice Panel -->
+  <div id="panelInvoice">
+    <!-- Filters -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
+      <div class="relative flex-1 max-w-xs">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-zinc-400">search</span>
+        <input type="text" placeholder="Mã hóa đơn, tên khách..." class="h-9 w-full pl-8 pr-3 rounded-lg border border-zinc-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+      </div>
+      <input type="date" value="2026-05-17" class="h-9 px-3 rounded-lg border border-zinc-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+      <select class="h-9 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        <option>Tất cả loại</option>
+        <option>Đặt sân</option>
+        <option>Dịch vụ</option>
+        <option>Cho thuê</option>
+      </select>
+      <select class="h-9 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        <option>Tất cả trạng thái</option>
+        <option>Đã thanh toán</option>
+        <option>Chờ thanh toán</option>
+        <option>Đã hủy</option>
+      </select>
+    </div>
+    <div class="card overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-50 border-b border-zinc-200">
+          <tr>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Mã HĐ</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Khách hàng</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden sm:table-cell">Loại</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden md:table-cell">Thời gian</th>
+            <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs">Tổng tiền</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden lg:table-cell">Thanh toán</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Trạng thái</th>
+            <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-100">
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500">HD20260517001</td>
+            <td class="px-4 py-3"><p class="font-medium text-zinc-900">Nguyễn Văn An</p><p class="text-xs text-zinc-400">0901 234 567</p></td>
+            <td class="px-4 py-3 hidden sm:table-cell"><span class="badge badge-blue">Đặt sân</span></td>
+            <td class="px-4 py-3 text-zinc-500 hidden md:table-cell text-xs">17/05 · 07:00–09:00</td>
+            <td class="px-4 py-3 text-right font-semibold text-zinc-900">160.000 đ</td>
+            <td class="px-4 py-3 hidden lg:table-cell text-xs text-zinc-600">Chuyển khoản</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Đã thanh toán</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button onclick="openInvoiceDetail('HD20260517001')" class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">visibility</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">print</span></button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500">HD20260517002</td>
+            <td class="px-4 py-3"><p class="font-medium text-zinc-900">Trần Thị Bích</p><p class="text-xs text-zinc-400">0912 345 678</p></td>
+            <td class="px-4 py-3 hidden sm:table-cell"><span class="badge badge-blue">Đặt sân</span></td>
+            <td class="px-4 py-3 text-zinc-500 hidden md:table-cell text-xs">17/05 · 08:00–10:00</td>
+            <td class="px-4 py-3 text-right font-semibold text-zinc-900">200.000 đ</td>
+            <td class="px-4 py-3 hidden lg:table-cell text-xs text-zinc-600">Tiền mặt</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Đã thanh toán</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button onclick="openInvoiceDetail('HD20260517002')" class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">visibility</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">print</span></button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500">HD20260517003</td>
+            <td class="px-4 py-3"><p class="font-medium text-zinc-900">Lê Hoàng Nam</p><p class="text-xs text-zinc-400">0933 456 789</p></td>
+            <td class="px-4 py-3 hidden sm:table-cell"><span class="badge badge-gray">Dịch vụ</span></td>
+            <td class="px-4 py-3 text-zinc-500 hidden md:table-cell text-xs">17/05 · 09:30</td>
+            <td class="px-4 py-3 text-right font-semibold text-zinc-900">85.000 đ</td>
+            <td class="px-4 py-3 hidden lg:table-cell text-xs text-zinc-600">Tiền mặt</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Đã thanh toán</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button onclick="openInvoiceDetail('HD20260517003')" class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">visibility</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">print</span></button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500">HD20260517004</td>
+            <td class="px-4 py-3"><p class="font-medium text-zinc-900">Phạm Minh Đức</p><p class="text-xs text-zinc-400">0944 567 890</p></td>
+            <td class="px-4 py-3 hidden sm:table-cell"><span class="badge badge-blue">Đặt sân</span></td>
+            <td class="px-4 py-3 text-zinc-500 hidden md:table-cell text-xs">17/05 · 14:00–16:00</td>
+            <td class="px-4 py-3 text-right font-semibold text-amber-600">300.000 đ</td>
+            <td class="px-4 py-3 hidden lg:table-cell text-xs text-zinc-600">—</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">Chờ thanh toán</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button onclick="openInvoiceDetail('HD20260517004')" class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">visibility</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-green-600" title="Xác nhận thanh toán"><span class="material-symbols-outlined text-[16px]">payments</span></button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500">HD20260517005</td>
+            <td class="px-4 py-3"><p class="font-medium text-zinc-900">Vũ Thị Lan</p><p class="text-xs text-zinc-400">0955 678 901</p></td>
+            <td class="px-4 py-3 hidden sm:table-cell"><span class="badge badge-blue">Đặt sân</span></td>
+            <td class="px-4 py-3 text-zinc-500 hidden md:table-cell text-xs">17/05 · 17:00–19:00</td>
+            <td class="px-4 py-3 text-right font-semibold text-red-500 line-through">160.000 đ</td>
+            <td class="px-4 py-3 hidden lg:table-cell text-xs text-zinc-600">—</td>
+            <td class="px-4 py-3"><span class="badge badge-red">Đã hủy</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button onclick="openInvoiceDetail('HD20260517005')" class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">visibility</span></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="px-4 py-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
+        <span>Hiển thị 5 / 28 hóa đơn hôm nay</span>
+        <div class="flex items-center gap-1">
+          <button class="px-2 py-1 rounded hover:bg-zinc-100 disabled:opacity-40" disabled><span class="material-symbols-outlined text-[14px]">chevron_left</span></button>
+          <button class="px-2.5 py-1 rounded bg-zinc-900 text-white font-medium">1</button>
+          <button class="px-2.5 py-1 rounded hover:bg-zinc-100">2</button>
+          <button class="px-2.5 py-1 rounded hover:bg-zinc-100">3</button>
+          <button class="px-2 py-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Refund Panel -->
+  <div id="panelRefund" class="hidden">
+    <div class="card overflow-hidden">
+      <div class="px-4 py-3 bg-red-50 border-b border-red-100 flex items-center gap-2 text-sm text-red-700">
+        <span class="material-symbols-outlined text-[16px]">info</span>
+        <span>Các yêu cầu hoàn tiền dưới đây cần được xét duyệt. <span class="font-semibold">Bảng HoanTien</span></span>
+      </div>
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-50 border-b border-zinc-200">
+          <tr>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Mã yêu cầu</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Khách hàng</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden sm:table-cell">Mã HĐ gốc</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden md:table-cell">Lý do</th>
+            <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs">Số tiền</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Trạng thái</th>
+            <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-100">
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500">HT001</td>
+            <td class="px-4 py-3"><p class="font-medium text-zinc-900">Nguyễn Minh Tuấn</p><p class="text-xs text-zinc-400">0901 111 222</p></td>
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500 hidden sm:table-cell">HD20260515022</td>
+            <td class="px-4 py-3 text-zinc-600 text-xs hidden md:table-cell">Hủy trước 24h · sân hỏng</td>
+            <td class="px-4 py-3 text-right font-semibold text-zinc-900">160.000 đ</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">Chờ duyệt</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button onclick="approveRefund('HT001')" class="px-2.5 py-1 rounded-lg bg-green-100 text-green-700 text-xs font-medium hover:bg-green-200 transition-colors">Duyệt</button>
+              <button class="px-2.5 py-1 rounded-lg bg-red-100 text-red-700 text-xs font-medium hover:bg-red-200 transition-colors">Từ chối</button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500">HT002</td>
+            <td class="px-4 py-3"><p class="font-medium text-zinc-900">Lê Thị Hoa</p><p class="text-xs text-zinc-400">0922 333 444</p></td>
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500 hidden sm:table-cell">HD20260516008</td>
+            <td class="px-4 py-3 text-zinc-600 text-xs hidden md:table-cell">Khách hủy đúng policy</td>
+            <td class="px-4 py-3 text-right font-semibold text-zinc-900">200.000 đ</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">Chờ duyệt</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button class="px-2.5 py-1 rounded-lg bg-green-100 text-green-700 text-xs font-medium hover:bg-green-200">Duyệt</button>
+              <button class="px-2.5 py-1 rounded-lg bg-red-100 text-red-700 text-xs font-medium hover:bg-red-200">Từ chối</button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500">HT003</td>
+            <td class="px-4 py-3"><p class="font-medium text-zinc-900">Võ Văn Kiên</p><p class="text-xs text-zinc-400">0933 555 666</p></td>
+            <td class="px-4 py-3 font-mono text-xs text-zinc-500 hidden sm:table-cell">HD20260517003</td>
+            <td class="px-4 py-3 text-zinc-600 text-xs hidden md:table-cell">Thanh toán nhầm</td>
+            <td class="px-4 py-3 text-right font-semibold text-zinc-900">85.000 đ</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">Chờ duyệt</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button class="px-2.5 py-1 rounded-lg bg-green-100 text-green-700 text-xs font-medium hover:bg-green-200">Duyệt</button>
+              <button class="px-2.5 py-1 rounded-lg bg-red-100 text-red-700 text-xs font-medium hover:bg-red-200">Từ chối</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<!-- Invoice Detail Modal -->
+<div id="invoiceDetailModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('invoiceDetailModal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[520px] max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <div>
+        <h2 class="text-base font-semibold text-zinc-900">Chi tiết hóa đơn</h2>
+        <p class="text-xs text-zinc-400" id="invoiceId">HD20260517001</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">print</span></button>
+        <button onclick="document.getElementById('invoiceDetailModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+      </div>
+    </div>
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <!-- Customer + Status -->
+      <div class="flex items-start justify-between">
+        <div>
+          <p class="text-sm font-semibold text-zinc-900">Nguyễn Văn An</p>
+          <p class="text-xs text-zinc-500">0901 234 567 · Khách vãng lai</p>
+        </div>
+        <span class="badge badge-green">Đã thanh toán</span>
+      </div>
+      <!-- Line items -->
+      <div class="rounded-xl border border-zinc-200 overflow-hidden">
+        <div class="px-4 py-2.5 bg-zinc-50 border-b border-zinc-200 text-xs font-semibold text-zinc-600">Chi tiết dịch vụ · Bảng ChiTietHoaDon</div>
+        <div class="divide-y divide-zinc-100">
+          <div class="px-4 py-3 flex items-center justify-between text-sm">
+            <div>
+              <p class="font-medium text-zinc-900">Sân Cầu Lông A1 (SAN001)</p>
+              <p class="text-xs text-zinc-400">07:00 – 09:00 · 2 giờ × 80.000 đ</p>
+            </div>
+            <span class="font-semibold text-zinc-900">160.000 đ</span>
+          </div>
+          <div class="px-4 py-3 flex items-center justify-between text-sm">
+            <div>
+              <p class="font-medium text-zinc-900">Nước suối Aquafina ×2</p>
+              <p class="text-xs text-zinc-400">SP001 · 2 × 10.000 đ</p>
+            </div>
+            <span class="font-semibold text-zinc-900">20.000 đ</span>
+          </div>
+        </div>
+        <div class="px-4 py-3 bg-zinc-50 border-t border-zinc-200 flex flex-col gap-1.5 text-sm">
+          <div class="flex justify-between text-zinc-600"><span>Tạm tính</span><span>180.000 đ</span></div>
+          <div class="flex justify-between text-green-600"><span>Giảm giá (KM001)</span><span>–20.000 đ</span></div>
+          <div class="flex justify-between font-bold text-zinc-900 pt-1 border-t border-zinc-200"><span>Tổng thanh toán</span><span>160.000 đ</span></div>
+        </div>
+      </div>
+      <!-- Payment info -->
+      <div class="grid grid-cols-2 gap-3 text-sm">
+        <div><p class="text-xs text-zinc-400">Hình thức</p><p class="font-medium text-zinc-800">Chuyển khoản</p></div>
+        <div><p class="text-xs text-zinc-400">Thời gian</p><p class="font-medium text-zinc-800">17/05/2026 · 07:02</p></div>
+        <div><p class="text-xs text-zinc-400">Thu ngân</p><p class="font-medium text-zinc-800">Nguyễn Quốc Bảo</p></div>
+        <div><p class="text-xs text-zinc-400">Nguồn</p><p class="font-medium text-zinc-800">App · Online</p></div>
+      </div>
+    </div>
+    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
+      <button onclick="document.getElementById('invoiceDetailModal').classList.add('hidden')" class="h-9 px-4 rounded-lg border border-zinc-200 text-sm text-zinc-700 hover:bg-zinc-50">Đóng</button>
+      <button class="h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800 flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px]">print</span>In hóa đơn</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('-translate-x-full'));
+(function(){const btn=document.getElementById('profileBtn'),drop=document.getElementById('profileDrop'),chev=document.getElementById('profileChevron');
+btn.addEventListener('click',e=>{e.stopPropagation();const h=drop.classList.contains('hidden');if(h){drop.classList.remove('hidden');drop.style.cssText='opacity:0;transform:translateY(-6px);transition:opacity .15s,transform .15s';requestAnimationFrame(()=>{drop.style.opacity='1';drop.style.transform='translateY(0)';});chev.style.transform='rotate(180deg)';}else{drop.style.opacity='0';drop.style.transform='translateY(-6px)';setTimeout(()=>{drop.classList.add('hidden');drop.style.cssText='';},150);chev.style.transform='';}});
+document.addEventListener('click',e=>{if(!drop.classList.contains('hidden')&&!btn.contains(e.target)){drop.classList.add('hidden');drop.style.cssText='';chev.style.transform='';}});})();
+
+function switchTab(tab){
+  const pi=document.getElementById('panelInvoice'),pr=document.getElementById('panelRefund');
+  const ti=document.getElementById('tabInvoice'),tr=document.getElementById('tabRefund');
+  if(tab==='invoice'){pi.classList.remove('hidden');pr.classList.add('hidden');ti.className='px-4 py-2.5 text-sm font-semibold text-zinc-900 border-b-2 border-zinc-900 -mb-px flex items-center gap-1.5';tr.className='px-4 py-2.5 text-sm font-medium text-zinc-500 hover:text-zinc-700 flex items-center gap-1.5';}
+  else{pr.classList.remove('hidden');pi.classList.add('hidden');tr.className='px-4 py-2.5 text-sm font-semibold text-zinc-900 border-b-2 border-zinc-900 -mb-px flex items-center gap-1.5';ti.className='px-4 py-2.5 text-sm font-medium text-zinc-500 hover:text-zinc-700 flex items-center gap-1.5';}
+}
+function openInvoiceDetail(id){document.getElementById('invoiceId').textContent=id;document.getElementById('invoiceDetailModal').classList.remove('hidden');}
+function approveRefund(id){alert('Đã duyệt hoàn tiền: '+id);}
+</script>
+</body>
+</html>

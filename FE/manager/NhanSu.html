@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nhân sự — Chi nhánh</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .nav-link { display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#71717a;font-size:14px;font-weight:500;text-decoration:none;transition:all .15s;white-space:nowrap; }
+  .nav-link:hover { background:#f4f4f5;color:#18181b; }
+  .nav-link.active { background:#f4f4f5;color:#18181b;font-weight:600;border-left:3px solid #27272a;padding-left:9px; }
+  .card { background:#fff;border:1px solid #e4e4e7;border-radius:12px; }
+  .badge { display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600; }
+  .badge-green { background:#f0fdf4;color:#16a34a; }
+  .badge-amber { background:#fffbeb;color:#d97706; }
+  .badge-red { background:#fef2f2;color:#dc2626; }
+  .badge-blue { background:#eff6ff;color:#2563eb; }
+  .badge-gray { background:#f4f4f5;color:#71717a; }
+  ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d4d4d8;border-radius:4px}
+  .shift-cell { min-height:28px;border-radius:6px;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center; }
+</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 min-h-screen">
+
+<!-- Sidebar -->
+<aside id="sidebar" class="w-[240px] h-screen fixed left-0 top-0 bg-white border-r border-zinc-200 z-30 flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
+  <div class="px-5 py-4 border-b border-zinc-100 flex items-center gap-3">
+    <div class="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-white text-[16px]">sports</span></div>
+    <div><p class="text-sm font-bold text-zinc-900 leading-tight">V-SPORT</p><p class="text-[10px] text-zinc-400">Quản lý chi nhánh</p></div>
+  </div>
+  <div class="px-4 py-3 border-b border-zinc-100">
+    <div class="flex items-center gap-2.5 px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200">
+      <span class="material-symbols-outlined text-[15px] text-zinc-500">business</span>
+      <div class="min-w-0 flex-1"><p class="text-[11px] font-semibold text-zinc-800 truncate">CNH Sport Vũng Tàu</p><p class="text-[10px] text-zinc-400">CS01 · Quản lý</p></div>
+      <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+    </div>
+  </div>
+  <nav class="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-1">
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mb-1">Vận hành</p>
+    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">dashboard</span>Tổng quan</a>
+    <a href="LichDatSan.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">calendar_today</span>Lịch đặt sân</a>
+    <a href="QuanLySan.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">sports_tennis</span>Quản lý sân</a>
+    <a href="KhoDichVu.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">inventory_2</span>Kho & Dịch vụ</a>
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mt-4 mb-1">Quản lý</p>
+    <a href="NhanSu.html" class="nav-link active"><span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1">people</span>Nhân sự</a>
+    <a href="HoaDon.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">receipt_long</span>Hóa đơn</a>
+    <a href="KhuyenMai.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">local_offer</span>Khuyến mãi</a>
+  </nav>
+  <div class="px-3 py-3 border-t border-zinc-100">
+    <a href="../admin/Dashboard.html" class="nav-link text-zinc-400 text-xs"><span class="material-symbols-outlined text-[16px]">arrow_back</span>Về trang Admin</a>
+  </div>
+</aside>
+
+<!-- Header -->
+<header class="h-[60px] fixed top-0 right-0 left-0 lg:left-[240px] bg-white border-b border-zinc-200 z-20 flex items-center justify-between px-4 lg:px-6">
+  <div class="flex items-center gap-3">
+    <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">menu</span></button>
+    <div><h1 class="text-sm font-semibold text-zinc-900">Nhân sự & Ca làm việc</h1><p class="text-xs text-zinc-400">Bảng Accounts · CaLamViec</p></div>
+  </div>
+  <div class="flex items-center gap-2">
+    <button class="relative p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500"></span></button>
+    <div class="relative">
+      <button id="profileBtn" class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors">
+        <div class="w-7 h-7 rounded-full bg-zinc-200 flex items-center justify-center"><span class="material-symbols-outlined text-[14px] text-zinc-600">person</span></div>
+        <span class="text-sm font-semibold text-zinc-800 hidden sm:block">Nguyễn Văn Quản</span>
+        <span id="profileChevron" class="material-symbols-outlined text-[14px] text-zinc-400 hidden sm:block transition-transform duration-150">expand_more</span>
+      </button>
+      <div id="profileDrop" class="hidden absolute right-0 top-[calc(100%+6px)] w-[220px] bg-white rounded-xl shadow-lg border border-zinc-200 z-50 py-1">
+        <div class="px-4 py-2.5 border-b border-zinc-100"><p class="text-sm font-semibold text-zinc-900">Nguyễn Văn Quản</p><p class="text-xs text-zinc-500 mt-0.5">Quản lý chi nhánh · CS01</p></div>
+        <button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"><span class="material-symbols-outlined text-[16px]">manage_accounts</span>Hồ sơ cá nhân</button>
+        <button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"><span class="material-symbols-outlined text-[16px]">lock_reset</span>Đổi mật khẩu</button>
+        <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"><span class="material-symbols-outlined text-[16px]">logout</span>Đăng xuất</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="lg:ml-[240px] mt-[60px] p-4 lg:p-6 flex flex-col gap-5">
+
+  <!-- Tabs: Nhân viên / Ca làm việc -->
+  <div class="flex items-center gap-1 border-b border-zinc-200">
+    <button id="tabStaff" onclick="switchTab('staff')" class="px-4 py-2.5 text-sm font-semibold text-zinc-900 border-b-2 border-zinc-900 -mb-px flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-[16px]">badge</span>Nhân viên <span class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-medium text-zinc-600">14</span>
+    </button>
+    <button id="tabShift" onclick="switchTab('shift')" class="px-4 py-2.5 text-sm font-medium text-zinc-500 hover:text-zinc-700 flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-[16px]">calendar_month</span>Ca làm việc
+    </button>
+  </div>
+
+  <!-- Staff panel -->
+  <div id="panelStaff">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+      <div class="flex items-center gap-2 flex-wrap">
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-zinc-400">search</span>
+          <input type="text" placeholder="Tìm nhân viên..." class="h-9 pl-8 pr-3 rounded-lg border border-zinc-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400 w-[200px]">
+        </div>
+        <select class="h-9 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+          <option>Tất cả vai trò</option>
+          <option>Nhân viên lễ tân</option>
+          <option>Nhân viên kỹ thuật</option>
+          <option>Nhân viên bảo vệ</option>
+          <option>Thu ngân</option>
+        </select>
+        <select class="h-9 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+          <option>Tất cả trạng thái</option>
+          <option>Đang làm việc</option>
+          <option>Nghỉ phép</option>
+          <option>Nghỉ việc</option>
+        </select>
+      </div>
+      <button onclick="document.getElementById('staffModal').classList.remove('hidden')" class="flex items-center gap-1.5 h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800 transition-colors shrink-0">
+        <span class="material-symbols-outlined text-[16px]">person_add</span>Thêm nhân viên
+      </button>
+    </div>
+    <div class="card overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-50 border-b border-zinc-200">
+          <tr>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Nhân viên</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden sm:table-cell">Vai trò</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden md:table-cell">Điện thoại</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden lg:table-cell">Ngày vào làm</th>
+            <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Trạng thái</th>
+            <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-100" id="staffBody">
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0"><span class="text-xs font-bold text-blue-700">TH</span></div>
+                <div><p class="font-medium text-zinc-900">Trần Hữu Lộc</p><p class="text-xs text-zinc-400">NV001 · Lễ tân</p></div>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Nhân viên lễ tân</td>
+            <td class="px-4 py-3 text-zinc-600 hidden md:table-cell">0912 345 678</td>
+            <td class="px-4 py-3 text-zinc-500 hidden lg:table-cell">01/03/2024</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Đang làm</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button onclick="openShiftAssign('NV001')" class="p-1 rounded hover:bg-zinc-100 text-zinc-500" title="Phân ca"><span class="material-symbols-outlined text-[16px]">schedule</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500" title="Chỉnh sửa"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-red-400" title="Xóa"><span class="material-symbols-outlined text-[16px]">person_remove</span></button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center shrink-0"><span class="text-xs font-bold text-purple-700">LM</span></div>
+                <div><p class="font-medium text-zinc-900">Lê Minh Tuấn</p><p class="text-xs text-zinc-400">NV002 · Kỹ thuật</p></div>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Nhân viên kỹ thuật</td>
+            <td class="px-4 py-3 text-zinc-600 hidden md:table-cell">0909 876 543</td>
+            <td class="px-4 py-3 text-zinc-500 hidden lg:table-cell">15/06/2023</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Đang làm</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">schedule</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">person_remove</span></button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center shrink-0"><span class="text-xs font-bold text-green-700">NQ</span></div>
+                <div><p class="font-medium text-zinc-900">Nguyễn Quốc Bảo</p><p class="text-xs text-zinc-400">NV003 · Thu ngân</p></div>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Thu ngân</td>
+            <td class="px-4 py-3 text-zinc-600 hidden md:table-cell">0978 123 456</td>
+            <td class="px-4 py-3 text-zinc-500 hidden lg:table-cell">20/01/2024</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Đang làm</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">schedule</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">person_remove</span></button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center shrink-0"><span class="text-xs font-bold text-zinc-600">PT</span></div>
+                <div><p class="font-medium text-zinc-900">Phạm Thị Nga</p><p class="text-xs text-zinc-400">NV004 · Lễ tân</p></div>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Nhân viên lễ tân</td>
+            <td class="px-4 py-3 text-zinc-600 hidden md:table-cell">0903 654 321</td>
+            <td class="px-4 py-3 text-zinc-500 hidden lg:table-cell">05/09/2022</td>
+            <td class="px-4 py-3"><span class="badge badge-amber">Nghỉ phép</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">schedule</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">person_remove</span></button>
+            </td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center shrink-0"><span class="text-xs font-bold text-orange-700">VD</span></div>
+                <div><p class="font-medium text-zinc-900">Võ Đình Khoa</p><p class="text-xs text-zinc-400">NV005 · Bảo vệ</p></div>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Nhân viên bảo vệ</td>
+            <td class="px-4 py-3 text-zinc-600 hidden md:table-cell">0966 789 012</td>
+            <td class="px-4 py-3 text-zinc-500 hidden lg:table-cell">10/11/2023</td>
+            <td class="px-4 py-3"><span class="badge badge-green">Đang làm</span></td>
+            <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">schedule</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+              <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">person_remove</span></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="px-4 py-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
+        <span>Hiển thị 5 / 14 nhân viên</span>
+        <div class="flex items-center gap-1">
+          <button class="px-2 py-1 rounded hover:bg-zinc-100 disabled:opacity-40" disabled><span class="material-symbols-outlined text-[14px]">chevron_left</span></button>
+          <button class="px-2.5 py-1 rounded bg-zinc-900 text-white font-medium">1</button>
+          <button class="px-2.5 py-1 rounded hover:bg-zinc-100">2</button>
+          <button class="px-2.5 py-1 rounded hover:bg-zinc-100">3</button>
+          <button class="px-2 py-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shift panel -->
+  <div id="panelShift" class="hidden flex flex-col gap-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <button class="p-1.5 rounded-lg border border-zinc-200 hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+        <span class="text-sm font-semibold text-zinc-900">Tuần 12/05 – 18/05/2026</span>
+        <button class="p-1.5 rounded-lg border border-zinc-200 hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+      </div>
+      <button onclick="document.getElementById('shiftModal').classList.remove('hidden')" class="flex items-center gap-1.5 h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800 transition-colors">
+        <span class="material-symbols-outlined text-[16px]">add</span>Tạo ca mới
+      </button>
+    </div>
+    <!-- Weekly schedule grid -->
+    <div class="card overflow-x-auto">
+      <table class="w-full text-xs min-w-[700px]">
+        <thead class="bg-zinc-50 border-b border-zinc-200">
+          <tr>
+            <th class="px-3 py-3 text-left font-semibold text-zinc-600 w-[160px]">Nhân viên</th>
+            <th class="px-2 py-3 text-center font-semibold text-zinc-600">T2<br><span class="font-normal text-zinc-400">12/05</span></th>
+            <th class="px-2 py-3 text-center font-semibold text-zinc-600">T3<br><span class="font-normal text-zinc-400">13/05</span></th>
+            <th class="px-2 py-3 text-center font-semibold text-zinc-600">T4<br><span class="font-normal text-zinc-400">14/05</span></th>
+            <th class="px-2 py-3 text-center font-semibold text-zinc-600">T5<br><span class="font-normal text-zinc-400">15/05</span></th>
+            <th class="px-2 py-3 text-center font-semibold text-zinc-600">T6<br><span class="font-normal text-zinc-400">16/05</span></th>
+            <th class="px-2 py-3 text-center font-semibold text-zinc-600">T7<br><span class="font-normal text-zinc-400 text-blue-400">17/05</span></th>
+            <th class="px-2 py-3 text-center font-semibold text-zinc-600">CN<br><span class="font-normal text-zinc-400 text-blue-400">18/05</span></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-100">
+          <tr class="hover:bg-zinc-50">
+            <td class="px-3 py-2.5">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center shrink-0"><span class="text-[9px] font-bold text-blue-700">TH</span></div>
+                <span class="font-medium text-zinc-900">Trần Hữu Lộc</span>
+              </div>
+            </td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-green-100 text-green-700">S1 06–14</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-green-100 text-green-700">S1 06–14</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-zinc-100 text-zinc-500">Nghỉ</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-green-100 text-green-700">S1 06–14</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-green-100 text-green-700">S1 06–14</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-blue-100 text-blue-700">S2 14–22</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-zinc-100 text-zinc-500">Nghỉ</div></td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-3 py-2.5">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center shrink-0"><span class="text-[9px] font-bold text-purple-700">LM</span></div>
+                <span class="font-medium text-zinc-900">Lê Minh Tuấn</span>
+              </div>
+            </td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-blue-100 text-blue-700">S2 14–22</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-blue-100 text-blue-700">S2 14–22</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-blue-100 text-blue-700">S2 14–22</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-zinc-100 text-zinc-500">Nghỉ</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-blue-100 text-blue-700">S2 14–22</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-green-100 text-green-700">S1 06–14</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-blue-100 text-blue-700">S2 14–22</div></td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-3 py-2.5">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center shrink-0"><span class="text-[9px] font-bold text-green-700">NQ</span></div>
+                <span class="font-medium text-zinc-900">Nguyễn Quốc Bảo</span>
+              </div>
+            </td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-green-100 text-green-700">S1 06–14</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-zinc-100 text-zinc-500">Nghỉ</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-green-100 text-green-700">S1 06–14</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-green-100 text-green-700">S1 06–14</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-zinc-100 text-zinc-500">Nghỉ</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-amber-100 text-amber-700">S3 22–06</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-amber-100 text-amber-700">S3 22–06</div></td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-3 py-2.5">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center shrink-0"><span class="text-[9px] font-bold text-zinc-600">PT</span></div>
+                <span class="font-medium text-zinc-500">Phạm Thị Nga</span>
+              </div>
+            </td>
+            <td class="px-2 py-2.5" colspan="7"><div class="shift-cell bg-amber-50 text-amber-600 w-full">Nghỉ phép cả tuần</div></td>
+          </tr>
+          <tr class="hover:bg-zinc-50">
+            <td class="px-3 py-2.5">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center shrink-0"><span class="text-[9px] font-bold text-orange-700">VD</span></div>
+                <span class="font-medium text-zinc-900">Võ Đình Khoa</span>
+              </div>
+            </td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-amber-100 text-amber-700">S3 22–06</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-amber-100 text-amber-700">S3 22–06</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-zinc-100 text-zinc-500">Nghỉ</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-amber-100 text-amber-700">S3 22–06</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-amber-100 text-amber-700">S3 22–06</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-zinc-100 text-zinc-500">Nghỉ</div></td>
+            <td class="px-2 py-2.5"><div class="shift-cell bg-amber-100 text-amber-700">S3 22–06</div></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="px-4 py-3 border-t border-zinc-100 flex items-center gap-4 text-xs text-zinc-500">
+        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-green-100 border border-green-300"></span>Ca sáng (06–14)</span>
+        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-blue-100 border border-blue-300"></span>Ca chiều (14–22)</span>
+        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-100 border border-amber-300"></span>Ca đêm (22–06)</span>
+        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-zinc-100 border border-zinc-300"></span>Nghỉ</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Add Staff Modal -->
+<div id="staffModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('staffModal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[480px] max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <h2 class="text-base font-semibold text-zinc-900">Thêm nhân viên mới</h2>
+      <button onclick="document.getElementById('staffModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+    </div>
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Họ và tên <span class="text-red-500">*</span></label>
+          <input type="text" placeholder="Nhập họ tên đầy đủ" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Mã nhân viên</label>
+          <input type="text" placeholder="Tự sinh hoặc nhập tay" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Vai trò <span class="text-red-500">*</span></label>
+        <select class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+          <option>-- Chọn vai trò --</option>
+          <option>Nhân viên lễ tân</option>
+          <option>Nhân viên kỹ thuật</option>
+          <option>Nhân viên bảo vệ</option>
+          <option>Thu ngân</option>
+          <option>Quản lý ca</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Điện thoại</label>
+          <input type="tel" placeholder="0xxx xxx xxx" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Ngày vào làm</label>
+          <input type="date" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Email đăng nhập <span class="text-[10px] text-zinc-400 font-normal">· Bảng Accounts</span></label>
+        <input type="email" placeholder="nhanvien@vsport.vn" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Mật khẩu tạm thời</label>
+          <input type="password" placeholder="••••••••" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Lương cơ bản (đ)</label>
+          <input type="number" placeholder="5000000" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+      </div>
+    </div>
+    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
+      <button onclick="document.getElementById('staffModal').classList.add('hidden')" class="h-9 px-4 rounded-lg border border-zinc-200 text-sm text-zinc-700 hover:bg-zinc-50">Hủy</button>
+      <button class="h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800">Tạo tài khoản</button>
+    </div>
+  </div>
+</div>
+
+<!-- Shift Modal -->
+<div id="shiftModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('shiftModal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[420px]">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <h2 class="text-base font-semibold text-zinc-900">Tạo ca làm việc</h2>
+      <button onclick="document.getElementById('shiftModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+    </div>
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Nhân viên <span class="text-red-500">*</span></label>
+        <select class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+          <option>-- Chọn nhân viên --</option>
+          <option>NV001 — Trần Hữu Lộc</option>
+          <option>NV002 — Lê Minh Tuấn</option>
+          <option>NV003 — Nguyễn Quốc Bảo</option>
+          <option>NV005 — Võ Đình Khoa</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Ca làm <span class="text-red-500">*</span></label>
+        <div class="grid grid-cols-3 gap-2">
+          <label class="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-green-400 has-[:checked]:bg-green-50">
+            <input type="radio" name="shiftType" value="morning" class="sr-only">
+            <span class="material-symbols-outlined text-[20px] text-green-600">wb_sunny</span>
+            <span class="text-xs font-semibold text-zinc-900">Ca sáng</span>
+            <span class="text-[10px] text-zinc-400">06:00–14:00</span>
+          </label>
+          <label class="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-blue-400 has-[:checked]:bg-blue-50">
+            <input type="radio" name="shiftType" value="afternoon" checked class="sr-only">
+            <span class="material-symbols-outlined text-[20px] text-blue-600">partly_cloudy_day</span>
+            <span class="text-xs font-semibold text-zinc-900">Ca chiều</span>
+            <span class="text-[10px] text-zinc-400">14:00–22:00</span>
+          </label>
+          <label class="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50">
+            <input type="radio" name="shiftType" value="night" class="sr-only">
+            <span class="material-symbols-outlined text-[20px] text-amber-600">nights_stay</span>
+            <span class="text-xs font-semibold text-zinc-900">Ca đêm</span>
+            <span class="text-[10px] text-zinc-400">22:00–06:00</span>
+          </label>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Áp dụng ngày</label>
+        <input type="date" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Lặp lại</label>
+        <select class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+          <option>Không lặp (1 ngày)</option>
+          <option>Lặp trong tuần này</option>
+          <option>Lặp hàng tuần</option>
+        </select>
+      </div>
+    </div>
+    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
+      <button onclick="document.getElementById('shiftModal').classList.add('hidden')" class="h-9 px-4 rounded-lg border border-zinc-200 text-sm text-zinc-700 hover:bg-zinc-50">Hủy</button>
+      <button onclick="document.getElementById('shiftModal').classList.add('hidden')" class="h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800">Lưu ca</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('-translate-x-full'));
+(function(){const btn=document.getElementById('profileBtn'),drop=document.getElementById('profileDrop'),chev=document.getElementById('profileChevron');
+btn.addEventListener('click',e=>{e.stopPropagation();const h=drop.classList.contains('hidden');if(h){drop.classList.remove('hidden');drop.style.cssText='opacity:0;transform:translateY(-6px);transition:opacity .15s,transform .15s';requestAnimationFrame(()=>{drop.style.opacity='1';drop.style.transform='translateY(0)';});chev.style.transform='rotate(180deg)';}else{drop.style.opacity='0';drop.style.transform='translateY(-6px)';setTimeout(()=>{drop.classList.add('hidden');drop.style.cssText='';},150);chev.style.transform='';}});
+document.addEventListener('click',e=>{if(!drop.classList.contains('hidden')&&!btn.contains(e.target)){drop.classList.add('hidden');drop.style.cssText='';chev.style.transform='';}});})();
+
+function switchTab(tab){
+  const s=document.getElementById('panelStaff'),sh=document.getElementById('panelShift');
+  const ts=document.getElementById('tabStaff'),tsh=document.getElementById('tabShift');
+  if(tab==='staff'){s.classList.remove('hidden');sh.classList.add('hidden');ts.className='px-4 py-2.5 text-sm font-semibold text-zinc-900 border-b-2 border-zinc-900 -mb-px flex items-center gap-1.5';tsh.className='px-4 py-2.5 text-sm font-medium text-zinc-500 hover:text-zinc-700 flex items-center gap-1.5';}
+  else{sh.classList.remove('hidden');s.classList.add('hidden');tsh.className='px-4 py-2.5 text-sm font-semibold text-zinc-900 border-b-2 border-zinc-900 -mb-px flex items-center gap-1.5';ts.className='px-4 py-2.5 text-sm font-medium text-zinc-500 hover:text-zinc-700 flex items-center gap-1.5';}
+}
+function openShiftAssign(id){document.getElementById('shiftModal').classList.remove('hidden');}
+</script>
+</body>
+</html>

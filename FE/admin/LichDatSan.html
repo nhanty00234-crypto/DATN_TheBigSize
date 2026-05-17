@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="utf-8">
@@ -167,9 +167,42 @@
       <span class="material-symbols-outlined">settings</span>
     </button>
     <div class="h-8 w-px bg-outline-variant mx-2"></div>
-    <div class="flex items-center gap-3 cursor-pointer hover:bg-surface-container transition-all p-2 rounded-lg duration-200">
+    <div class="relative">
+    <button id="adminProfileBtn" class="flex items-center gap-2.5 cursor-pointer hover:bg-surface-container transition-all px-2 py-1.5 rounded-xl duration-200">
       <img alt="Admin Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3dZNt8jUzLHd_hdvJUiScg2lfEC6I8_b9aVVq94ehViShI0VmVnWJFTtS3JWhcRZhcwZvDzHiJ4lAoSREIdV1AGCn19YaDGdI6MS-y6G6eWHcjup-QmStlskX_uZRkU-BcYvzz5wzVPUAmRxvkTX9GZlnFmrlkniM84gL9xqFOBRuXcIqUIEIcf-jGCAbstukdOOjxa7NVO1Pq7c1DnYR_7_5FWi3q5bcZcoLiJcgBJfGkshWlX5DkfRCcih8Vqb0nAwT-pnsZhiV">
       <span class="font-label-md text-label-md text-on-surface font-bold hidden sm:block">Quản trị viên</span>
+      <span id="adminExpandIcon" class="material-symbols-outlined text-[16px] text-on-surface-variant transition-transform duration-200 hidden sm:block">expand_more</span>
+    </button>
+    <div id="adminProfileDropdown" class="hidden absolute top-[calc(100%+6px)] right-0 w-[320px] bg-surface-container-lowest rounded-2xl shadow-xl border border-outline-variant z-[70] overflow-hidden">
+      <div class="relative px-5 py-4 border-b border-outline-variant">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary/[0.06] to-transparent pointer-events-none"></div>
+        <div class="flex items-start gap-3.5">
+          <div class="relative shrink-0"><img class="w-[52px] h-[52px] rounded-full object-cover ring-2 ring-primary/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3dZNt8jUzLHd_hdvJUiScg2lfEC6I8_b9aVVq94ehViShI0VmVnWJFTtS3JWhcRZhcwZvDzHiJ4lAoSREIdV1AGCn19YaDGdI6MS-y6G6eWHcjup-QmStlskX_uZRkU-BcYvzz5wzVPUAmRxvkTX9GZlnFmrlkniM84gL9xqFOBRuXcIqUIEIcf-jGCAbstukdOOjxa7NVO1Pq7c1DnYR_7_5FWi3q5bcZcoLiJcgBJfGkshWlX5DkfRCcih8Vqb0nAwT-pnsZhiV"><span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-[#05cd99] border-2 border-white"></span></div>
+          <div class="flex-1 min-w-0">
+            <p class="font-bold text-[15px] text-on-surface leading-tight">Đỗ Đăng Khoa</p>
+            <div class="flex items-center gap-1.5 mt-1 flex-wrap"><span class="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap"><span class="material-symbols-outlined text-[11px]" style="font-variation-settings:'FILL' 1">admin_panel_settings</span>Quản trị viên</span><span class="inline-flex items-center gap-1 text-[11px] font-medium text-[#05cd99] bg-[#e6fcf5] px-2 py-0.5 rounded-full whitespace-nowrap"><span class="w-1.5 h-1.5 rounded-full bg-[#05cd99] inline-block"></span>Online</span></div>
+            <p class="text-xs text-on-surface-variant mt-1.5">ID: <span class="font-semibold text-on-surface font-mono">ACC001</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 border-b border-outline-variant flex flex-col gap-2.5">
+        <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-on-surface-variant w-4 shrink-0">mail</span><p class="text-[13px] text-on-surface truncate">dodangkhoa907@gmail.com</p></div>
+        <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-on-surface-variant w-4 shrink-0">phone</span><p class="text-[13px] text-on-surface">+84 909 123 456</p></div>
+        <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-on-surface-variant w-4 shrink-0">domain</span><p class="text-[13px] text-on-surface">CS01 — V-Sport Quận 1</p></div>
+        <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-on-surface-variant w-4 shrink-0">schedule</span><p class="text-[13px] text-on-surface-variant">Đăng nhập lần cuối: <span class="text-on-surface font-medium">17/05/2026 08:30</span></p></div>
+        <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-on-surface-variant w-4 shrink-0">calendar_today</span><p class="text-[13px] text-on-surface-variant">Tạo tài khoản: <span class="text-on-surface font-medium">01/01/2024</span></p></div>
+      </div>
+      <div class="px-4 py-3 border-b border-outline-variant">
+        <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-2">Hoạt động hôm nay — <span class="text-primary">từ DB</span></p>
+        <div class="grid grid-cols-3 gap-2"><div class="bg-surface-container rounded-xl py-2.5 px-2 text-center"><p class="text-[17px] font-bold text-primary leading-none">12</p><p class="text-[10px] text-on-surface-variant mt-1 leading-tight">Hóa đơn<br>xử lý</p></div><div class="bg-surface-container rounded-xl py-2.5 px-2 text-center"><p class="text-[17px] font-bold text-primary leading-none">8</p><p class="text-[10px] text-on-surface-variant mt-1 leading-tight">Lịch đặt<br>duyệt</p></div><div class="bg-surface-container rounded-xl py-2.5 px-2 text-center"><p class="text-[17px] font-bold text-primary leading-none">6.5h</p><p class="text-[10px] text-on-surface-variant mt-1 leading-tight">Giờ<br>làm việc</p></div></div>
+      </div>
+      <div class="p-2">
+        <button onclick="document.getElementById('adminProfileDropdown').classList.add('hidden');document.getElementById('editProfileModal').classList.remove('hidden');" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container-high transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-on-surface-variant">manage_accounts</span><span class="text-[13px] font-medium text-on-surface">Chỉnh sửa hồ sơ</span></button>
+        <button onclick="document.getElementById('adminProfileDropdown').classList.add('hidden');document.getElementById('changePwModal').classList.remove('hidden');" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container-high transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-on-surface-variant">lock_reset</span><span class="text-[13px] font-medium text-on-surface">Đổi mật khẩu</span></button>
+        <button class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-surface-container-high transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-on-surface-variant">help_outline</span><span class="text-[13px] font-medium text-on-surface">Hỗ trợ &amp; Tài liệu</span></button>
+        <div class="border-t border-outline-variant/60 mt-1 pt-1"><button class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-error/5 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-error">logout</span><span class="text-[13px] font-medium text-error">Đăng xuất</span></button></div>
+      </div>
+    </div>
     </div>
   </div>
 </header>
@@ -2053,6 +2086,65 @@ function toggleSetting(k,btn){ var on=btn.classList.contains('on'),kn=btn.queryS
 function resetSettings(){ setTheme('light'); localStorage.removeItem('vsport_theme'); }
 function saveSettings(){ closeSettings(); var t=document.createElement('div'); t.className='fixed bottom-6 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-5 py-2.5 rounded-full text-sm font-semibold z-[9999] shadow-lg flex items-center gap-2'; t.innerHTML='<span class="material-symbols-outlined text-[16px]" style="font-variation-settings:\'FILL\' 1">check_circle</span> Đã lưu cài đặt'; document.body.appendChild(t); setTimeout(function(){ t.style.transition='opacity 0.3s'; t.style.opacity='0'; setTimeout(function(){ t.remove(); },350); },2200); }
 document.addEventListener('DOMContentLoaded',function(){ var sb=document.getElementById('settingsBtn'),cb=document.getElementById('closeSettingsBtn'),ov=document.getElementById('settingsOverlay'),tb=document.getElementById('themeToggleBtn'); if(sb) sb.addEventListener('click',openSettings); if(cb) cb.addEventListener('click',closeSettings); if(ov) ov.addEventListener('click',closeSettings); if(tb) tb.addEventListener('click',toggleTheme); syncThemeBtns(localStorage.getItem('vsport_theme')||'light'); });
+</script>
+
+<!-- Edit Profile Modal -->
+<div id="editProfileModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('editProfileModal').classList.add('hidden')"></div>
+  <div class="relative bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-[520px] max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] text-primary">manage_accounts</span><h3 class="text-base font-bold text-on-surface">Chỉnh sửa hồ sơ</h3></div>
+      <button onclick="document.getElementById('editProfileModal').classList.add('hidden')" class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">close</span></button>
+    </div>
+    <div class="flex flex-col items-center gap-3 pt-6 pb-4 border-b border-outline-variant">
+      <div class="relative"><img id="editAvatarPreview" class="w-20 h-20 rounded-full object-cover ring-2 ring-primary/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3dZNt8jUzLHd_hdvJUiScg2lfEC6I8_b9aVVq94ehViShI0VmVnWJFTtS3JWhcRZhcwZvDzHiJ4lAoSREIdV1AGCn19YaDGdI6MS-y6G6eWHcjup-QmStlskX_uZRkU-BcYvzz5wzVPUAmRxvkTX9GZlnFmrlkniM84gL9xqFOBRuXcIqUIEIcf-jGCAbstukdOOjxa7NVO1Pq7c1DnYR_7_5FWi3q5bcZcoLiJcgBJfGkshWlX5DkfRCcih8Vqb0nAwT-pnsZhiV"><label for="avatarUpload" class="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center cursor-pointer shadow hover:opacity-90 transition-opacity"><span class="material-symbols-outlined text-[14px]">photo_camera</span></label><input id="avatarUpload" type="file" accept="image/*" class="hidden" onchange="previewAvatar(this)"></div>
+      <p class="text-xs text-on-surface-variant">Nhấn biểu tượng máy ảnh để thay ảnh đại diện</p>
+    </div>
+    <div class="px-6 py-5">
+      <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-4">Thông tin tài khoản — <span class="text-primary">Accounts table</span></p>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Họ và tên</label><input type="text" id="editFullName" value="Đỗ Đăng Khoa" class="w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface-container text-sm text-on-surface focus:border-primary focus:outline-none transition-colors"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Mã tài khoản</label><input type="text" value="ACC001" readonly class="w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface-container-high text-sm text-on-surface-variant cursor-not-allowed focus:outline-none"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Email</label><input type="email" id="editEmail" value="dodangkhoa907@gmail.com" class="w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface-container text-sm text-on-surface focus:border-primary focus:outline-none transition-colors"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Số điện thoại</label><input type="tel" id="editPhone" value="+84 909 123 456" class="w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface-container text-sm text-on-surface focus:border-primary focus:outline-none transition-colors"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Vai trò</label><input type="text" value="Quản trị viên" readonly class="w-full h-10 px-3 rounded-lg border border-outline-variant bg-surface-container-high text-sm text-on-surface-variant cursor-not-allowed focus:outline-none"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Chi nhánh</label><div class="relative"><input type="text" value="CS01 — V-Sport Quận 1" readonly class="w-full h-10 px-3 pr-9 rounded-lg border border-outline-variant bg-surface-container-high text-sm text-on-surface-variant cursor-not-allowed focus:outline-none"><span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-on-surface-variant/50">lock</span></div></div>
+      </div>
+      <p class="text-[11px] text-on-surface-variant mt-4 italic">Dữ liệu đồng bộ từ bảng <code class="font-mono bg-surface-container px-1 rounded">Accounts</code> trong CSDL V-Sport SQL Server V4</p>
+    </div>
+    <div class="px-6 pb-5 flex gap-3 justify-end">
+      <button onclick="document.getElementById('editProfileModal').classList.add('hidden')" class="h-10 px-5 rounded-lg border border-outline-variant text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Hủy</button>
+      <button onclick="saveProfileChanges()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu thay đổi</button>
+    </div>
+  </div>
+</div>
+<!-- Change Password Modal -->
+<div id="changePwModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('changePwModal').classList.add('hidden')"></div>
+  <div class="relative bg-surface-container-lowest rounded-2xl shadow-2xl w-full max-w-[400px]">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant">
+      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] text-primary">lock_reset</span><h3 class="text-base font-bold text-on-surface">Đổi mật khẩu</h3></div>
+      <button onclick="document.getElementById('changePwModal').classList.add('hidden')" class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">close</span></button>
+    </div>
+    <div class="px-6 py-5 flex flex-col gap-4">
+      <div><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Mật khẩu hiện tại</label><div class="relative"><input type="password" id="pwCurrent" placeholder="••••••••" class="w-full h-10 px-3 pr-10 rounded-lg border border-outline-variant bg-surface-container text-sm text-on-surface focus:border-primary focus:outline-none transition-colors"><button type="button" onclick="togglePw(this)" data-target="pwCurrent" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">visibility_off</span></button></div></div>
+      <div><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Mật khẩu mới</label><div class="relative"><input type="password" id="pwNew" placeholder="••••••••" oninput="updatePwStrength(this)" class="w-full h-10 px-3 pr-10 rounded-lg border border-outline-variant bg-surface-container text-sm text-on-surface focus:border-primary focus:outline-none transition-colors"><button type="button" onclick="togglePw(this)" data-target="pwNew" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">visibility_off</span></button></div><div class="flex gap-1 mt-2"><div class="h-1 flex-1 rounded-full bg-outline-variant" id="str1"></div><div class="h-1 flex-1 rounded-full bg-outline-variant" id="str2"></div><div class="h-1 flex-1 rounded-full bg-outline-variant" id="str3"></div><div class="h-1 flex-1 rounded-full bg-outline-variant" id="str4"></div></div><p id="pwStrengthLabel" class="text-[11px] text-on-surface-variant mt-1"></p></div>
+      <div><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Xác nhận mật khẩu mới</label><div class="relative"><input type="password" id="pwConfirm" placeholder="••••••••" class="w-full h-10 px-3 pr-10 rounded-lg border border-outline-variant bg-surface-container text-sm text-on-surface focus:border-primary focus:outline-none transition-colors"><button type="button" onclick="togglePw(this)" data-target="pwConfirm" class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">visibility_off</span></button></div></div>
+    </div>
+    <div class="px-6 pb-5 flex gap-3 justify-end">
+      <button onclick="document.getElementById('changePwModal').classList.add('hidden')" class="h-10 px-5 rounded-lg border border-outline-variant text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Hủy</button>
+      <button onclick="savePassword()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Đổi mật khẩu</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){document.addEventListener('DOMContentLoaded',function(){var btn=document.getElementById('adminProfileBtn'),drop=document.getElementById('adminProfileDropdown'),exp=document.getElementById('adminExpandIcon');function openDrop(){drop.classList.remove('hidden');drop.style.cssText='opacity:0;transform:translateY(-8px) scale(0.97);transition:opacity 0.18s ease,transform 0.18s ease';requestAnimationFrame(function(){drop.style.opacity='1';drop.style.transform='translateY(0) scale(1)';});if(exp)exp.style.transform='rotate(180deg)';}function closeDrop(){drop.style.opacity='0';drop.style.transform='translateY(-8px) scale(0.97)';setTimeout(function(){drop.classList.add('hidden');drop.style.cssText='';},180);if(exp)exp.style.transform='';}if(btn)btn.addEventListener('click',function(e){e.stopPropagation();drop.classList.contains('hidden')?openDrop():closeDrop();});document.addEventListener('click',function(e){if(drop&&!drop.classList.contains('hidden')&&btn&&!btn.contains(e.target)&&!drop.contains(e.target))closeDrop();});});})();
+function showToast(msg){var t=document.createElement('div');t.className='fixed bottom-6 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-5 py-2.5 rounded-full text-sm font-semibold z-[9999] shadow-lg flex items-center gap-2';t.innerHTML='<span class="material-symbols-outlined text-[16px]" style="font-variation-settings:\'FILL\' 1">check_circle</span> '+msg;document.body.appendChild(t);setTimeout(function(){t.style.transition='opacity 0.3s';t.style.opacity='0';setTimeout(function(){t.remove();},350);},2200);}
+function saveProfileChanges(){document.getElementById('editProfileModal').classList.add('hidden');showToast('Đã lưu thay đổi hồ sơ');}
+function savePassword(){var pw=document.getElementById('pwNew'),cf=document.getElementById('pwConfirm');if(!pw.value)return;if(pw.value!==cf.value){cf.style.borderColor='#ba1a1a';setTimeout(function(){cf.style.borderColor='';},1500);return;}document.getElementById('changePwModal').classList.add('hidden');document.getElementById('pwCurrent').value='';pw.value='';cf.value='';['str1','str2','str3','str4'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.backgroundColor='';});var lbl=document.getElementById('pwStrengthLabel');if(lbl)lbl.textContent='';showToast('Đã đổi mật khẩu thành công');}
+function togglePw(btn){var inp=document.getElementById(btn.dataset.target),ic=btn.querySelector('.material-symbols-outlined');if(inp.type==='password'){inp.type='text';ic.textContent='visibility';}else{inp.type='password';ic.textContent='visibility_off';}}
+function updatePwStrength(inp){var v=inp.value,s=0;if(v.length>=8)s++;if(/[A-Z]/.test(v))s++;if(/[0-9]/.test(v))s++;if(/[^A-Za-z0-9]/.test(v))s++;var cols=['#ba1a1a','#e67e22','#0047a9','#05cd99'],labs=['','Yếu','Trung bình','Mạnh','Rất mạnh'];for(var i=1;i<=4;i++){var el=document.getElementById('str'+i);if(el)el.style.backgroundColor=i<=s?cols[s-1]:'';}var lbl=document.getElementById('pwStrengthLabel');if(lbl)lbl.textContent=v.length?labs[s]:'';}
+function previewAvatar(input){if(input.files&&input.files[0]){var r=new FileReader();r.onload=function(e){document.getElementById('editAvatarPreview').src=e.target.result;};r.readAsDataURL(input.files[0]);}}
 </script>
 </body>
 </html>

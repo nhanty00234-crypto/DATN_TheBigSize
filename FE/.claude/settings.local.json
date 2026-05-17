@@ -3,7 +3,8 @@
     "allow": [
       "Bash(Move-Item \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\styles.css\" \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\Client\\\\styles.css\")",
       "Bash(Select-String -Path \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\admin\\\\*.html\" -Pattern \"</body>\")",
-      "Bash(Select-Object Filename, LineNumber)"
+      "Bash(Select-Object Filename, LineNumber)",
+      "PowerShell($lines = Get-Content \"d:\\\\DATN\\\\DATN_TheBigSize\\\\FE\\\\admin\\\\Dashboard.html\"; $total = $lines.Count; $start = $total - 149; for \\($i = $start; $i -lt $total; $i++\\) { \"{0}: {1}\" -f \\($i+1\\), $lines[$i] })"
     ]
   }
 }

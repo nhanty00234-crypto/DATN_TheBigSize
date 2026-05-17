@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kho & Dịch vụ — Chi nhánh</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .nav-link { display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#71717a;font-size:14px;font-weight:500;text-decoration:none;transition:all .15s;white-space:nowrap; }
+  .nav-link:hover { background:#f4f4f5;color:#18181b; }
+  .nav-link.active { background:#f4f4f5;color:#18181b;font-weight:600;border-left:3px solid #27272a;padding-left:9px; }
+  .card { background:#fff;border:1px solid #e4e4e7;border-radius:12px; }
+  .badge { display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600; }
+  .badge-green { background:#f0fdf4;color:#16a34a; }
+  .badge-amber { background:#fffbeb;color:#d97706; }
+  .badge-red { background:#fef2f2;color:#dc2626; }
+  .badge-blue { background:#eff6ff;color:#2563eb; }
+  .badge-gray { background:#f4f4f5;color:#71717a; }
+  ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d4d4d8;border-radius:4px}
+</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 min-h-screen">
+
+<!-- Sidebar -->
+<aside id="sidebar" class="w-[240px] h-screen fixed left-0 top-0 bg-white border-r border-zinc-200 z-30 flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
+  <div class="px-5 py-4 border-b border-zinc-100 flex items-center gap-3">
+    <div class="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-white text-[16px]">sports</span></div>
+    <div><p class="text-sm font-bold text-zinc-900 leading-tight">V-SPORT</p><p class="text-[10px] text-zinc-400">Quản lý chi nhánh</p></div>
+  </div>
+  <div class="px-4 py-3 border-b border-zinc-100">
+    <div class="flex items-center gap-2.5 px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200">
+      <span class="material-symbols-outlined text-[15px] text-zinc-500">business</span>
+      <div class="min-w-0 flex-1"><p class="text-[11px] font-semibold text-zinc-800 truncate">CNH Sport Vũng Tàu</p><p class="text-[10px] text-zinc-400">CS01 · Quản lý</p></div>
+      <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+    </div>
+  </div>
+  <nav class="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-1">
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mb-1">Vận hành</p>
+    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">dashboard</span>Tổng quan</a>
+    <a href="LichDatSan.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">calendar_today</span>Lịch đặt sân</a>
+    <a href="QuanLySan.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">sports_tennis</span>Quản lý sân</a>
+    <a href="KhoDichVu.html" class="nav-link active"><span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1">inventory_2</span>Kho & Dịch vụ</a>
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mt-4 mb-1">Quản lý</p>
+    <a href="NhanSu.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">people</span>Nhân sự</a>
+    <a href="HoaDon.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">receipt_long</span>Hóa đơn</a>
+    <a href="KhuyenMai.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">local_offer</span>Khuyến mãi</a>
+  </nav>
+  <div class="px-3 py-3 border-t border-zinc-100">
+    <a href="../admin/Dashboard.html" class="nav-link text-zinc-400 text-xs"><span class="material-symbols-outlined text-[16px]">arrow_back</span>Về trang Admin</a>
+  </div>
+</aside>
+
+<!-- Header -->
+<header class="h-[60px] fixed top-0 right-0 left-0 lg:left-[240px] bg-white border-b border-zinc-200 z-20 flex items-center justify-between px-4 lg:px-6">
+  <div class="flex items-center gap-3">
+    <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">menu</span></button>
+    <div><h1 class="text-sm font-semibold text-zinc-900">Kho hàng & Dịch vụ</h1><p class="text-xs text-zinc-400">Bảng SanPham_DichVu · DanhMucSanPham</p></div>
+  </div>
+  <div class="flex items-center gap-2">
+    <button class="relative p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500"></span></button>
+    <div class="relative">
+      <button id="profileBtn" class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors">
+        <div class="w-7 h-7 rounded-full bg-zinc-200 flex items-center justify-center"><span class="material-symbols-outlined text-[14px] text-zinc-600">person</span></div>
+        <span class="text-sm font-semibold text-zinc-800 hidden sm:block">Nguyễn Văn Quản</span>
+        <span id="profileChevron" class="material-symbols-outlined text-[14px] text-zinc-400 hidden sm:block transition-transform duration-150">expand_more</span>
+      </button>
+      <div id="profileDrop" class="hidden absolute right-0 top-[calc(100%+6px)] w-[220px] bg-white rounded-xl shadow-lg border border-zinc-200 z-50 py-1">
+        <div class="px-4 py-2.5 border-b border-zinc-100"><p class="text-sm font-semibold text-zinc-900">Nguyễn Văn Quản</p><p class="text-xs text-zinc-500 mt-0.5">Quản lý chi nhánh · CS01</p></div>
+        <button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"><span class="material-symbols-outlined text-[16px]">manage_accounts</span>Hồ sơ cá nhân</button>
+        <button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"><span class="material-symbols-outlined text-[16px]">lock_reset</span>Đổi mật khẩu</button>
+        <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"><span class="material-symbols-outlined text-[16px]">logout</span>Đăng xuất</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="lg:ml-[240px] mt-[60px] p-4 lg:p-6 flex flex-col gap-5">
+
+  <!-- Alert: sắp hết hàng -->
+  <div class="flex items-center gap-3 px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800">
+    <span class="material-symbols-outlined text-[18px] text-amber-600 shrink-0">warning</span>
+    <p><span class="font-semibold">3 sản phẩm</span> sắp hết hàng (tồn kho &lt; 10). <button class="underline font-medium ml-1">Xem ngay</button></p>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <div class="card p-4 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-zinc-100 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-zinc-600">inventory_2</span></div>
+      <div><p class="text-xs text-zinc-500">Tổng SKU</p><p class="text-xl font-bold text-zinc-900">47</p></div>
+    </div>
+    <div class="card p-4 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-green-600">check_circle</span></div>
+      <div><p class="text-xs text-zinc-500">Còn hàng</p><p class="text-xl font-bold text-green-600">41</p></div>
+    </div>
+    <div class="card p-4 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-amber-600">production_quantity_limits</span></div>
+      <div><p class="text-xs text-zinc-500">Sắp hết</p><p class="text-xl font-bold text-amber-600">3</p></div>
+    </div>
+    <div class="card p-4 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-red-500">remove_shopping_cart</span></div>
+      <div><p class="text-xs text-zinc-500">Hết hàng</p><p class="text-xl font-bold text-red-500">3</p></div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+    <div class="flex items-center gap-2 flex-wrap">
+      <div class="relative">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-zinc-400">search</span>
+        <input type="text" placeholder="Tìm sản phẩm..." class="h-9 pl-8 pr-3 rounded-lg border border-zinc-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400 w-[200px]">
+      </div>
+      <select class="h-9 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        <option value="">Tất cả danh mục</option>
+        <option>Thực phẩm & Đồ uống</option>
+        <option>Dụng cụ thể thao</option>
+        <option>Cho thuê thiết bị</option>
+        <option>Dịch vụ phụ trợ</option>
+      </select>
+      <select class="h-9 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        <option value="">Tất cả trạng thái</option>
+        <option>Còn hàng</option>
+        <option>Sắp hết</option>
+        <option>Hết hàng</option>
+      </select>
+    </div>
+    <button onclick="document.getElementById('productModal').classList.remove('hidden')" class="flex items-center gap-1.5 h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800 transition-colors shrink-0">
+      <span class="material-symbols-outlined text-[16px]">add</span>Thêm sản phẩm
+    </button>
+  </div>
+
+  <!-- Category tabs -->
+  <div class="flex items-center gap-1 overflow-x-auto pb-1" id="catTabs">
+    <button onclick="setTab(this,'all')" class="tab-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-zinc-900 text-white">Tất cả <span class="text-xs opacity-70">(47)</span></button>
+    <button onclick="setTab(this,'food')" class="tab-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap text-zinc-500 hover:bg-zinc-100">Đồ ăn & Nước <span class="text-xs opacity-70">(18)</span></button>
+    <button onclick="setTab(this,'sport')" class="tab-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap text-zinc-500 hover:bg-zinc-100">Dụng cụ thể thao <span class="text-xs opacity-70">(15)</span></button>
+    <button onclick="setTab(this,'rent')" class="tab-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap text-zinc-500 hover:bg-zinc-100">Cho thuê <span class="text-xs opacity-70">(9)</span></button>
+    <button onclick="setTab(this,'svc')" class="tab-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap text-zinc-500 hover:bg-zinc-100">Dịch vụ phụ trợ <span class="text-xs opacity-70">(5)</span></button>
+  </div>
+
+  <!-- View toggle -->
+  <div class="flex items-center justify-between">
+    <p class="text-xs text-zinc-500">Hiển thị <span class="font-semibold text-zinc-700">6 / 47</span> sản phẩm</p>
+    <div class="flex rounded-lg border border-zinc-200 overflow-hidden bg-white">
+      <button id="viewGridBtn" onclick="setProductView('grid')" class="px-3 py-1.5 text-sm flex items-center gap-1.5 bg-zinc-900 text-white">
+        <span class="material-symbols-outlined text-[15px]">grid_view</span>Lưới
+      </button>
+      <button id="viewTableBtn" onclick="setProductView('table')" class="px-3 py-1.5 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50">
+        <span class="material-symbols-outlined text-[15px]">view_list</span>Bảng
+      </button>
+    </div>
+  </div>
+
+  <!-- Product GRID (default) -->
+  <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+
+    <!-- SP001: Aquafina (còn hàng) -->
+    <div class="group relative card overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+      <div class="absolute top-2 left-2 z-10 flex items-center gap-1.5">
+        <span class="text-[10px] font-bold bg-white/95 backdrop-blur px-2 py-0.5 rounded-md text-zinc-700 shadow-sm">SP001</span>
+      </div>
+      <div class="absolute top-2 right-2 z-10"><span class="badge badge-green shadow-sm">Còn hàng</span></div>
+      <div class="relative h-44 bg-gradient-to-br from-blue-50 to-cyan-100 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1564725073220-fa50fdc6b772?w=400&h=400&fit=crop" alt="Aquafina" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hidden absolute inset-0 items-center justify-center"><span class="material-symbols-outlined text-[60px] text-blue-300">local_drink</span></div>
+      </div>
+      <div class="p-3.5">
+        <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5">Đồ uống</p>
+        <h3 class="text-sm font-semibold text-zinc-900 truncate mb-2">Nước suối Aquafina 500ml</h3>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <p class="text-base font-bold text-zinc-900">10.000<span class="text-xs font-normal text-zinc-500"> đ</span></p>
+            <p class="text-[10px] text-zinc-400">/chai</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-400">Tồn kho</p>
+            <p class="text-sm font-bold text-green-600">48 <span class="text-[10px] text-zinc-400 font-normal">/ ≥20</span></p>
+          </div>
+        </div>
+        <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:96%"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button onclick="openRestockModal('SP001')" class="flex-1 h-8 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 flex items-center justify-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">add_box</span>Nhập</button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-red-400 hover:bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SP002: Redbull (sắp hết) -->
+    <div class="group relative card overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ring-2 ring-amber-200">
+      <div class="absolute top-2 left-2 z-10">
+        <span class="text-[10px] font-bold bg-white/95 backdrop-blur px-2 py-0.5 rounded-md text-zinc-700 shadow-sm">SP002</span>
+      </div>
+      <div class="absolute top-2 right-2 z-10"><span class="badge badge-amber shadow-sm animate-pulse">⚠ Sắp hết</span></div>
+      <div class="relative h-44 bg-gradient-to-br from-red-50 to-orange-100 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=400&h=400&fit=crop" alt="Redbull" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hidden absolute inset-0 items-center justify-center"><span class="material-symbols-outlined text-[60px] text-red-300">bolt</span></div>
+      </div>
+      <div class="p-3.5">
+        <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5">Đồ uống</p>
+        <h3 class="text-sm font-semibold text-zinc-900 truncate mb-2">Nước tăng lực Redbull</h3>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <p class="text-base font-bold text-zinc-900">25.000<span class="text-xs font-normal text-zinc-500"> đ</span></p>
+            <p class="text-[10px] text-zinc-400">/lon</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-400">Tồn kho</p>
+            <p class="text-sm font-bold text-amber-600">8 <span class="text-[10px] text-zinc-400 font-normal">/ ≥15</span></p>
+          </div>
+        </div>
+        <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full" style="width:32%"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button onclick="openRestockModal('SP002')" class="flex-1 h-8 rounded-lg bg-amber-500 text-white text-xs font-medium hover:bg-amber-600 flex items-center justify-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">add_box</span>Nhập gấp</button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-red-400 hover:bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SP010: Vợt cầu lông Yonex -->
+    <div class="group relative card overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+      <div class="absolute top-2 left-2 z-10">
+        <span class="text-[10px] font-bold bg-white/95 backdrop-blur px-2 py-0.5 rounded-md text-zinc-700 shadow-sm">SP010</span>
+      </div>
+      <div class="absolute top-2 right-2 z-10 flex flex-col gap-1 items-end">
+        <span class="badge badge-green shadow-sm">Còn hàng</span>
+        <span class="text-[9px] font-semibold bg-purple-500 text-white px-2 py-0.5 rounded-md shadow-sm">CHO THUÊ</span>
+      </div>
+      <div class="relative h-44 bg-gradient-to-br from-purple-50 to-pink-100 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&h=400&fit=crop" alt="Vợt cầu lông" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hidden absolute inset-0 items-center justify-center"><span class="material-symbols-outlined text-[60px] text-purple-300">sports_tennis</span></div>
+      </div>
+      <div class="p-3.5">
+        <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5">Cho thuê thiết bị</p>
+        <h3 class="text-sm font-semibold text-zinc-900 truncate mb-2">Vợt cầu lông Yonex</h3>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <p class="text-base font-bold text-zinc-900">20.000<span class="text-xs font-normal text-zinc-500"> đ</span></p>
+            <p class="text-[10px] text-zinc-400">/lần thuê</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-400">Sẵn có</p>
+            <p class="text-sm font-bold text-green-600">12 <span class="text-[10px] text-zinc-400 font-normal">/ ≥5</span></p>
+          </div>
+        </div>
+        <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:100%"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button class="flex-1 h-8 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 flex items-center justify-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">add_box</span>Nhập</button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-red-400 hover:bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SP015: Quả cầu lông -->
+    <div class="group relative card overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ring-2 ring-amber-200">
+      <div class="absolute top-2 left-2 z-10">
+        <span class="text-[10px] font-bold bg-white/95 backdrop-blur px-2 py-0.5 rounded-md text-zinc-700 shadow-sm">SP015</span>
+      </div>
+      <div class="absolute top-2 right-2 z-10"><span class="badge badge-amber shadow-sm animate-pulse">⚠ Sắp hết</span></div>
+      <div class="relative h-44 bg-gradient-to-br from-yellow-50 to-amber-100 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1593787406536-3676a72d23a8?w=400&h=400&fit=crop" alt="Quả cầu lông" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hidden absolute inset-0 items-center justify-center"><span class="material-symbols-outlined text-[60px] text-amber-300">sports</span></div>
+      </div>
+      <div class="p-3.5">
+        <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5">Dụng cụ thể thao</p>
+        <h3 class="text-sm font-semibold text-zinc-900 truncate mb-2">Quả cầu lông (lốc 12)</h3>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <p class="text-base font-bold text-zinc-900">85.000<span class="text-xs font-normal text-zinc-500"> đ</span></p>
+            <p class="text-[10px] text-zinc-400">/lốc</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-400">Tồn kho</p>
+            <p class="text-sm font-bold text-amber-600">5 <span class="text-[10px] text-zinc-400 font-normal">/ ≥10</span></p>
+          </div>
+        </div>
+        <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full" style="width:25%"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button class="flex-1 h-8 rounded-lg bg-amber-500 text-white text-xs font-medium hover:bg-amber-600 flex items-center justify-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">add_box</span>Nhập gấp</button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-red-400 hover:bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SP022: Khăn lau -->
+    <div class="group relative card overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ring-2 ring-red-200">
+      <div class="absolute top-2 left-2 z-10">
+        <span class="text-[10px] font-bold bg-white/95 backdrop-blur px-2 py-0.5 rounded-md text-zinc-700 shadow-sm">SP022</span>
+      </div>
+      <div class="absolute top-2 right-2 z-10"><span class="badge badge-red shadow-sm">✕ Hết hàng</span></div>
+      <div class="relative h-44 bg-gradient-to-br from-zinc-50 to-zinc-100 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1583912267550-d44c9c5ee1cb?w=400&h=400&fit=crop" alt="Khăn lau" class="w-full h-full object-cover grayscale group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hidden absolute inset-0 items-center justify-center"><span class="material-symbols-outlined text-[60px] text-zinc-300">dry_cleaning</span></div>
+        <div class="absolute inset-0 bg-red-500/5"></div>
+      </div>
+      <div class="p-3.5">
+        <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5">Dịch vụ phụ trợ</p>
+        <h3 class="text-sm font-semibold text-zinc-900 truncate mb-2">Khăn lau thể thao</h3>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <p class="text-base font-bold text-zinc-900">15.000<span class="text-xs font-normal text-zinc-500"> đ</span></p>
+            <p class="text-[10px] text-zinc-400">/cái</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-400">Tồn kho</p>
+            <p class="text-sm font-bold text-red-500">0 <span class="text-[10px] text-zinc-400 font-normal">/ ≥20</span></p>
+          </div>
+        </div>
+        <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-red-500 rounded-full" style="width:2%"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button class="flex-1 h-8 rounded-lg bg-red-500 text-white text-xs font-medium hover:bg-red-600 flex items-center justify-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">add_box</span>Nhập ngay</button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-red-400 hover:bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SP031: Giày Adidas -->
+    <div class="group relative card overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+      <div class="absolute top-2 left-2 z-10">
+        <span class="text-[10px] font-bold bg-white/95 backdrop-blur px-2 py-0.5 rounded-md text-zinc-700 shadow-sm">SP031</span>
+      </div>
+      <div class="absolute top-2 right-2 z-10 flex flex-col gap-1 items-end">
+        <span class="badge badge-green shadow-sm">Còn hàng</span>
+        <span class="text-[9px] font-semibold bg-purple-500 text-white px-2 py-0.5 rounded-md shadow-sm">CHO THUÊ</span>
+      </div>
+      <div class="relative h-44 bg-gradient-to-br from-slate-100 to-zinc-200 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop" alt="Giày Adidas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hidden absolute inset-0 items-center justify-center"><span class="material-symbols-outlined text-[60px] text-zinc-400">sports_soccer</span></div>
+      </div>
+      <div class="p-3.5">
+        <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5">Cho thuê thiết bị</p>
+        <h3 class="text-sm font-semibold text-zinc-900 truncate mb-2">Giày bóng đá Adidas size 40</h3>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <p class="text-base font-bold text-zinc-900">30.000<span class="text-xs font-normal text-zinc-500"> đ</span></p>
+            <p class="text-[10px] text-zinc-400">/lần thuê</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-400">Sẵn có</p>
+            <p class="text-sm font-bold text-green-600">6 <span class="text-[10px] text-zinc-400 font-normal">/ ≥3</span></p>
+          </div>
+        </div>
+        <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:100%"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button class="flex-1 h-8 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 flex items-center justify-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">add_box</span>Nhập</button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-red-400 hover:bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SP005: Cà phê đóng chai -->
+    <div class="group relative card overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+      <div class="absolute top-2 left-2 z-10">
+        <span class="text-[10px] font-bold bg-white/95 backdrop-blur px-2 py-0.5 rounded-md text-zinc-700 shadow-sm">SP005</span>
+      </div>
+      <div class="absolute top-2 right-2 z-10"><span class="badge badge-green shadow-sm">Còn hàng</span></div>
+      <div class="relative h-44 bg-gradient-to-br from-amber-50 to-yellow-100 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=400&h=400&fit=crop" alt="Cà phê" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hidden absolute inset-0 items-center justify-center"><span class="material-symbols-outlined text-[60px] text-amber-300">coffee</span></div>
+      </div>
+      <div class="p-3.5">
+        <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5">Đồ uống</p>
+        <h3 class="text-sm font-semibold text-zinc-900 truncate mb-2">Cà phê Highlands đóng chai</h3>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <p class="text-base font-bold text-zinc-900">22.000<span class="text-xs font-normal text-zinc-500"> đ</span></p>
+            <p class="text-[10px] text-zinc-400">/chai</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-400">Tồn kho</p>
+            <p class="text-sm font-bold text-green-600">32 <span class="text-[10px] text-zinc-400 font-normal">/ ≥10</span></p>
+          </div>
+        </div>
+        <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:85%"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button class="flex-1 h-8 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 flex items-center justify-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">add_box</span>Nhập</button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-red-400 hover:bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SP018: Bóng đá thi đấu -->
+    <div class="group relative card overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+      <div class="absolute top-2 left-2 z-10">
+        <span class="text-[10px] font-bold bg-white/95 backdrop-blur px-2 py-0.5 rounded-md text-zinc-700 shadow-sm">SP018</span>
+      </div>
+      <div class="absolute top-2 right-2 z-10"><span class="badge badge-green shadow-sm">Còn hàng</span></div>
+      <div class="relative h-44 bg-gradient-to-br from-emerald-50 to-teal-100 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1614632537190-23e4146777db?w=400&h=400&fit=crop" alt="Bóng đá" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="hidden absolute inset-0 items-center justify-center"><span class="material-symbols-outlined text-[60px] text-emerald-300">sports_soccer</span></div>
+      </div>
+      <div class="p-3.5">
+        <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-0.5">Dụng cụ thể thao</p>
+        <h3 class="text-sm font-semibold text-zinc-900 truncate mb-2">Bóng đá thi đấu FIFA Pro</h3>
+        <div class="flex items-end justify-between mb-3">
+          <div>
+            <p class="text-base font-bold text-zinc-900">450.000<span class="text-xs font-normal text-zinc-500"> đ</span></p>
+            <p class="text-[10px] text-zinc-400">/quả</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-zinc-400">Tồn kho</p>
+            <p class="text-sm font-bold text-green-600">14 <span class="text-[10px] text-zinc-400 font-normal">/ ≥5</span></p>
+          </div>
+        </div>
+        <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:90%"></div>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button class="flex-1 h-8 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 flex items-center justify-center gap-1 transition-colors"><span class="material-symbols-outlined text-[14px]">add_box</span>Nhập</button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          <button class="h-8 w-8 rounded-lg border border-zinc-200 text-red-400 hover:bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Pagination for grid -->
+  <div class="flex items-center justify-between text-xs text-zinc-500">
+    <span>Hiển thị 8 / 47 sản phẩm</span>
+    <div class="flex items-center gap-1">
+      <button class="px-2 py-1 rounded hover:bg-zinc-100 disabled:opacity-40" disabled><span class="material-symbols-outlined text-[14px]">chevron_left</span></button>
+      <button class="px-2.5 py-1 rounded bg-zinc-900 text-white font-medium">1</button>
+      <button class="px-2.5 py-1 rounded hover:bg-zinc-100">2</button>
+      <button class="px-2.5 py-1 rounded hover:bg-zinc-100">3</button>
+      <button class="px-2.5 py-1 rounded hover:bg-zinc-100">4</button>
+      <button class="px-2.5 py-1 rounded hover:bg-zinc-100">5</button>
+      <button class="px-2 py-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
+    </div>
+  </div>
+
+  <!-- Product TABLE (hidden by default) -->
+  <div id="productTable" class="hidden card overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-zinc-50 border-b border-zinc-200">
+        <tr>
+          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Mã SP</th>
+          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Tên sản phẩm / Dịch vụ</th>
+          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden sm:table-cell">Danh mục</th>
+          <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs hidden md:table-cell">Giá bán</th>
+          <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs">Tồn kho</th>
+          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden lg:table-cell">Cảnh báo</th>
+          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Trạng thái</th>
+          <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-zinc-100">
+        <tr class="hover:bg-zinc-50">
+          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SP001</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg overflow-hidden bg-blue-50 shrink-0">
+                <img src="https://images.unsplash.com/photo-1564725073220-fa50fdc6b772?w=80&h=80&fit=crop" class="w-full h-full object-cover" alt="">
+              </div>
+              <div>
+                <p class="font-medium text-zinc-900">Nước suối Aquafina 500ml</p>
+                <p class="text-xs text-zinc-400">Thực phẩm & Đồ uống</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Đồ uống</td>
+          <td class="px-4 py-3 text-right font-medium text-zinc-800 hidden md:table-cell">10.000 đ</td>
+          <td class="px-4 py-3 text-right font-semibold text-zinc-900">48</td>
+          <td class="px-4 py-3 hidden lg:table-cell"><span class="text-xs text-zinc-400">≥ 20</span></td>
+          <td class="px-4 py-3"><span class="badge badge-green">Còn hàng</span></td>
+          <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+            <button onclick="openRestockModal('SP001')" class="p-1 rounded hover:bg-zinc-100 text-zinc-500" title="Nhập kho"><span class="material-symbols-outlined text-[16px]">add_box</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500" title="Chỉnh sửa"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-red-400" title="Xóa"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+          </td>
+        </tr>
+        <tr class="hover:bg-zinc-50">
+          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SP002</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg overflow-hidden bg-red-50 shrink-0">
+                <img src="https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=80&h=80&fit=crop" class="w-full h-full object-cover" alt="">
+              </div>
+              <div>
+                <p class="font-medium text-zinc-900">Nước tăng lực Redbull</p>
+                <p class="text-xs text-zinc-400">Thực phẩm & Đồ uống</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Đồ uống</td>
+          <td class="px-4 py-3 text-right font-medium text-zinc-800 hidden md:table-cell">25.000 đ</td>
+          <td class="px-4 py-3 text-right font-semibold text-amber-600">8</td>
+          <td class="px-4 py-3 hidden lg:table-cell"><span class="text-xs text-amber-600">≥ 15 ⚠</span></td>
+          <td class="px-4 py-3"><span class="badge badge-amber">Sắp hết</span></td>
+          <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+            <button onclick="openRestockModal('SP002')" class="p-1 rounded hover:bg-amber-50 text-amber-600" title="Nhập kho"><span class="material-symbols-outlined text-[16px]">add_box</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+          </td>
+        </tr>
+        <tr class="hover:bg-zinc-50">
+          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SP010</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg overflow-hidden bg-purple-50 shrink-0">
+                <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=80&h=80&fit=crop" class="w-full h-full object-cover" alt="">
+              </div>
+              <div>
+                <p class="font-medium text-zinc-900">Vợt cầu lông Yonex (cho thuê)</p>
+                <p class="text-xs text-zinc-400">Cho thuê thiết bị</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Cho thuê</td>
+          <td class="px-4 py-3 text-right font-medium text-zinc-800 hidden md:table-cell">20.000 đ/lần</td>
+          <td class="px-4 py-3 text-right font-semibold text-zinc-900">12</td>
+          <td class="px-4 py-3 hidden lg:table-cell"><span class="text-xs text-zinc-400">≥ 5</span></td>
+          <td class="px-4 py-3"><span class="badge badge-green">Còn hàng</span></td>
+          <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">add_box</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+          </td>
+        </tr>
+        <tr class="hover:bg-zinc-50">
+          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SP015</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg overflow-hidden bg-amber-50 shrink-0">
+                <img src="https://images.unsplash.com/photo-1593787406536-3676a72d23a8?w=80&h=80&fit=crop" class="w-full h-full object-cover" alt="">
+              </div>
+              <div>
+                <p class="font-medium text-zinc-900">Quả cầu lông (lốc 12)</p>
+                <p class="text-xs text-zinc-400">Dụng cụ thể thao</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Dụng cụ</td>
+          <td class="px-4 py-3 text-right font-medium text-zinc-800 hidden md:table-cell">85.000 đ</td>
+          <td class="px-4 py-3 text-right font-semibold text-amber-600">5</td>
+          <td class="px-4 py-3 hidden lg:table-cell"><span class="text-xs text-amber-600">≥ 10 ⚠</span></td>
+          <td class="px-4 py-3"><span class="badge badge-amber">Sắp hết</span></td>
+          <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+            <button class="p-1 rounded hover:bg-amber-50 text-amber-600"><span class="material-symbols-outlined text-[16px]">add_box</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+          </td>
+        </tr>
+        <tr class="hover:bg-zinc-50">
+          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SP022</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg overflow-hidden bg-zinc-100 shrink-0">
+                <img src="https://images.unsplash.com/photo-1583912267550-d44c9c5ee1cb?w=80&h=80&fit=crop" class="w-full h-full object-cover grayscale" alt="">
+              </div>
+              <div>
+                <p class="font-medium text-zinc-900">Khăn lau thể thao</p>
+                <p class="text-xs text-zinc-400">Dịch vụ phụ trợ</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Dịch vụ</td>
+          <td class="px-4 py-3 text-right font-medium text-zinc-800 hidden md:table-cell">15.000 đ</td>
+          <td class="px-4 py-3 text-right font-semibold text-red-600">0</td>
+          <td class="px-4 py-3 hidden lg:table-cell"><span class="text-xs text-red-600">≥ 20 ✕</span></td>
+          <td class="px-4 py-3"><span class="badge badge-red">Hết hàng</span></td>
+          <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+            <button class="p-1 rounded hover:bg-red-50 text-red-500"><span class="material-symbols-outlined text-[16px]">add_box</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+          </td>
+        </tr>
+        <tr class="hover:bg-zinc-50">
+          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SP031</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg overflow-hidden bg-slate-100 shrink-0">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=80&h=80&fit=crop" class="w-full h-full object-cover" alt="">
+              </div>
+              <div>
+                <p class="font-medium text-zinc-900">Giày bóng đá Adidas size 40</p>
+                <p class="text-xs text-zinc-400">Cho thuê thiết bị</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Cho thuê</td>
+          <td class="px-4 py-3 text-right font-medium text-zinc-800 hidden md:table-cell">30.000 đ/lần</td>
+          <td class="px-4 py-3 text-right font-semibold text-zinc-900">6</td>
+          <td class="px-4 py-3 hidden lg:table-cell"><span class="text-xs text-zinc-400">≥ 3</span></td>
+          <td class="px-4 py-3"><span class="badge badge-green">Còn hàng</span></td>
+          <td class="px-4 py-3 text-right flex items-center justify-end gap-1">
+            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">add_box</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+            <button class="p-1 rounded hover:bg-zinc-100 text-red-400"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<!-- Add Product Modal -->
+<div id="productModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('productModal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[480px] max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <h2 class="text-base font-semibold text-zinc-900">Thêm sản phẩm / Dịch vụ</h2>
+      <button onclick="document.getElementById('productModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+    </div>
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Danh mục <span class="text-red-500">*</span> <span class="text-[10px] text-zinc-400 font-normal">· Bảng DanhMucSanPham</span></label>
+        <select class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+          <option value="">-- Chọn danh mục --</option>
+          <option>Thực phẩm & Đồ uống</option>
+          <option>Dụng cụ thể thao</option>
+          <option>Cho thuê thiết bị</option>
+          <option>Dịch vụ phụ trợ</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Mã sản phẩm <span class="text-red-500">*</span></label>
+          <input type="text" placeholder="VD: SP048" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Đơn vị tính</label>
+          <input type="text" placeholder="VD: Chai, Cái, Lần" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Tên sản phẩm <span class="text-red-500">*</span></label>
+        <input type="text" placeholder="Nhập tên sản phẩm hoặc dịch vụ" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Giá bán (đ) <span class="text-red-500">*</span></label>
+          <input type="number" placeholder="0" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Giá nhập (đ)</label>
+          <input type="number" placeholder="0" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Tồn kho ban đầu</label>
+          <input type="number" placeholder="0" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-zinc-700">Cảnh báo khi ≤</label>
+          <input type="number" placeholder="10" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Ghi chú</label>
+        <textarea rows="2" class="px-3 py-2 rounded-lg border border-zinc-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-zinc-400"></textarea>
+      </div>
+    </div>
+    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
+      <button onclick="document.getElementById('productModal').classList.add('hidden')" class="h-9 px-4 rounded-lg border border-zinc-200 text-sm text-zinc-700 hover:bg-zinc-50">Hủy</button>
+      <button class="h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800">Thêm mới</button>
+    </div>
+  </div>
+</div>
+
+<!-- Restock Modal -->
+<div id="restockModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('restockModal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[360px]">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <h2 class="text-base font-semibold text-zinc-900">Nhập kho</h2>
+      <button onclick="document.getElementById('restockModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+    </div>
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <div class="px-3 py-2.5 bg-zinc-50 rounded-lg">
+        <p class="text-xs text-zinc-500">Sản phẩm</p>
+        <p class="text-sm font-semibold text-zinc-900" id="restockName">SP002 — Nước tăng lực Redbull</p>
+        <p class="text-xs text-zinc-500 mt-0.5">Tồn kho hiện tại: <span class="font-semibold text-amber-600">8 chai</span></p>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Số lượng nhập <span class="text-red-500">*</span></label>
+        <input type="number" min="1" placeholder="Nhập số lượng" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Nhà cung cấp</label>
+        <input type="text" placeholder="Tên nhà cung cấp" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-medium text-zinc-700">Ghi chú phiếu nhập</label>
+        <textarea rows="2" class="px-3 py-2 rounded-lg border border-zinc-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-zinc-400"></textarea>
+      </div>
+    </div>
+    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
+      <button onclick="document.getElementById('restockModal').classList.add('hidden')" class="h-9 px-4 rounded-lg border border-zinc-200 text-sm text-zinc-700 hover:bg-zinc-50">Hủy</button>
+      <button onclick="document.getElementById('restockModal').classList.add('hidden')" class="h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800">Xác nhận nhập</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('-translate-x-full'));
+(function(){const btn=document.getElementById('profileBtn'),drop=document.getElementById('profileDrop'),chev=document.getElementById('profileChevron');
+btn.addEventListener('click',e=>{e.stopPropagation();const h=drop.classList.contains('hidden');if(h){drop.classList.remove('hidden');drop.style.cssText='opacity:0;transform:translateY(-6px);transition:opacity .15s,transform .15s';requestAnimationFrame(()=>{drop.style.opacity='1';drop.style.transform='translateY(0)';});chev.style.transform='rotate(180deg)';}else{drop.style.opacity='0';drop.style.transform='translateY(-6px)';setTimeout(()=>{drop.classList.add('hidden');drop.style.cssText='';},150);chev.style.transform='';}});
+document.addEventListener('click',e=>{if(!drop.classList.contains('hidden')&&!btn.contains(e.target)){drop.classList.add('hidden');drop.style.cssText='';chev.style.transform='';}});})();
+
+function setTab(el,id){
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.className='tab-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap text-zinc-500 hover:bg-zinc-100';});
+  el.className='tab-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-zinc-900 text-white';
+}
+function openRestockModal(id){document.getElementById('restockName').textContent=id+' — Sản phẩm';document.getElementById('restockModal').classList.remove('hidden');}
+function setProductView(v){
+  const grid=document.getElementById('productGrid'),table=document.getElementById('productTable');
+  const bg=document.getElementById('viewGridBtn'),bt=document.getElementById('viewTableBtn');
+  if(v==='grid'){grid.classList.remove('hidden');table.classList.add('hidden');bg.className='px-3 py-1.5 text-sm flex items-center gap-1.5 bg-zinc-900 text-white';bt.className='px-3 py-1.5 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50';}
+  else{table.classList.remove('hidden');grid.classList.add('hidden');bt.className='px-3 py-1.5 text-sm flex items-center gap-1.5 bg-zinc-900 text-white';bg.className='px-3 py-1.5 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50';}
+}
+</script>
+</body>
+</html>
