@@ -7,7 +7,9 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
+    <!-- Animate.css for subtle entrance animations -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -34,6 +36,7 @@
                         "on-tertiary-fixed": "#271900",
                         "outline-variant": "#c2c6d6",
                         "primary": "#0047a9",
+            "primary-hover": "#00368a",
                         "outline": "#737785",
                         "secondary-fixed": "#93f7ba",
                         "surface-dim": "#d9dadb",
@@ -76,7 +79,27 @@
                         "gutter": "16px",
                         "topbar-height": "72px"
                     },
-                    "fontFamily": {
+                    
+          "boxShadow": {
+            'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+            'floating': '0 10px 40px -10px rgba(0,0,0,0.08)',
+            'glass': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.3)',
+          },
+          "animation": {
+            'fade-in': 'fadeIn 0.3s ease-out',
+            'slide-up': 'slideUp 0.4s ease-out forwards',
+          },
+          "keyframes": {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(10px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          },
+          "fontFamily": {
                         "headline-sm": ["Inter"],
                         "label-md": ["Inter"],
                         "display-lg": ["Inter"],
@@ -107,6 +130,24 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .icon-fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    
+    /* Custom Scrollbar for a cleaner look */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    html.dark .glass-panel {
+        background: rgba(17, 20, 22, 0.9);
+    }
+
     /* === DARK MODE === */
     html.dark body { background-color: #111416; color: #e2e2e5; }
     html.dark .bg-background { background-color: #111416 !important; }
@@ -147,7 +188,7 @@
 </head>
 <body class="bg-background text-on-background font-body-md antialiased min-h-screen">
     <!-- SideNavBar -->
-    <aside id="sidebar" class="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-lowest shadow-[0px_4px_12px_rgba(0,0,0,0.05)] shadow-sm z-30 flex flex-col py-container-padding transition-transform duration-300 -translate-x-full lg:translate-x-0">
+    <aside id="sidebar" class="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-lowest shadow-soft z-30 flex flex-col py-container-padding transition-transform duration-300 -translate-x-full lg:translate-x-0">
         <div class="px-container-padding mb-stack-lg flex flex-col gap-1">
             <div class="font-display-lg text-display-lg text-primary dark:text-primary-fixed">V-SPORT</div>
             <div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Hệ thống quản lý</div>
@@ -155,38 +196,38 @@
         <nav class="flex-1 overflow-y-auto mt-stack-md">
             <ul class="flex flex-col gap-2">
                 <li class="">
-                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="Dashboard.html">
-                        <span class="material-symbols-outlined">dashboard</span>
+                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-variant hover:text-primary transition-all font-medium cursor-pointer active:scale-95 duration-200 group" href="Dashboard.html">
+                        <span class="material-symbols-outlined transition-transform group-hover:scale-110">dashboard</span>
                         Báo cáo &amp; Thống kê
                     </a>
                 </li>
                 <li class="">
-                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="LichDatSan.html">
-                        <span class="material-symbols-outlined">calendar_today</span>
+                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-variant hover:text-primary transition-all font-medium cursor-pointer active:scale-95 duration-200 group" href="LichDatSan.html">
+                        <span class="material-symbols-outlined transition-transform group-hover:scale-110">calendar_today</span>
                         Lịch đặt sân
                     </a>
                 </li>
-                <li class="bg-primary/10 border-l-4 border-primary">
-                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-primary font-bold transition-colors cursor-pointer active:scale-95 duration-200" href="QuanLiChiNhanh.html">
+                <li class="relative">
+                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md bg-primary text-white shadow-md shadow-primary/30 font-semibold relative overflow-hidden group cursor-pointer active:scale-95 duration-200" href="QuanLiChiNhanh.html">
                         <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">domain</span>
                         Quản lý chi nhánh
                     </a>
                 </li>
                 <li class="">
-                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="QuanLiUser.html">
-                        <span class="material-symbols-outlined">group</span>
+                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-variant hover:text-primary transition-all font-medium cursor-pointer active:scale-95 duration-200 group" href="QuanLiUser.html">
+                        <span class="material-symbols-outlined transition-transform group-hover:scale-110">group</span>
                         Quản lý User
                     </a>
                 </li>
                 <li class="">
-                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="Sale.html">
-                        <span class="material-symbols-outlined">local_offer</span>
+                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-variant hover:text-primary transition-all font-medium cursor-pointer active:scale-95 duration-200 group" href="Sale.html">
+                        <span class="material-symbols-outlined transition-transform group-hover:scale-110">local_offer</span>
                         Khuyến mãi
                     </a>
                 </li>
                 <li class="">
-                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 duration-200" href="BaoCaoPOS.html">
-                        <span class="material-symbols-outlined">point_of_sale</span>
+                    <a class="flex items-center gap-stack-md px-container-padding py-stack-md text-on-surface-variant hover:bg-surface-variant hover:text-primary transition-all font-medium cursor-pointer active:scale-95 duration-200 group" href="BaoCaoPOS.html">
+                        <span class="material-symbols-outlined transition-transform group-hover:scale-110">point_of_sale</span>
                         Báo cáo POS
                     </a>
                 </li>
@@ -195,10 +236,10 @@
     </aside>
 
     <!-- TopNavBar -->
-    <header class="h-[72px] fixed top-0 right-0 left-0 lg:left-[260px] bg-surface-container-lowest border-b border-outline-variant z-20 flex justify-between items-center px-4 lg:px-container-padding w-full lg:w-[calc(100%-260px)] transition-all duration-300">
+    <header class="h-[72px] fixed top-0 right-0 left-0 lg:left-[260px] glass-panel border-b border-outline-variant z-20 flex justify-between items-center px-4 lg:px-container-padding w-full lg:w-[calc(100%-260px)] transition-all duration-300">
         <div class="flex-1 flex items-center gap-4">
             <button id="mobileMenuBtn" class="lg:hidden p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
-                <span class="material-symbols-outlined">menu</span>
+                <span class="material-symbols-outlined transition-transform group-hover:scale-110">menu</span>
             </button>
             <div class="relative w-full max-w-sm hidden sm:block">
                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
@@ -207,13 +248,13 @@
         </div>
         <div class="flex items-center gap-stack-md">
             <button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer p-2 rounded-full hover:bg-surface-container-high">
-                <span class="material-symbols-outlined">notifications</span>
+                <span class="material-symbols-outlined transition-transform group-hover:scale-110">notifications</span>
             </button>
             <button id="themeToggleBtn" title="Đổi giao diện sáng/tối" class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer p-2 rounded-full hover:bg-surface-container-high">
                 <span id="themeToggleIcon" class="material-symbols-outlined">dark_mode</span>
             </button>
             <button id="settingsBtn" title="Cài đặt hệ thống" class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer p-2 rounded-full hover:bg-surface-container-high">
-                <span class="material-symbols-outlined">settings</span>
+                <span class="material-symbols-outlined transition-transform group-hover:scale-110">settings</span>
             </button>
             <div class="h-8 w-px bg-outline-variant mx-2"></div>
             <div class="relative">
@@ -264,7 +305,7 @@
                 <h1 class="font-headline-md text-headline-md text-on-surface">Quản lý Chi nhánh</h1>
                 <p class="font-body-md text-body-md text-on-surface-variant mt-1">Quản lý thông tin, cấu hình và trạng thái của các cụm sân.</p>
             </div>
-            <button id="addBranchBtn" class="bg-primary text-on-primary hover:bg-primary-fixed-variant font-label-md text-label-md px-5 py-2.5 rounded-lg flex items-center gap-2 shadow-sm transition-colors active:scale-95 duration-200 whitespace-nowrap">
+            <button id="addBranchBtn" class="bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-fixed-variant font-label-md text-label-md px-5 py-2.5 rounded-lg flex items-center gap-2 shadow-sm transition-colors active:scale-95 duration-200 whitespace-nowrap">
                 <span class="material-symbols-outlined text-[18px]">add</span>
                 Thêm Chi nhánh mới
             </button>
@@ -343,13 +384,13 @@
                             </td>
                             <td class="py-4 px-4 text-right">
                                 <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors" title="Xem chi tiết">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors" title="Xem chi tiết">
                                         <span class="material-symbols-outlined text-[20px]">visibility</span>
                                     </button>
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors edit-branch-btn" title="Cấu hình & Chỉnh sửa">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors edit-branch-btn" title="Cấu hình & Chỉnh sửa">
                                         <span class="material-symbols-outlined text-[20px]">edit</span>
                                     </button>
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors" title="Khác">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors" title="Khác">
                                         <span class="material-symbols-outlined text-[20px]">more_vert</span>
                                     </button>
                                 </div>
@@ -373,13 +414,13 @@
                             </td>
                             <td class="py-4 px-4 text-right">
                                 <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors" title="Xem chi tiết">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors" title="Xem chi tiết">
                                         <span class="material-symbols-outlined text-[20px]">visibility</span>
                                     </button>
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors edit-branch-btn" title="Cấu hình & Chỉnh sửa">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors edit-branch-btn" title="Cấu hình & Chỉnh sửa">
                                         <span class="material-symbols-outlined text-[20px]">edit</span>
                                     </button>
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors" title="Khác">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors" title="Khác">
                                         <span class="material-symbols-outlined text-[20px]">more_vert</span>
                                     </button>
                                 </div>
@@ -403,13 +444,13 @@
                             </td>
                             <td class="py-4 px-4 text-right">
                                 <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors" title="Xem chi tiết">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors" title="Xem chi tiết">
                                         <span class="material-symbols-outlined text-[20px]">visibility</span>
                                     </button>
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors edit-branch-btn" title="Cấu hình & Chỉnh sửa">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors edit-branch-btn" title="Cấu hình & Chỉnh sửa">
                                         <span class="material-symbols-outlined text-[20px]">edit</span>
                                     </button>
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary-container/10 rounded-md transition-colors" title="Khác">
+                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container/10 rounded-md transition-colors" title="Khác">
                                         <span class="material-symbols-outlined text-[20px]">more_vert</span>
                                     </button>
                                 </div>
@@ -426,7 +467,7 @@
                     <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled="">
                         <span class="material-symbols-outlined text-[20px]">chevron_left</span>
                     </button>
-                    <button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-label-sm text-label-sm">1</button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white font-label-sm text-label-sm">1</button>
                     <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm">2</button>
                     <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm">3</button>
                     <span class="text-on-surface-variant">...</span>
@@ -478,7 +519,7 @@
                                     <input class="w-full px-3 py-2 border border-outline-variant rounded-lg bg-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-body-md" placeholder="Số lượng sân" type="number" value="0"/>
                                 </div>
                                 <button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors" type="button">
-                                    <span class="material-symbols-outlined">add</span>
+                                    <span class="material-symbols-outlined transition-transform group-hover:scale-110">add</span>
                                 </button>
                             </div>
                         </div>
@@ -517,7 +558,7 @@
             <!-- Modal Footer -->
             <div class="px-container-padding py-stack-md border-t border-outline-variant bg-surface flex items-center justify-end gap-3">
                 <button id="cancelModalBtn" type="button" class="px-5 py-2.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors">Hủy</button>
-                <button type="button" class="px-8 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-sm transition-all active:scale-95">Lưu</button>
+                <button type="button" class="px-8 py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white font-label-md text-label-md hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container shadow-sm transition-all active:scale-95">Lưu</button>
             </div>
         </div>
     </div>
@@ -545,7 +586,7 @@
                     <!-- Left Column: Matchmaking & SOS -->
                     <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-container-padding">
                         <h3 class="font-title-lg text-title-lg text-on-surface border-b border-outline-variant pb-4 mb-4 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary" data-icon="handshake">handshake</span>
+                            <span class="material-symbols-outlined text-white" data-icon="handshake">handshake</span>
                             Cấu hình Matchmaking & SOS
                         </h3>
                         <div class="space-y-4">
@@ -761,7 +802,7 @@
             <!-- Modal Footer -->
             <div class="px-container-padding py-stack-md border-t border-outline-variant bg-surface flex items-center justify-end gap-3">
                 <button id="cancelConfigModalBtn" type="button" class="px-5 py-2.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high transition-colors border border-outline-variant">Hủy</button>
-                <button type="button" class="px-8 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container shadow-sm transition-all active:scale-95 flex items-center gap-2">
+                <button type="button" class="px-8 py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white font-label-md text-label-md hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container shadow-sm transition-all active:scale-95 flex items-center gap-2">
                     <span class="material-symbols-outlined text-[18px]">save</span> Lưu cấu hình
                 </button>
             </div>
@@ -854,7 +895,7 @@
       <h3 class="font-bold text-[18px] text-on-surface">Cài đặt hệ thống</h3>
     </div>
     <button id="closeSettingsBtn" class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
-      <span class="material-symbols-outlined">close</span>
+      <span class="material-symbols-outlined transition-transform group-hover:scale-110">close</span>
     </button>
   </div>
   <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-7">
@@ -874,10 +915,10 @@
     <section>
       <p class="text-[11px] font-bold uppercase tracking-[0.08em] text-on-surface-variant mb-3">Thông báo</p>
       <div class="flex flex-col divide-y divide-outline-variant/60 rounded-xl overflow-hidden border border-outline-variant/60">
-        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">volume_up</span><p class="text-sm font-medium text-on-surface">Âm thanh</p></div><button onclick="toggleSetting('sound',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-primary transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
-        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">calendar_today</span><p class="text-sm font-medium text-on-surface">Đặt sân mới</p></div><button onclick="toggleSetting('booking',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-primary transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
+        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">volume_up</span><p class="text-sm font-medium text-on-surface">Âm thanh</p></div><button onclick="toggleSetting('sound',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
+        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">calendar_today</span><p class="text-sm font-medium text-on-surface">Đặt sân mới</p></div><button onclick="toggleSetting('booking',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
         <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">inventory_2</span><p class="text-sm font-medium text-on-surface">Cảnh báo tồn kho</p></div><button onclick="toggleSetting('stock',this)" aria-checked="false" class="s-toggle relative w-11 h-6 rounded-full bg-outline-variant transition-colors duration-200"><span class="knob absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
-        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">payments</span><p class="text-sm font-medium text-on-surface">Thanh toán &amp; hoàn tiền</p></div><button onclick="toggleSetting('payment',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-primary transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
+        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">payments</span><p class="text-sm font-medium text-on-surface">Thanh toán &amp; hoàn tiền</p></div><button onclick="toggleSetting('payment',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
       </div>
     </section>
     <section>
@@ -899,7 +940,7 @@
   </div>
   <div class="shrink-0 px-6 py-4 border-t border-outline-variant flex gap-3">
     <button onclick="resetSettings()" class="flex-1 h-10 rounded-lg border border-outline-variant text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Đặt lại</button>
-    <button onclick="saveSettings()" class="flex-1 h-10 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu cài đặt</button>
+    <button onclick="saveSettings()" class="flex-1 h-10 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu cài đặt</button>
   </div>
 </aside>
 <script>
@@ -942,7 +983,7 @@ document.addEventListener('DOMContentLoaded',function(){ var sb=document.getElem
     </div>
     <div class="px-6 pb-5 flex gap-3 justify-end">
       <button onclick="document.getElementById('editProfileModal').classList.add('hidden')" class="h-10 px-5 rounded-lg border border-outline-variant text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Hủy</button>
-      <button onclick="saveProfileChanges()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu thay đổi</button>
+      <button onclick="saveProfileChanges()" class="h-10 px-5 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu thay đổi</button>
     </div>
   </div>
 </div>
@@ -961,7 +1002,7 @@ document.addEventListener('DOMContentLoaded',function(){ var sb=document.getElem
     </div>
     <div class="px-6 pb-5 flex gap-3 justify-end">
       <button onclick="document.getElementById('changePwModal').classList.add('hidden')" class="h-10 px-5 rounded-lg border border-outline-variant text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Hủy</button>
-      <button onclick="savePassword()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Đổi mật khẩu</button>
+      <button onclick="savePassword()" class="h-10 px-5 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Đổi mật khẩu</button>
     </div>
   </div>
 </div>
