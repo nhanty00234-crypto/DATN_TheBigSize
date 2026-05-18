@@ -10,8 +10,8 @@
   body { font-family: 'Inter', sans-serif; }
   .nav-link { display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:10px;color:#52525b;font-size:14px;font-weight:500;text-decoration:none;transition:all .15s;white-space:nowrap;position:relative; }
   .nav-link:hover { background:#f4f4f5;color:#18181b; }
-  .nav-link.active { background:#eff6ff;color:#1e40af;font-weight:600; }
-  .nav-link.active::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:3px; background:#1e40af; border-radius:0 3px 3px 0; }
+  .nav-link.active { background:#f4f4f5;color:#18181b;font-weight:600; }
+  .nav-link.active::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:3px; background:#27272a; border-radius:0 3px 3px 0; }
   .card { background:#fff;border:1px solid #e4e4e7;border-radius:16px; transition:box-shadow .2s, transform .2s; }
   .card-hover:hover { box-shadow:0 8px 24px -8px rgba(0,0,0,.08); transform:translateY(-2px); }
   .badge { display:inline-flex;align-items:center;padding:3px 9px;border-radius:9999px;font-size:11px;font-weight:600; }
@@ -46,6 +46,7 @@
   .hero-gradient { background: linear-gradient(135deg, #fafafa 0%, #f4f4f5 60%, #eff6ff 100%); }
   @media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation:none!important;transition:none!important;} }
 </style>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="bg-zinc-50 text-zinc-900 min-h-screen">
 
@@ -132,7 +133,7 @@
           <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[17px] text-zinc-400">settings</span>Cài đặt</button>
         </div>
         <div class="border-t border-zinc-100 py-1.5">
-          <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"><span class="material-symbols-outlined text-[17px]">logout</span>Đăng xuất</button>
+          <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-zinc-800 hover:bg-zinc-100"><span class="material-symbols-outlined text-[17px]">logout</span>Đăng xuất</button>
         </div>
       </div>
     </div>
@@ -143,7 +144,7 @@
 <main class="lg:ml-[248px] mt-[64px] p-4 lg:p-6 flex flex-col gap-5">
 
   <!-- HERO -->
-  <section class="hero-gradient rounded-2xl border border-zinc-200 overflow-hidden relative">
+  <section data-aos="fade-up" class="hero-gradient rounded-2xl border border-zinc-200 overflow-hidden relative">
     <div class="absolute -top-12 -right-12 w-64 h-64 bg-blue-200/20 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-blue-300/10 rounded-full blur-3xl pointer-events-none"></div>
     <div class="relative p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -161,32 +162,24 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <button class="flex items-center gap-1.5 h-10 px-4 rounded-xl bg-white border border-zinc-200 text-sm font-semibold text-zinc-700 hover:bg-zinc-50">
-          <span class="material-symbols-outlined text-[16px]">download</span>Xuất báo cáo
-        </button>
-        <button class="flex items-center gap-1.5 h-10 px-4 rounded-xl bg-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-200 hover:bg-blue-800">
-          <span class="material-symbols-outlined text-[16px]">add</span>Tạo lịch đặt mới
-        </button>
-      </div>
     </div>
   </section>
 
   <!-- KPI ROW -->
-  <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 stagger">
-    <div class="card card-hover p-5">
+  <section data-aos="fade-up" class="grid grid-cols-2 lg:grid-cols-4 gap-4 stagger">
+    <div data-aos="fade-up" class="card card-hover p-5">
       <div class="flex items-start justify-between mb-3">
         <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-blue-700" style="font-variation-settings:'FILL' 1">event</span></div>
         <span class="flex items-center gap-0.5 text-[11px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-md"><span class="material-symbols-outlined text-[12px]">trending_up</span>+18%</span>
       </div>
       <p class="text-xs text-zinc-500 font-medium mb-1">Lịch đặt hôm nay</p>
-      <p class="text-3xl font-black text-zinc-900 tracking-tight">18</p>
+      <p id="kpiBookingTodayCount" class="text-3xl font-black text-zinc-900 tracking-tight">18</p>
       <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
         <p class="text-[11px] text-zinc-500"><span class="text-amber-600 font-semibold">5</span> chờ xác nhận</p>
         <svg width="50" height="20" viewBox="0 0 50 20" class="text-blue-500"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="0,15 8,12 16,14 24,8 32,10 40,5 50,8"/><polyline fill="rgba(59,130,246,.1)" stroke="none" points="0,15 8,12 16,14 24,8 32,10 40,5 50,8 50,20 0,20"/></svg>
       </div>
     </div>
-    <div class="card card-hover p-5">
+    <div data-aos="fade-up" class="card card-hover p-5">
       <div class="flex items-start justify-between mb-3">
         <div class="w-11 h-11 rounded-xl bg-green-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-green-700" style="font-variation-settings:'FILL' 1">payments</span></div>
         <span class="flex items-center gap-0.5 text-[11px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-md"><span class="material-symbols-outlined text-[12px]">trending_up</span>+12%</span>
@@ -198,7 +191,7 @@
         <div class="w-12 h-1.5 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:84%"></div></div>
       </div>
     </div>
-    <div class="card card-hover p-5">
+    <div data-aos="fade-up" class="card card-hover p-5">
       <div class="flex items-start justify-between mb-3">
         <div class="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-purple-700" style="font-variation-settings:'FILL' 1">stadium</span></div>
         <span class="flex items-center gap-0.5 text-[11px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md"><span class="material-symbols-outlined text-[12px]">build</span>2 bảo trì</span>
@@ -210,7 +203,7 @@
         <div class="flex gap-0.5"><span class="w-1 h-3 rounded-sm bg-green-400"></span><span class="w-1 h-3 rounded-sm bg-green-400"></span><span class="w-1 h-3 rounded-sm bg-green-400"></span><span class="w-1 h-3 rounded-sm bg-green-400"></span><span class="w-1 h-3 rounded-sm bg-amber-400"></span></div>
       </div>
     </div>
-    <div class="card card-hover p-5">
+    <div data-aos="fade-up" class="card card-hover p-5">
       <div class="flex items-start justify-between mb-3">
         <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-amber-700" style="font-variation-settings:'FILL' 1">groups</span></div>
         <span class="flex items-center gap-0.5 text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md"><span class="material-symbols-outlined text-[12px]">schedule</span>Ca sáng</span>
@@ -230,26 +223,26 @@
   </section>
 
   <!-- MAIN GRID -->
-  <section class="grid grid-cols-1 xl:grid-cols-3 gap-5">
+  <section data-aos="fade-up" class="grid grid-cols-1 xl:grid-cols-3 gap-5">
 
     <!-- LEFT 2/3 -->
     <div class="xl:col-span-2 flex flex-col gap-5">
 
       <!-- Booking today -->
-      <div class="card overflow-hidden">
+      <div data-aos="fade-up" class="card overflow-hidden">
         <div class="flex items-center justify-between px-5 py-4 border-b border-zinc-100">
           <div>
             <h3 class="text-sm font-bold text-zinc-900 flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-blue-700">event_available</span>Lịch đặt hôm nay</h3>
             <p class="text-[11px] text-zinc-500 mt-0.5">Cập nhật lúc 09:42 · Từ bảng LichDatSan</p>
           </div>
           <div class="flex items-center gap-1.5">
-            <button class="px-2.5 py-1 text-[11px] font-semibold rounded-md bg-blue-50 text-blue-700">Tất cả 18</button>
+            <button class="px-2.5 py-1 text-[11px] font-semibold rounded-md bg-zinc-100 text-zinc-800">Tất cả 18</button>
             <button class="px-2.5 py-1 text-[11px] font-medium rounded-md text-zinc-500 hover:bg-zinc-50 hidden md:block">Đang diễn ra 3</button>
             <button class="px-2.5 py-1 text-[11px] font-medium rounded-md text-zinc-500 hover:bg-zinc-50 hidden md:block">Chờ duyệt 5</button>
             <a href="LichDatSan.html" class="text-[11px] font-semibold text-blue-700 hover:underline ml-2">Xem tất cả →</a>
           </div>
         </div>
-        <div class="divide-y divide-zinc-100">
+        <div id="bookingsListContainer" class="divide-y divide-zinc-100">
           <div class="flex items-center gap-3 px-5 py-3 hover:bg-zinc-50/50 transition-colors">
             <img src="https://i.pravatar.cc/40?img=11" class="w-10 h-10 rounded-full object-cover ring-2 ring-zinc-100" alt="">
             <div class="flex-1 min-w-0">
@@ -285,7 +278,7 @@
               </div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
-              <button class="px-3 py-1.5 rounded-lg bg-blue-700 text-white text-[11px] font-semibold hover:bg-blue-800">Duyệt</button>
+              <button class="px-3 py-1.5 rounded-lg bg-zinc-800 text-white text-[11px] font-semibold hover:bg-zinc-700">Duyệt</button>
               <button class="p-1.5 rounded-lg text-zinc-400 hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">close</span></button>
             </div>
           </div>
@@ -313,7 +306,7 @@
       </div>
 
       <!-- Revenue Chart -->
-      <div class="card p-5">
+      <div data-aos="fade-up" class="card p-5">
         <div class="flex items-start justify-between mb-5 flex-wrap gap-3">
           <div>
             <h3 class="text-sm font-bold text-zinc-900 flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-green-700">bar_chart</span>Doanh thu 7 ngày gần nhất</h3>
@@ -377,7 +370,7 @@
     <div class="flex flex-col gap-5">
 
       <!-- Court status -->
-      <div class="card overflow-hidden">
+      <div data-aos="fade-up" class="card overflow-hidden">
         <div class="flex items-center justify-between px-5 py-4 border-b border-zinc-100">
           <div>
             <h3 class="text-sm font-bold text-zinc-900 flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-purple-700">stadium</span>Tình trạng sân</h3>
@@ -426,12 +419,12 @@
       </div>
 
       <!-- Activity feed -->
-      <div class="card overflow-hidden">
+      <div data-aos="fade-up" class="card overflow-hidden">
         <div class="flex items-center justify-between px-5 py-4 border-b border-zinc-100">
           <h3 class="text-sm font-bold text-zinc-900 flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-blue-700">timeline</span>Hoạt động gần đây</h3>
           <button class="text-[11px] text-zinc-400 hover:text-zinc-700"><span class="material-symbols-outlined text-[14px]">more_horiz</span></button>
         </div>
-        <div class="px-5 py-3 flex flex-col gap-3">
+        <div id="recentActivitiesContainer" class="px-5 py-3 flex flex-col gap-3">
           <div class="flex items-start gap-3">
             <div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[14px] text-green-700">check_circle</span></div>
             <div class="flex-1 min-w-0"><p class="text-xs text-zinc-700"><span class="font-semibold">Lê Thị Hương</span> vừa thanh toán <span class="font-semibold text-green-700">280.000đ</span></p><p class="text-[10px] text-zinc-400">2 phút trước</p></div>
@@ -459,9 +452,9 @@
   </section>
 
   <!-- BOTTOM 3 COLS -->
-  <section class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+  <section data-aos="fade-up" class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-    <div class="card overflow-hidden">
+    <div data-aos="fade-up" class="card overflow-hidden">
       <div class="px-5 py-4 border-b border-zinc-100 flex items-center justify-between">
         <h3 class="text-sm font-bold text-zinc-900 flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-green-700">trending_up</span>Top dịch vụ bán chạy</h3>
         <span class="text-[10px] text-zinc-400">Hôm nay</span>
@@ -490,7 +483,7 @@
       </div>
     </div>
 
-    <div class="card overflow-hidden">
+    <div data-aos="fade-up" class="card overflow-hidden">
       <div class="px-5 py-4 border-b border-zinc-100 flex items-center justify-between">
         <h3 class="text-sm font-bold text-zinc-900 flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-amber-600" style="font-variation-settings:'FILL' 1">star</span>Khách hàng VIP</h3>
         <span class="text-[10px] text-zinc-400">Tháng này</span>
@@ -514,12 +507,12 @@
         <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-50">
           <img src="https://i.pravatar.cc/40?img=32" class="w-10 h-10 rounded-full object-cover ring-2 ring-zinc-100 shrink-0" alt="">
           <div class="flex-1 min-w-0"><p class="text-xs font-semibold text-zinc-900 truncate">Lê Hoàng Việt</p><p class="text-[10px] text-zinc-500">12 lượt · 2.1M VNĐ</p></div>
-          <button class="text-[10px] text-blue-700 font-semibold hover:underline">Xem</button>
+          <button class="text-[10px] text-zinc-700 font-semibold hover:underline">Xem</button>
         </div>
       </div>
     </div>
 
-    <div class="card overflow-hidden">
+    <div data-aos="fade-up" class="card overflow-hidden">
       <div class="px-5 py-4 border-b border-zinc-100 flex items-center justify-between">
         <h3 class="text-sm font-bold text-zinc-900 flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-red-600">warning</span>Cảnh báo & nhắc việc</h3>
         <span class="badge badge-red">5 mới</span>
@@ -549,10 +542,13 @@
 </main>
 
 <script>
+// Original profile drop and menu logic
 document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('-translate-x-full'));
 (function(){const btn=document.getElementById('profileBtn'),drop=document.getElementById('profileDrop'),chev=document.getElementById('profileChevron');
 btn.addEventListener('click',e=>{e.stopPropagation();const h=drop.classList.contains('hidden');if(h){drop.classList.remove('hidden');drop.style.cssText='opacity:0;transform:translateY(-6px);transition:opacity .15s,transform .15s';requestAnimationFrame(()=>{drop.style.opacity='1';drop.style.transform='translateY(0)';});chev.style.transform='rotate(180deg)';}else{drop.style.opacity='0';drop.style.transform='translateY(-6px)';setTimeout(()=>{drop.classList.add('hidden');drop.style.cssText='';},150);chev.style.transform='';}});
 document.addEventListener('click',e=>{if(!drop.classList.contains('hidden')&&!btn.contains(e.target)){drop.classList.add('hidden');drop.style.cssText='';chev.style.transform='';}});})();
 </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({duration: 400, once: true});</script>
 </body>
 </html>
