@@ -180,6 +180,45 @@
     html.dark .text-\[\#05cd99\] { color: #77da9f !important; }
     #settingsDrawer { transition: transform 0.3s cubic-bezier(.32,.72,0,1); }
     #settingsOverlay { transition: opacity 0.3s ease; }
+
+    /* ===== ADMIN MOTION EFFECTS ===== */
+    @keyframes adminFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes adminFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes adminPop    { 0% { transform: scale(.96); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes adminPulseDot { 0%, 100% { box-shadow: 0 0 0 0 currentColor; opacity: 1; } 50% { box-shadow: 0 0 0 6px transparent; opacity: .6; } }
+    main > section, main > div { animation: adminFadeUp .4s ease both; }
+    main > *:nth-child(1) { animation-delay: 0ms; }
+    main > *:nth-child(2) { animation-delay: 60ms; }
+    main > *:nth-child(3) { animation-delay: 120ms; }
+    main > *:nth-child(4) { animation-delay: 180ms; }
+    main > *:nth-child(5) { animation-delay: 240ms; }
+    main > *:nth-child(6) { animation-delay: 300ms; }
+    .kpi-grid > *, .stat-grid > *, [data-stagger] > * { animation: adminPop .35s ease both; }
+    .kpi-grid > *:nth-child(1), .stat-grid > *:nth-child(1), [data-stagger] > *:nth-child(1) { animation-delay: 50ms; }
+    .kpi-grid > *:nth-child(2), .stat-grid > *:nth-child(2), [data-stagger] > *:nth-child(2) { animation-delay: 120ms; }
+    .kpi-grid > *:nth-child(3), .stat-grid > *:nth-child(3), [data-stagger] > *:nth-child(3) { animation-delay: 190ms; }
+    .kpi-grid > *:nth-child(4), .stat-grid > *:nth-child(4), [data-stagger] > *:nth-child(4) { animation-delay: 260ms; }
+    .bg-surface-container-lowest, .bg-surface-container, .bg-surface-container-low { transition: transform .2s ease, box-shadow .2s ease; }
+    .bg-surface-container-lowest:hover, .bg-surface-container:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(0,0,0,0.10); }
+    aside a { transition: background-color .2s ease, padding-left .2s ease; }
+    aside a:hover { padding-left: calc(var(--container-padding, 24px) + 4px); }
+    aside a .material-symbols-outlined { transition: transform .2s ease; }
+    aside a:hover .material-symbols-outlined { transform: translateX(2px); }
+    button { transition: transform .15s ease, opacity .15s ease, background-color .15s ease; }
+    button:active:not([disabled]) { transform: scale(.97); }
+    tbody tr { animation: adminFadeIn .35s ease both; }
+    tbody tr:nth-child(1) { animation-delay: 30ms; }
+    tbody tr:nth-child(2) { animation-delay: 80ms; }
+    tbody tr:nth-child(3) { animation-delay: 130ms; }
+    tbody tr:nth-child(4) { animation-delay: 180ms; }
+    tbody tr:nth-child(5) { animation-delay: 230ms; }
+    tbody tr:nth-child(6) { animation-delay: 280ms; }
+    tbody tr:nth-child(7) { animation-delay: 330ms; }
+    tbody tr:hover { background-color: rgba(0,0,0,0.02); }
+    [id$="Modal"]:not(.hidden) > div:last-child, .modal-content { animation: adminPop .25s ease both; }
+    .bg-error.rounded-full, .bg-red-500.rounded-full { animation: adminPulseDot 1.6s ease-in-out infinite; color: rgb(239 68 68); }
+    .text-display-lg, .text-headline-md, .text-headline-sm { animation: adminFadeUp .5s ease both; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
     </style>
 </head>
 <body class="bg-background text-on-surface">
@@ -236,10 +275,6 @@
 <button id="mobileMenuBtn" class="lg:hidden p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
 <span class="material-symbols-outlined transition-transform group-hover:scale-110">menu</span>
 </button>
-<div class="relative w-full max-w-sm hidden sm:block">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow" placeholder="Tìm kiếm người dùng..." type="text">
-</div>
 </div>
 <div class="flex items-center gap-stack-md">
 <button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer p-2 rounded-full hover:bg-surface-container-high">
@@ -377,7 +412,7 @@
 </select>
 </div>
 <div class="flex items-end h-full pt-6">
-<button class="bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white h-10 px-6 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container transition-colors shadow-sm">
+<button class="bg-primary text-on-primary h-10 px-6 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:opacity-90 transition-colors shadow-sm">
 <span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
                     Lọc dữ liệu
                 </button>
@@ -594,7 +629,7 @@
 <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50" disabled="">
 <span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
 </button>
-<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white font-label-md text-label-md">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-label-md text-label-md">1</button>
 <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors font-label-md text-label-md">2</button>
 <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors font-label-md text-label-md">3</button>
 <span class="px-2 text-on-surface-variant">...</span>
@@ -607,7 +642,7 @@
 </div>
 </main>
 <!-- FAB for adding new user (Optional but good for UX) -->
-<button id="addUserBtn" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white rounded-full shadow-lg flex items-center justify-center hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container transition-transform hover:scale-110 active:scale-95 group z-40">
+<button id="addUserBtn" class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:opacity-90 transition-transform hover:scale-110 active:scale-95 group z-40">
 <span class="material-symbols-outlined text-3xl" data-icon="person_add">person_add</span>
 <span class="absolute right-16 bg-on-surface text-surface px-3 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Thêm người dùng mới</span>
 </button>
@@ -693,7 +728,7 @@
 </div>
 </form>
 <div class="grid grid-cols-2 gap-4 mt-2">
-<button type="button" class="w-full h-11 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white font-label-md text-label-md hover:bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all-container transition-colors shadow-sm">
+<button type="button" class="w-full h-11 flex items-center justify-center gap-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:opacity-90 transition-colors shadow-sm">
 <span class="material-symbols-outlined text-lg" data-icon="save">save</span>
 Lưu Tài Khoản
 </button>
@@ -819,10 +854,10 @@ Hủy
     <section>
       <p class="text-[11px] font-bold uppercase tracking-[0.08em] text-on-surface-variant mb-3">Thông báo</p>
       <div class="flex flex-col divide-y divide-outline-variant/60 rounded-xl overflow-hidden border border-outline-variant/60">
-        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">volume_up</span><p class="text-sm font-medium text-on-surface">Âm thanh</p></div><button onclick="toggleSetting('sound',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
-        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">calendar_today</span><p class="text-sm font-medium text-on-surface">Đặt sân mới</p></div><button onclick="toggleSetting('booking',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
+        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">volume_up</span><p class="text-sm font-medium text-on-surface">Âm thanh</p></div><button onclick="toggleSetting('sound',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-primary transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
+        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">calendar_today</span><p class="text-sm font-medium text-on-surface">Đặt sân mới</p></div><button onclick="toggleSetting('booking',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-primary transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
         <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">inventory_2</span><p class="text-sm font-medium text-on-surface">Cảnh báo tồn kho</p></div><button onclick="toggleSetting('stock',this)" aria-checked="false" class="s-toggle relative w-11 h-6 rounded-full bg-outline-variant transition-colors duration-200"><span class="knob absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
-        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">payments</span><p class="text-sm font-medium text-on-surface">Thanh toán &amp; hoàn tiền</p></div><button onclick="toggleSetting('payment',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
+        <div class="flex items-center justify-between px-4 py-3 bg-surface-container-low"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-on-surface-variant">payments</span><p class="text-sm font-medium text-on-surface">Thanh toán &amp; hoàn tiền</p></div><button onclick="toggleSetting('payment',this)" aria-checked="true" class="s-toggle on relative w-11 h-6 rounded-full bg-primary transition-colors duration-200"><span class="knob absolute top-1 right-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200"></span></button></div>
       </div>
     </section>
     <section>
@@ -844,7 +879,7 @@ Hủy
   </div>
   <div class="shrink-0 px-6 py-4 border-t border-outline-variant flex gap-3">
     <button onclick="resetSettings()" class="flex-1 h-10 rounded-lg border border-outline-variant text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Đặt lại</button>
-    <button onclick="saveSettings()" class="flex-1 h-10 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu cài đặt</button>
+    <button onclick="saveSettings()" class="flex-1 h-10 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu cài đặt</button>
   </div>
 </aside>
 <script>
@@ -887,7 +922,7 @@ document.addEventListener('DOMContentLoaded',function(){ var sb=document.getElem
     </div>
     <div class="px-6 pb-5 flex gap-3 justify-end">
       <button onclick="document.getElementById('editProfileModal').classList.add('hidden')" class="h-10 px-5 rounded-lg border border-outline-variant text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Hủy</button>
-      <button onclick="saveProfileChanges()" class="h-10 px-5 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu thay đổi</button>
+      <button onclick="saveProfileChanges()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu thay đổi</button>
     </div>
   </div>
 </div>
@@ -906,7 +941,7 @@ document.addEventListener('DOMContentLoaded',function(){ var sb=document.getElem
     </div>
     <div class="px-6 pb-5 flex gap-3 justify-end">
       <button onclick="document.getElementById('changePwModal').classList.add('hidden')" class="h-10 px-5 rounded-lg border border-outline-variant text-sm font-semibold text-on-surface-variant hover:bg-surface-container transition-colors">Hủy</button>
-      <button onclick="savePassword()" class="h-10 px-5 rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-md hover:shadow-lg hover:shadow-primary/40 active:scale-[0.98] transition-all text-white text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Đổi mật khẩu</button>
+      <button onclick="savePassword()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Đổi mật khẩu</button>
     </div>
   </div>
 </div>

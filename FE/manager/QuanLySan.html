@@ -2,504 +2,428 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quản lý sân — Chi nhánh</title>
+<title>Quản lý sân — Manager</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 <style>
   body { font-family: 'Inter', sans-serif; }
-  .nav-link { display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#71717a;font-size:14px;font-weight:500;text-decoration:none;transition:all .15s;white-space:nowrap; }
+  .nav-link { display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:10px;color:#52525b;font-size:14px;font-weight:500;text-decoration:none;transition:all .15s;white-space:nowrap;position:relative; }
   .nav-link:hover { background:#f4f4f5;color:#18181b; }
-  .nav-link.active { background:#f4f4f5;color:#18181b;font-weight:600;border-left:3px solid #27272a;padding-left:9px; }
-  .card { background:#fff;border:1px solid #e4e4e7;border-radius:12px; }
-  .badge { display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600; }
-  .badge-green { background:#f0fdf4;color:#16a34a; }
-  .badge-amber { background:#fffbeb;color:#d97706; }
-  .badge-red { background:#fef2f2;color:#dc2626; }
-  .badge-blue { background:#eff6ff;color:#2563eb; }
-  .badge-gray { background:#f4f4f5;color:#71717a; }
-  ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d4d4d8;border-radius:4px}
+  .nav-link.active { background:#eff6ff;color:#1e40af;font-weight:600; }
+  .nav-link.active::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:3px; background:#1e40af; border-radius:0 3px 3px 0; }
+  .card { background:#fff;border:1px solid #e4e4e7;border-radius:16px; }
+  .badge { display:inline-flex;align-items:center;padding:3px 9px;border-radius:9999px;font-size:11px;font-weight:600; }
+  .badge-green { background:#dcfce7;color:#15803d; }
+  .badge-amber { background:#fef3c7;color:#b45309; }
+  .badge-red { background:#fee2e2;color:#b91c1c; }
+  .badge-blue { background:#dbeafe;color:#1e40af; }
+  .badge-gray { background:#f4f4f5;color:#52525b; }
+  ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d4d4d8;border-radius:6px}
+  @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pop { 0% { opacity:0; transform:scale(.94); } 100% { opacity:1; transform:scale(1); } }
+  @keyframes pulse-dot { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4);} 50%{box-shadow:0 0 0 6px rgba(34,197,94,0);} }
+  main > section { animation: fadeUp .35s ease both; }
+  main > section:nth-child(2){animation-delay:60ms} main > section:nth-child(3){animation-delay:120ms} main > section:nth-child(4){animation-delay:180ms}
+  #courtGrid > * { animation: pop .35s ease both; }
+  #courtGrid > *:nth-child(1){animation-delay:30ms} #courtGrid > *:nth-child(2){animation-delay:80ms} #courtGrid > *:nth-child(3){animation-delay:130ms} #courtGrid > *:nth-child(4){animation-delay:180ms} #courtGrid > *:nth-child(5){animation-delay:230ms} #courtGrid > *:nth-child(6){animation-delay:280ms} #courtGrid > *:nth-child(7){animation-delay:330ms} #courtGrid > *:nth-child(8){animation-delay:380ms}
+  button { transition: transform .12s ease, opacity .15s ease; }
+  button:active:not([disabled]) { transform: scale(.97); }
+  .live-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+  .court-card { transition: transform .25s ease, box-shadow .25s ease; }
+  .court-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -16px rgba(0,0,0,.15); }
+  .court-card:hover .court-img { transform: scale(1.08); }
+  .court-img { transition: transform .5s ease; }
+  aside a .material-symbols-outlined { transition: transform .2s ease; }
+  aside a:hover .material-symbols-outlined { transform: translateX(2px); }
+  @media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important} }
 </style>
 </head>
 <body class="bg-zinc-50 text-zinc-900 min-h-screen">
 
 <!-- Sidebar -->
-<aside id="sidebar" class="w-[240px] h-screen fixed left-0 top-0 bg-white border-r border-zinc-200 z-30 flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
+<aside id="sidebar" class="w-[248px] h-screen fixed left-0 top-0 bg-white border-r border-zinc-200 z-30 flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
   <div class="px-5 py-4 border-b border-zinc-100 flex items-center gap-3">
-    <div class="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-white text-[16px]">sports</span></div>
-    <div><p class="text-sm font-bold text-zinc-900 leading-tight">V-SPORT</p><p class="text-[10px] text-zinc-400">Quản lý chi nhánh</p></div>
+    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shrink-0 shadow-md shadow-blue-200">
+      <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings:'FILL' 1">sports_tennis</span>
+    </div>
+    <div><p class="text-sm font-bold text-zinc-900 leading-tight tracking-tight">V-SPORT</p><p class="text-[10px] text-zinc-400 font-medium uppercase tracking-wider">Manager Portal</p></div>
   </div>
   <div class="px-4 py-3 border-b border-zinc-100">
-    <div class="flex items-center gap-2.5 px-3 py-2 bg-zinc-50 rounded-lg border border-zinc-200">
-      <span class="material-symbols-outlined text-[15px] text-zinc-500">business</span>
-      <div class="min-w-0 flex-1"><p class="text-[11px] font-semibold text-zinc-800 truncate">CNH Sport Vũng Tàu</p><p class="text-[10px] text-zinc-400">CS01 · Quản lý</p></div>
-      <span class="w-2 h-2 rounded-full bg-green-400 shrink-0"></span>
+    <div class="flex items-center gap-2.5 px-3 py-2.5 bg-gradient-to-br from-blue-50 to-zinc-50 rounded-xl border border-blue-100/50">
+      <div class="w-7 h-7 rounded-lg bg-white flex items-center justify-center border border-zinc-200"><span class="material-symbols-outlined text-[14px] text-blue-700">storefront</span></div>
+      <div class="min-w-0 flex-1"><p class="text-[11px] font-bold text-zinc-800 truncate">V-Sport Vũng Tàu</p><p class="text-[10px] text-zinc-500 truncate">CS01 · Đang hoạt động</p></div>
+      <span class="w-2 h-2 rounded-full bg-green-500 shrink-0 live-dot"></span>
     </div>
   </div>
   <nav class="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-1">
-    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mb-1">Vận hành</p>
-    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">dashboard</span>Tổng quan</a>
-    <a href="LichDatSan.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">calendar_today</span>Lịch đặt sân</a>
-    <a href="QuanLySan.html" class="nav-link active"><span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1">sports_tennis</span>Quản lý sân</a>
-    <a href="KhoDichVu.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">inventory_2</span>Kho & Dịch vụ</a>
-    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mt-4 mb-1">Quản lý</p>
-    <a href="NhanSu.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">people</span>Nhân sự</a>
-    <a href="HoaDon.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">receipt_long</span>Hóa đơn</a>
-    <a href="KhuyenMai.html" class="nav-link"><span class="material-symbols-outlined text-[18px]">local_offer</span>Khuyến mãi</a>
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mb-1.5">Vận hành</p>
+    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">space_dashboard</span>Tổng quan</a>
+    <a href="LichDatSan.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">event</span>Lịch đặt sân<span class="ml-auto text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-md">5</span></a>
+    <a href="QuanLySan.html" class="nav-link active"><span class="material-symbols-outlined text-[19px]" style="font-variation-settings:'FILL' 1">stadium</span>Quản lý sân</a>
+    <a href="KhoDichVu.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">inventory_2</span>Kho & Dịch vụ<span class="ml-auto text-[10px] font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md">3</span></a>
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mt-5 mb-1.5">Quản lý</p>
+    <a href="NhanSu.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">groups</span>Nhân sự</a>
+    <a href="HoaDon.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">receipt_long</span>Hóa đơn</a>
+    <a href="KhuyenMai.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">loyalty</span>Khuyến mãi</a>
   </nav>
   <div class="px-3 py-3 border-t border-zinc-100">
-    <a href="../admin/Dashboard.html" class="nav-link text-zinc-400 text-xs"><span class="material-symbols-outlined text-[16px]">arrow_back</span>Về trang Admin</a>
+    <a href="../admin/Dashboard.html" class="nav-link text-zinc-400 text-xs"><span class="material-symbols-outlined text-[16px]">arrow_back_ios</span>Về Admin Portal</a>
   </div>
 </aside>
 
 <!-- Header -->
-<header class="h-[60px] fixed top-0 right-0 left-0 lg:left-[240px] bg-white border-b border-zinc-200 z-20 flex items-center justify-between px-4 lg:px-6">
+<header class="h-[64px] fixed top-0 right-0 left-0 lg:left-[248px] bg-white/80 backdrop-blur-lg border-b border-zinc-200 z-20 flex items-center justify-between px-4 lg:px-6">
   <div class="flex items-center gap-3">
     <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">menu</span></button>
-    <div><h1 class="text-sm font-semibold text-zinc-900">Quản lý sân</h1><p class="text-xs text-zinc-400">Bảng San · LoaiSan</p></div>
+    <div>
+      <h1 class="text-sm font-bold text-zinc-900 tracking-tight">Quản lý sân</h1>
+      <p class="text-xs text-zinc-500 flex items-center gap-1.5"><span class="material-symbols-outlined text-[12px]">database</span>Bảng San · LoaiSan · CS01</p>
+    </div>
   </div>
-  <div class="flex items-center gap-2">
-    <button class="relative p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500"></span></button>
+  <div class="flex items-center gap-1.5">
+    <button class="relative p-2 rounded-lg hover:bg-zinc-100 text-zinc-500">
+      <span class="material-symbols-outlined text-[20px]">notifications</span>
+      <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 live-dot"></span>
+    </button>
+    <div class="w-px h-6 bg-zinc-200 mx-1"></div>
     <div class="relative">
-      <button id="profileBtn" class="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors">
-        <div class="w-7 h-7 rounded-full bg-zinc-200 flex items-center justify-center"><span class="material-symbols-outlined text-[14px] text-zinc-600">person</span></div>
-        <span class="text-sm font-semibold text-zinc-800 hidden sm:block">Nguyễn Văn Quản</span>
-        <span id="profileChevron" class="material-symbols-outlined text-[14px] text-zinc-400 hidden sm:block transition-transform duration-150">expand_more</span>
+      <button id="profileBtn" class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors">
+        <img src="https://i.pravatar.cc/64?img=68" class="w-8 h-8 rounded-full object-cover ring-2 ring-white" alt="">
+        <div class="hidden sm:block text-left"><p class="text-sm font-semibold text-zinc-900 leading-tight">Nguyễn Văn Quân</p><p class="text-[10px] text-zinc-500">Quản lý · CS01</p></div>
+        <span id="profileChevron" class="material-symbols-outlined text-[16px] text-zinc-400 hidden sm:block">expand_more</span>
       </button>
-      <div id="profileDrop" class="hidden absolute right-0 top-[calc(100%+6px)] w-[220px] bg-white rounded-xl shadow-lg border border-zinc-200 z-50 py-1">
-        <div class="px-4 py-2.5 border-b border-zinc-100"><p class="text-sm font-semibold text-zinc-900">Nguyễn Văn Quản</p><p class="text-xs text-zinc-500 mt-0.5">Quản lý chi nhánh · CS01</p></div>
-        <button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"><span class="material-symbols-outlined text-[16px]">manage_accounts</span>Hồ sơ cá nhân</button>
-        <button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"><span class="material-symbols-outlined text-[16px]">lock_reset</span>Đổi mật khẩu</button>
-        <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"><span class="material-symbols-outlined text-[16px]">logout</span>Đăng xuất</button></div>
+      <div id="profileDrop" class="hidden absolute right-0 top-[calc(100%+8px)] w-[240px] bg-white rounded-2xl shadow-2xl border border-zinc-200 z-50 overflow-hidden">
+        <div class="px-4 py-3 border-b border-zinc-100 bg-gradient-to-br from-blue-50 to-white">
+          <div class="flex items-center gap-3"><img src="https://i.pravatar.cc/80?img=68" class="w-11 h-11 rounded-full object-cover" alt=""><div><p class="text-sm font-bold text-zinc-900">Nguyễn Văn Quân</p><p class="text-[10px] text-zinc-500">Manager · CS01</p></div></div>
+        </div>
+        <div class="py-1.5">
+          <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[17px] text-zinc-400">manage_accounts</span>Hồ sơ</button>
+          <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[17px] text-zinc-400">lock_reset</span>Đổi mật khẩu</button>
+        </div>
+        <div class="border-t border-zinc-100 py-1.5"><button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"><span class="material-symbols-outlined text-[17px]">logout</span>Đăng xuất</button></div>
       </div>
     </div>
   </div>
 </header>
 
 <!-- Main -->
-<main class="lg:ml-[240px] mt-[60px] p-4 lg:p-6 flex flex-col gap-5">
+<main class="lg:ml-[248px] mt-[64px] p-4 lg:p-6 flex flex-col gap-5">
 
-  <!-- Stats row -->
-  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-    <div class="card p-4 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-zinc-100 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px] text-zinc-600">sports_tennis</span></div>
-      <div><p class="text-xs text-zinc-500">Tổng sân</p><p class="text-xl font-bold text-zinc-900">15</p></div>
+  <!-- Header section -->
+  <section class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div>
+      <h2 class="text-2xl font-black tracking-tight text-zinc-900">Quản lý sân thi đấu</h2>
+      <p class="text-sm text-zinc-500 mt-0.5">Theo dõi tình trạng và cấu hình toàn bộ sân tại chi nhánh</p>
     </div>
-    <div class="card p-4 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px] text-green-600">check_circle</span></div>
-      <div><p class="text-xs text-zinc-500">Sẵn sàng</p><p class="text-xl font-bold text-green-600">12</p></div>
+    <div class="flex items-center gap-2">
+      <button class="flex items-center gap-1.5 h-10 px-4 rounded-xl bg-white border border-zinc-200 text-sm font-semibold text-zinc-700 hover:bg-zinc-50">
+        <span class="material-symbols-outlined text-[16px]">tune</span>Cấu hình giá
+      </button>
+      <button onclick="document.getElementById('courtModal').classList.remove('hidden')" class="flex items-center gap-1.5 h-10 px-4 rounded-xl bg-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-200 hover:bg-blue-800">
+        <span class="material-symbols-outlined text-[16px]">add</span>Thêm sân mới
+      </button>
     </div>
-    <div class="card p-4 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px] text-amber-600">build</span></div>
-      <div><p class="text-xs text-zinc-500">Bảo trì</p><p class="text-xl font-bold text-amber-600">2</p></div>
+  </section>
+
+  <!-- Stats -->
+  <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-blue-700">stadium</span></div><div><p class="text-[11px] text-zinc-500 font-medium">Tổng số sân</p><p class="text-2xl font-black text-zinc-900">15</p></div></div>
     </div>
-    <div class="card p-4 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-red-50 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px] text-red-500">block</span></div>
-      <div><p class="text-xs text-zinc-500">Tạm đóng</p><p class="text-xl font-bold text-red-500">1</p></div>
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-green-700">check_circle</span></div><div><p class="text-[11px] text-zinc-500 font-medium">Đang sẵn sàng</p><p class="text-2xl font-black text-green-600">12</p></div></div>
     </div>
-  </div>
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-amber-700">build</span></div><div><p class="text-[11px] text-zinc-500 font-medium">Đang bảo trì</p><p class="text-2xl font-black text-amber-600">2</p></div></div>
+    </div>
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-red-600">block</span></div><div><p class="text-[11px] text-zinc-500 font-medium">Tạm đóng</p><p class="text-2xl font-black text-red-500">1</p></div></div>
+    </div>
+  </section>
 
   <!-- Toolbar -->
-  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+  <section class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
     <div class="flex items-center gap-2 flex-wrap">
-      <!-- View toggle -->
-      <div class="flex rounded-lg border border-zinc-200 overflow-hidden bg-white">
-        <button id="btnGrid" onclick="setView('grid')" class="px-3 py-1.5 text-sm flex items-center gap-1.5 bg-zinc-900 text-white transition-colors">
-          <span class="material-symbols-outlined text-[15px]">grid_view</span>Lưới
-        </button>
-        <button id="btnList" onclick="setView('list')" class="px-3 py-1.5 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50 transition-colors">
-          <span class="material-symbols-outlined text-[15px]">list</span>Danh sách
-        </button>
+      <div class="flex rounded-xl border border-zinc-200 overflow-hidden bg-white">
+        <button class="px-3 py-2 text-sm flex items-center gap-1.5 bg-blue-700 text-white"><span class="material-symbols-outlined text-[15px]">grid_view</span>Lưới</button>
+        <button class="px-3 py-2 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50"><span class="material-symbols-outlined text-[15px]">list</span>Danh sách</button>
       </div>
-      <!-- Type filter -->
-      <select onchange="filterType(this.value)" class="h-8 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        <option value="">Tất cả loại sân</option>
-        <option value="cau-long">Cầu lông</option>
-        <option value="bong-da">Bóng đá 5</option>
-        <option value="tennis">Tennis</option>
-        <option value="bong-ro">Bóng rổ</option>
+      <select class="h-10 pl-3 pr-8 rounded-xl border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30">
+        <option>Tất cả loại sân</option><option>Cầu lông</option><option>Bóng đá</option><option>Pickleball</option><option>Tennis</option>
       </select>
-      <!-- Status filter -->
-      <select onchange="filterStatus(this.value)" class="h-8 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        <option value="">Tất cả trạng thái</option>
-        <option value="san-sang">Sẵn sàng</option>
-        <option value="bao-tri">Bảo trì</option>
-        <option value="tam-dong">Tạm đóng</option>
+      <select class="h-10 pl-3 pr-8 rounded-xl border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30">
+        <option>Tất cả trạng thái</option><option>Sẵn sàng</option><option>Bảo trì</option><option>Tạm đóng</option>
       </select>
     </div>
-    <button onclick="document.getElementById('courtModal').classList.remove('hidden')" class="flex items-center gap-1.5 h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800 transition-colors shrink-0">
-      <span class="material-symbols-outlined text-[16px]">add</span>Thêm sân mới
-    </button>
-  </div>
+    <div class="relative max-w-xs flex-1">
+      <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-zinc-400">search</span>
+      <input type="text" placeholder="Tìm theo mã sân hoặc tên..." class="h-10 w-full pl-9 pr-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+    </div>
+  </section>
 
   <!-- Court Grid -->
-  <div id="courtGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+  <section>
+    <div id="courtGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
-    <!-- Court card: Sẵn sàng -->
-    <div class="card overflow-hidden hover:shadow-md transition-shadow">
-      <div class="relative h-28 bg-gradient-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
-        <span class="material-symbols-outlined text-[48px] text-zinc-400">sports_tennis</span>
-        <span class="absolute top-2 right-2 badge badge-green">Sẵn sàng</span>
-        <span class="absolute top-2 left-2 text-[10px] font-bold bg-white/80 px-2 py-0.5 rounded text-zinc-600">SAN001</span>
-      </div>
-      <div class="p-3">
-        <div class="flex items-start justify-between gap-2 mb-1">
-          <p class="text-sm font-semibold text-zinc-900">Sân Cầu Lông A1</p>
-          <div class="relative shrink-0">
-            <button onclick="toggleMenu('m1')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="m1" class="hidden absolute right-0 top-full mt-1 w-[160px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button onclick="openEdit('SAN001')" class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <button onclick="changeStatus('SAN001')" class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">published_with_changes</span>Đổi trạng thái</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">bar_chart</span>Xem lịch sử</button>
-              <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"><span class="material-symbols-outlined text-[14px]">delete</span>Xóa sân</button></div>
-            </div>
+      <!-- Court 1: Sân A1 - Đang dùng -->
+      <div class="court-card card overflow-hidden">
+        <div class="relative h-36 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1600679472829-3044539ce8ed?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="" onerror="this.style.display='none'">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute top-2 left-2 flex items-center gap-1"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN001</span></div>
+          <div class="absolute top-2 right-2"><span class="badge badge-green flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-green-500 live-dot"></span>Đang dùng</span></div>
+          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân A1</p><p class="text-[10px] opacity-90">Bóng đá 5 · Sân cỏ nhân tạo</p></div>
+        </div>
+        <div class="p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
+            <p class="text-sm font-bold text-zinc-900">200K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:75%"></div></div>
+            <span class="text-[10px] font-bold text-green-700">75%</span>
+          </div>
+          <p class="text-[10px] text-zinc-500 mb-2 truncate"><span class="font-semibold text-zinc-700">Nguyễn Văn Hùng</span> · 08:00–10:00</p>
+          <div class="flex items-center gap-1.5">
+            <button class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span>Xem</button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">more_horiz</span></button>
           </div>
         </div>
-        <p class="text-xs text-zinc-500 mb-2">Cầu lông tiêu chuẩn · Trong nhà</p>
-        <div class="flex items-center justify-between text-xs text-zinc-500">
-          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span>06:00 – 22:00</span>
-          <span class="font-semibold text-zinc-800">80.000 đ/h</span>
-        </div>
-        <div class="mt-2 pt-2 border-t border-zinc-100 flex items-center gap-1.5">
-          <div class="flex-1 h-1.5 rounded-full bg-zinc-100 overflow-hidden">
-            <div class="h-full bg-green-400 rounded-full" style="width:75%"></div>
-          </div>
-          <span class="text-[10px] text-zinc-400">75% hôm nay</span>
-        </div>
       </div>
-    </div>
 
-    <!-- Court card: Sẵn sàng -->
-    <div class="card overflow-hidden hover:shadow-md transition-shadow">
-      <div class="relative h-28 bg-gradient-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
-        <span class="material-symbols-outlined text-[48px] text-zinc-400">sports_tennis</span>
-        <span class="absolute top-2 right-2 badge badge-green">Sẵn sàng</span>
-        <span class="absolute top-2 left-2 text-[10px] font-bold bg-white/80 px-2 py-0.5 rounded text-zinc-600">SAN002</span>
-      </div>
-      <div class="p-3">
-        <div class="flex items-start justify-between gap-2 mb-1">
-          <p class="text-sm font-semibold text-zinc-900">Sân Cầu Lông A2</p>
-          <div class="relative shrink-0">
-            <button onclick="toggleMenu('m2')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="m2" class="hidden absolute right-0 top-full mt-1 w-[160px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button onclick="openEdit('SAN002')" class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">published_with_changes</span>Đổi trạng thái</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">bar_chart</span>Xem lịch sử</button>
-              <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"><span class="material-symbols-outlined text-[14px]">delete</span>Xóa sân</button></div>
-            </div>
+      <!-- Court 2: Sân A2 - Sẵn sàng -->
+      <div class="court-card card overflow-hidden">
+        <div class="relative h-36 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN002</span></div>
+          <div class="absolute top-2 right-2"><span class="badge badge-blue shadow-sm">Sẵn sàng</span></div>
+          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân A2</p><p class="text-[10px] opacity-90">Cầu lông · Sàn gỗ</p></div>
+        </div>
+        <div class="p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
+            <p class="text-sm font-bold text-zinc-900">80K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style="width:60%"></div></div>
+            <span class="text-[10px] font-bold text-blue-700">60%</span>
+          </div>
+          <p class="text-[10px] text-zinc-500 mb-2">Lịch tiếp theo: <span class="font-semibold text-zinc-700">15:00 hôm nay</span></p>
+          <div class="flex items-center gap-1.5">
+            <button class="flex-1 h-8 rounded-lg bg-blue-700 hover:bg-blue-800 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">event_available</span>Đặt ngay</button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
           </div>
         </div>
-        <p class="text-xs text-zinc-500 mb-2">Cầu lông tiêu chuẩn · Trong nhà</p>
-        <div class="flex items-center justify-between text-xs text-zinc-500">
-          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span>06:00 – 22:00</span>
-          <span class="font-semibold text-zinc-800">80.000 đ/h</span>
-        </div>
-        <div class="mt-2 pt-2 border-t border-zinc-100 flex items-center gap-1.5">
-          <div class="flex-1 h-1.5 rounded-full bg-zinc-100 overflow-hidden">
-            <div class="h-full bg-green-400 rounded-full" style="width:60%"></div>
-          </div>
-          <span class="text-[10px] text-zinc-400">60% hôm nay</span>
-        </div>
       </div>
-    </div>
 
-    <!-- Court card: Bảo trì -->
-    <div class="card overflow-hidden hover:shadow-md transition-shadow opacity-80">
-      <div class="relative h-28 bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center">
-        <span class="material-symbols-outlined text-[48px] text-amber-300">sports_soccer</span>
-        <span class="absolute top-2 right-2 badge badge-amber">Bảo trì</span>
-        <span class="absolute top-2 left-2 text-[10px] font-bold bg-white/80 px-2 py-0.5 rounded text-zinc-600">SAN006</span>
-      </div>
-      <div class="p-3">
-        <div class="flex items-start justify-between gap-2 mb-1">
-          <p class="text-sm font-semibold text-zinc-900">Sân Bóng Đá B1</p>
-          <div class="relative shrink-0">
-            <button onclick="toggleMenu('m6')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="m6" class="hidden absolute right-0 top-full mt-1 w-[160px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">published_with_changes</span>Đổi trạng thái</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">bar_chart</span>Xem lịch sử</button>
-            </div>
+      <!-- Court 3: Sân A3 - Đang dùng -->
+      <div class="court-card card overflow-hidden">
+        <div class="relative h-36 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN003</span></div>
+          <div class="absolute top-2 right-2"><span class="badge badge-green flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-green-500 live-dot"></span>Đang dùng</span></div>
+          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân A3</p><p class="text-[10px] opacity-90">Bóng đá 7 · Sân cỏ nhân tạo</p></div>
+        </div>
+        <div class="p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
+            <p class="text-sm font-bold text-zinc-900">280K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:88%"></div></div>
+            <span class="text-[10px] font-bold text-green-700">88%</span>
+          </div>
+          <p class="text-[10px] text-zinc-500 mb-2 truncate"><span class="font-semibold text-zinc-700">Phạm Minh Tuấn</span> · 14:00–16:00</p>
+          <div class="flex items-center gap-1.5">
+            <button class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span>Xem</button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">more_horiz</span></button>
           </div>
         </div>
-        <p class="text-xs text-zinc-500 mb-2">Bóng đá 5 người · Ngoài trời</p>
-        <div class="flex items-center justify-between text-xs text-zinc-500">
-          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">build</span>Dự kiến xong 20/05</span>
-          <span class="font-semibold text-zinc-800">150.000 đ/h</span>
-        </div>
-        <div class="mt-2 pt-2 border-t border-zinc-100">
-          <p class="text-[10px] text-amber-600">Đang sửa mặt sân · Tạm ngừng nhận đặt</p>
-        </div>
       </div>
-    </div>
 
-    <!-- Court card: Tạm đóng -->
-    <div class="card overflow-hidden hover:shadow-md transition-shadow opacity-70">
-      <div class="relative h-28 bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">
-        <span class="material-symbols-outlined text-[48px] text-red-300">sports</span>
-        <span class="absolute top-2 right-2 badge badge-red">Tạm đóng</span>
-        <span class="absolute top-2 left-2 text-[10px] font-bold bg-white/80 px-2 py-0.5 rounded text-zinc-600">SAN010</span>
-      </div>
-      <div class="p-3">
-        <div class="flex items-start justify-between gap-2 mb-1">
-          <p class="text-sm font-semibold text-zinc-900">Sân Tennis C1</p>
-          <div class="relative shrink-0">
-            <button onclick="toggleMenu('m10')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="m10" class="hidden absolute right-0 top-full mt-1 w-[160px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">published_with_changes</span>Đổi trạng thái</button>
-            </div>
+      <!-- Court 4: Sân A4 - Bảo trì -->
+      <div class="court-card card overflow-hidden ring-2 ring-amber-200">
+        <div class="relative h-36 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover grayscale" alt="">
+          <div class="absolute inset-0 bg-gradient-to-t from-amber-900/70 via-amber-900/20 to-transparent"></div>
+          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN004</span></div>
+          <div class="absolute top-2 right-2"><span class="badge badge-amber shadow-sm">⚠ Bảo trì</span></div>
+          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân A4</p><p class="text-[10px] opacity-90">Bóng đá 5 · Đang sửa mặt sân</p></div>
+        </div>
+        <div class="p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-amber-600">build</span><span class="text-[11px] text-amber-700 font-semibold">Hoàn thành 20/05</span></div>
+            <p class="text-sm font-bold text-zinc-400 line-through">200K</p>
+          </div>
+          <div class="p-2 bg-amber-50 rounded-lg mb-3">
+            <p class="text-[10px] text-amber-800"><span class="font-semibold">Lý do:</span> Sửa mặt sân nhân tạo, kiểm tra hệ thống đèn</p>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button class="flex-1 h-8 rounded-lg bg-amber-500 hover:bg-amber-600 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>Hoàn thành</button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
           </div>
         </div>
-        <p class="text-xs text-zinc-500 mb-2">Tennis tiêu chuẩn · Ngoài trời</p>
-        <div class="flex items-center justify-between text-xs text-zinc-500">
-          <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">block</span>Chưa xác định</span>
-          <span class="font-semibold text-zinc-800">200.000 đ/h</span>
+      </div>
+
+      <!-- Court 5: Sân B1 - Sẵn sàng -->
+      <div class="court-card card overflow-hidden">
+        <div class="relative h-36 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1594470117722-de4b9a02ebed?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN005</span></div>
+          <div class="absolute top-2 right-2"><span class="badge badge-blue shadow-sm">Sẵn sàng</span></div>
+          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân B1</p><p class="text-[10px] opacity-90">Cầu lông cao cấp</p></div>
         </div>
-        <div class="mt-2 pt-2 border-t border-zinc-100">
-          <p class="text-[10px] text-red-600">Chờ cấp phép cải tạo · Đóng tạm thời</p>
+        <div class="p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
+            <p class="text-sm font-bold text-zinc-900">100K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style="width:45%"></div></div>
+            <span class="text-[10px] font-bold text-blue-700">45%</span>
+          </div>
+          <p class="text-[10px] text-zinc-500 mb-2">Lịch tiếp theo: <span class="font-semibold text-zinc-700">17:00 hôm nay</span></p>
+          <div class="flex items-center gap-1.5">
+            <button class="flex-1 h-8 rounded-lg bg-blue-700 hover:bg-blue-800 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">event_available</span>Đặt ngay</button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          </div>
         </div>
       </div>
+
+      <!-- Court 6: Sân B3 - Đang dùng -->
+      <div class="court-card card overflow-hidden">
+        <div class="relative h-36 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN006</span></div>
+          <div class="absolute top-2 right-2"><span class="badge badge-green flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-green-500 live-dot"></span>Đang dùng</span></div>
+          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân B3</p><p class="text-[10px] opacity-90">Cầu lông tiêu chuẩn</p></div>
+        </div>
+        <div class="p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
+            <p class="text-sm font-bold text-zinc-900">80K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:92%"></div></div>
+            <span class="text-[10px] font-bold text-green-700">92%</span>
+          </div>
+          <p class="text-[10px] text-zinc-500 mb-2 truncate"><span class="font-semibold text-zinc-700">Trần Thị Lan</span> · 09:00–11:00</p>
+          <div class="flex items-center gap-1.5">
+            <button class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span>Xem</button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">more_horiz</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Court 7: Sân P1 - Sẵn sàng -->
+      <div class="court-card card overflow-hidden">
+        <div class="relative h-36 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN010</span></div>
+          <div class="absolute top-2 right-2"><span class="badge badge-blue shadow-sm">Sẵn sàng</span></div>
+          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân P1</p><p class="text-[10px] opacity-90">Pickleball · Trong nhà</p></div>
+        </div>
+        <div class="p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
+            <p class="text-sm font-bold text-zinc-900">90K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style="width:55%"></div></div>
+            <span class="text-[10px] font-bold text-blue-700">55%</span>
+          </div>
+          <p class="text-[10px] text-zinc-500 mb-2">Lịch tiếp theo: <span class="font-semibold text-zinc-700">16:30 hôm nay</span></p>
+          <div class="flex items-center gap-1.5">
+            <button class="flex-1 h-8 rounded-lg bg-blue-700 hover:bg-blue-800 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">event_available</span>Đặt ngay</button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Court 8: Sân T1 - Tạm đóng -->
+      <div class="court-card card overflow-hidden ring-2 ring-red-200 opacity-90">
+        <div class="relative h-36 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover grayscale" alt="">
+          <div class="absolute inset-0 bg-gradient-to-t from-red-900/70 via-red-900/20 to-transparent"></div>
+          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN012</span></div>
+          <div class="absolute top-2 right-2"><span class="badge badge-red shadow-sm">⛔ Tạm đóng</span></div>
+          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân T1</p><p class="text-[10px] opacity-90">Tennis · Ngoài trời</p></div>
+        </div>
+        <div class="p-3">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-red-500">block</span><span class="text-[11px] text-red-600 font-semibold">Chưa xác định</span></div>
+            <p class="text-sm font-bold text-zinc-400 line-through">250K</p>
+          </div>
+          <div class="p-2 bg-red-50 rounded-lg mb-3">
+            <p class="text-[10px] text-red-800"><span class="font-semibold">Lý do:</span> Chờ cấp phép cải tạo, hệ thống thoát nước</p>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">power_settings_new</span>Mở lại</button>
+            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Court cards 5-8 (sẵn sàng) -->
-    <div class="card overflow-hidden hover:shadow-md transition-shadow">
-      <div class="relative h-28 bg-gradient-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
-        <span class="material-symbols-outlined text-[48px] text-zinc-400">sports_tennis</span>
-        <span class="absolute top-2 right-2 badge badge-green">Sẵn sàng</span>
-        <span class="absolute top-2 left-2 text-[10px] font-bold bg-white/80 px-2 py-0.5 rounded text-zinc-600">SAN003</span>
-      </div>
-      <div class="p-3">
-        <p class="text-sm font-semibold text-zinc-900 mb-1">Sân Cầu Lông A3</p>
-        <p class="text-xs text-zinc-500 mb-2">Cầu lông tiêu chuẩn · Trong nhà</p>
-        <div class="flex items-center justify-between text-xs text-zinc-500">
-          <span>06:00 – 22:00</span><span class="font-semibold text-zinc-800">80.000 đ/h</span>
-        </div>
+    <!-- Pagination -->
+    <div class="flex items-center justify-between mt-5 text-xs text-zinc-500">
+      <span>Hiển thị <span class="font-semibold text-zinc-700">8 / 15</span> sân</span>
+      <div class="flex items-center gap-1">
+        <button class="px-2 py-1 rounded-md hover:bg-zinc-100 text-zinc-400 disabled:opacity-40" disabled><span class="material-symbols-outlined text-[14px]">chevron_left</span></button>
+        <button class="px-2.5 py-1 rounded-md bg-blue-700 text-white font-semibold">1</button>
+        <button class="px-2.5 py-1 rounded-md hover:bg-zinc-100">2</button>
+        <button class="px-2 py-1 rounded-md hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
       </div>
     </div>
-    <div class="card overflow-hidden hover:shadow-md transition-shadow">
-      <div class="relative h-28 bg-gradient-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
-        <span class="material-symbols-outlined text-[48px] text-zinc-400">sports_tennis</span>
-        <span class="absolute top-2 right-2 badge badge-green">Sẵn sàng</span>
-        <span class="absolute top-2 left-2 text-[10px] font-bold bg-white/80 px-2 py-0.5 rounded text-zinc-600">SAN004</span>
-      </div>
-      <div class="p-3">
-        <p class="text-sm font-semibold text-zinc-900 mb-1">Sân Cầu Lông B1</p>
-        <p class="text-xs text-zinc-500 mb-2">Cầu lông cao cấp · Trong nhà</p>
-        <div class="flex items-center justify-between text-xs text-zinc-500">
-          <span>06:00 – 22:00</span><span class="font-semibold text-zinc-800">100.000 đ/h</span>
-        </div>
-      </div>
-    </div>
-    <div class="card overflow-hidden hover:shadow-md transition-shadow">
-      <div class="relative h-28 bg-gradient-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
-        <span class="material-symbols-outlined text-[48px] text-zinc-400">sports_soccer</span>
-        <span class="absolute top-2 right-2 badge badge-green">Sẵn sàng</span>
-        <span class="absolute top-2 left-2 text-[10px] font-bold bg-white/80 px-2 py-0.5 rounded text-zinc-600">SAN007</span>
-      </div>
-      <div class="p-3">
-        <p class="text-sm font-semibold text-zinc-900 mb-1">Sân Bóng Đá B2</p>
-        <p class="text-xs text-zinc-500 mb-2">Bóng đá 5 người · Ngoài trời</p>
-        <div class="flex items-center justify-between text-xs text-zinc-500">
-          <span>06:00 – 22:00</span><span class="font-semibold text-zinc-800">150.000 đ/h</span>
-        </div>
-      </div>
-    </div>
-    <div class="card overflow-hidden hover:shadow-md transition-shadow">
-      <div class="relative h-28 bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center">
-        <span class="material-symbols-outlined text-[48px] text-amber-300">sports_soccer</span>
-        <span class="absolute top-2 right-2 badge badge-amber">Bảo trì</span>
-        <span class="absolute top-2 left-2 text-[10px] font-bold bg-white/80 px-2 py-0.5 rounded text-zinc-600">SAN008</span>
-      </div>
-      <div class="p-3">
-        <p class="text-sm font-semibold text-zinc-900 mb-1">Sân Bóng Đá B3</p>
-        <p class="text-xs text-zinc-500 mb-2">Bóng đá 7 người · Ngoài trời</p>
-        <div class="flex items-center justify-between text-xs text-zinc-500">
-          <span class="text-amber-600">Bảo trì 15/05 – 22/05</span><span class="font-semibold text-zinc-800">200.000 đ/h</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Court List (hidden by default) -->
-  <div id="courtList" class="hidden card overflow-hidden">
-    <table class="w-full text-sm">
-      <thead class="bg-zinc-50 border-b border-zinc-200">
-        <tr>
-          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Mã sân</th>
-          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Tên sân</th>
-          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden sm:table-cell">Loại sân</th>
-          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden md:table-cell">Giờ hoạt động</th>
-          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs hidden lg:table-cell">Giá / giờ</th>
-          <th class="px-4 py-3 text-left font-semibold text-zinc-600 text-xs">Trạng thái</th>
-          <th class="px-4 py-3 text-right font-semibold text-zinc-600 text-xs">Thao tác</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-zinc-100">
-        <tr class="hover:bg-zinc-50">
-          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SAN001</td>
-          <td class="px-4 py-3 font-medium text-zinc-900">Sân Cầu Lông A1</td>
-          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Cầu lông</td>
-          <td class="px-4 py-3 text-zinc-500 hidden md:table-cell">06:00 – 22:00</td>
-          <td class="px-4 py-3 text-zinc-700 font-medium hidden lg:table-cell">80.000 đ</td>
-          <td class="px-4 py-3"><span class="badge badge-green">Sẵn sàng</span></td>
-          <td class="px-4 py-3 text-right">
-            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">published_with_changes</span></button>
-          </td>
-        </tr>
-        <tr class="hover:bg-zinc-50">
-          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SAN002</td>
-          <td class="px-4 py-3 font-medium text-zinc-900">Sân Cầu Lông A2</td>
-          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Cầu lông</td>
-          <td class="px-4 py-3 text-zinc-500 hidden md:table-cell">06:00 – 22:00</td>
-          <td class="px-4 py-3 text-zinc-700 font-medium hidden lg:table-cell">80.000 đ</td>
-          <td class="px-4 py-3"><span class="badge badge-green">Sẵn sàng</span></td>
-          <td class="px-4 py-3 text-right">
-            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">published_with_changes</span></button>
-          </td>
-        </tr>
-        <tr class="hover:bg-zinc-50">
-          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SAN006</td>
-          <td class="px-4 py-3 font-medium text-zinc-900">Sân Bóng Đá B1</td>
-          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Bóng đá 5</td>
-          <td class="px-4 py-3 text-zinc-500 hidden md:table-cell">06:00 – 22:00</td>
-          <td class="px-4 py-3 text-zinc-700 font-medium hidden lg:table-cell">150.000 đ</td>
-          <td class="px-4 py-3"><span class="badge badge-amber">Bảo trì</span></td>
-          <td class="px-4 py-3 text-right">
-            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">published_with_changes</span></button>
-          </td>
-        </tr>
-        <tr class="hover:bg-zinc-50">
-          <td class="px-4 py-3 font-mono text-xs text-zinc-500">SAN010</td>
-          <td class="px-4 py-3 font-medium text-zinc-900">Sân Tennis C1</td>
-          <td class="px-4 py-3 text-zinc-600 hidden sm:table-cell">Tennis</td>
-          <td class="px-4 py-3 text-zinc-500 hidden md:table-cell">07:00 – 21:00</td>
-          <td class="px-4 py-3 text-zinc-700 font-medium hidden lg:table-cell">200.000 đ</td>
-          <td class="px-4 py-3"><span class="badge badge-red">Tạm đóng</span></td>
-          <td class="px-4 py-3 text-right">
-            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-            <button class="p-1 rounded hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[16px]">published_with_changes</span></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  </section>
 
 </main>
 
-<!-- Add/Edit Court Modal -->
+<!-- Add court modal -->
 <div id="courtModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('courtModal').classList.add('hidden')"></div>
   <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[480px] max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
-      <h2 class="text-base font-semibold text-zinc-900">Thêm sân mới</h2>
+      <div><h2 class="text-base font-bold text-zinc-900">Thêm sân mới</h2><p class="text-xs text-zinc-500 mt-0.5">Tạo sân thi đấu cho chi nhánh CS01</p></div>
       <button onclick="document.getElementById('courtModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
     </div>
     <div class="px-6 py-4 flex flex-col gap-4">
       <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Mã sân <span class="text-red-500">*</span></label>
-          <input type="text" placeholder="VD: SAN016" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Tên sân <span class="text-red-500">*</span></label>
-          <input type="text" placeholder="Tên hiển thị" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Mã sân *</label><input type="text" placeholder="VD: SAN016" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"></div>
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Tên sân *</label><input type="text" placeholder="Tên hiển thị" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"></div>
       </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Loại sân <span class="text-red-500">*</span> <span class="text-[10px] text-zinc-400 font-normal">· Bảng LoaiSan</span></label>
-        <select class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-          <option value="">-- Chọn loại --</option>
-          <option>Cầu lông tiêu chuẩn</option>
-          <option>Cầu lông cao cấp</option>
-          <option>Bóng đá 5 người</option>
-          <option>Bóng đá 7 người</option>
-          <option>Tennis tiêu chuẩn</option>
-          <option>Bóng rổ</option>
-        </select>
+      <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Loại sân * <span class="text-zinc-400 font-normal">· Bảng LoaiSan</span></label>
+        <select class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"><option>-- Chọn loại sân --</option><option>Cầu lông tiêu chuẩn</option><option>Cầu lông cao cấp</option><option>Bóng đá 5 người</option><option>Bóng đá 7 người</option><option>Pickleball</option><option>Tennis</option></select>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Giờ mở cửa</label>
-          <input type="time" value="06:00" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Giờ đóng cửa</label>
-          <input type="time" value="22:00" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Giờ mở</label><input type="time" value="06:00" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"></div>
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Giờ đóng</label><input type="time" value="22:00" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"></div>
       </div>
       <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Giá ngày thường (đ/h)</label>
-          <input type="number" placeholder="80000" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Giá cuối tuần (đ/h)</label>
-          <input type="number" placeholder="100000" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Giá ngày thường</label><div class="relative"><input type="number" placeholder="80000" class="h-10 w-full pl-3 pr-12 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400">đ/giờ</span></div></div>
+        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Giá cuối tuần</label><div class="relative"><input type="number" placeholder="100000" class="h-10 w-full pl-3 pr-12 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400">đ/giờ</span></div></div>
       </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Vị trí / Khu vực</label>
-        <input type="text" placeholder="VD: Tầng 1 · Khu A" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-      </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Trong nhà / Ngoài trời</label>
-        <div class="flex gap-3">
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="location" value="indoor" checked class="accent-zinc-900"><span class="text-sm text-zinc-700">Trong nhà</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="location" value="outdoor" class="accent-zinc-900"><span class="text-sm text-zinc-700">Ngoài trời</span></label>
+      <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Ảnh sân</label>
+        <div class="border-2 border-dashed border-zinc-200 rounded-xl p-6 text-center hover:border-blue-400 hover:bg-blue-50/30 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[32px] text-zinc-400">cloud_upload</span>
+          <p class="text-xs text-zinc-500 mt-1">Kéo thả ảnh vào đây hoặc <span class="text-blue-700 font-semibold">chọn file</span></p>
+          <p class="text-[10px] text-zinc-400 mt-0.5">PNG, JPG (tối đa 5MB)</p>
         </div>
-      </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Ghi chú</label>
-        <textarea rows="2" placeholder="Mô tả thêm về sân..." class="px-3 py-2 rounded-lg border border-zinc-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-zinc-400"></textarea>
       </div>
     </div>
     <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
-      <button onclick="document.getElementById('courtModal').classList.add('hidden')" class="h-9 px-4 rounded-lg border border-zinc-200 text-sm text-zinc-700 hover:bg-zinc-50">Hủy</button>
-      <button class="h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800">Thêm sân</button>
-    </div>
-  </div>
-</div>
-
-<!-- Change Status Modal -->
-<div id="statusModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
-  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('statusModal').classList.add('hidden')"></div>
-  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[360px]">
-    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
-      <h2 class="text-base font-semibold text-zinc-900">Đổi trạng thái sân</h2>
-      <button onclick="document.getElementById('statusModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
-    </div>
-    <div class="px-6 py-4 flex flex-col gap-3">
-      <p class="text-sm text-zinc-600">Sân: <span class="font-semibold text-zinc-900" id="statusCourtName">SAN001 — Sân Cầu Lông A1</span></p>
-      <div class="flex flex-col gap-2">
-        <label class="flex items-center gap-3 p-3 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50">
-          <input type="radio" name="newStatus" value="san-sang" checked class="accent-zinc-900">
-          <span class="material-symbols-outlined text-[18px] text-green-600">check_circle</span>
-          <div><p class="text-sm font-medium text-zinc-900">Sẵn sàng</p><p class="text-xs text-zinc-500">Sân hoạt động bình thường</p></div>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50">
-          <input type="radio" name="newStatus" value="bao-tri" class="accent-zinc-900">
-          <span class="material-symbols-outlined text-[18px] text-amber-600">build</span>
-          <div><p class="text-sm font-medium text-zinc-900">Bảo trì</p><p class="text-xs text-zinc-500">Tạm ngừng nhận đặt, đang sửa chữa</p></div>
-        </label>
-        <label class="flex items-center gap-3 p-3 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50">
-          <input type="radio" name="newStatus" value="tam-dong" class="accent-zinc-900">
-          <span class="material-symbols-outlined text-[18px] text-red-500">block</span>
-          <div><p class="text-sm font-medium text-zinc-900">Tạm đóng</p><p class="text-xs text-zinc-500">Đóng cửa không xác định thời gian</p></div>
-        </label>
-      </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Lý do (nếu có)</label>
-        <textarea rows="2" placeholder="Nhập lý do đổi trạng thái..." class="px-3 py-2 rounded-lg border border-zinc-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-zinc-400"></textarea>
-      </div>
-    </div>
-    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
-      <button onclick="document.getElementById('statusModal').classList.add('hidden')" class="h-9 px-4 rounded-lg border border-zinc-200 text-sm text-zinc-700 hover:bg-zinc-50">Hủy</button>
-      <button onclick="document.getElementById('statusModal').classList.add('hidden')" class="h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800">Xác nhận</button>
+      <button onclick="document.getElementById('courtModal').classList.add('hidden')" class="h-10 px-4 rounded-xl border border-zinc-200 text-sm font-semibold text-zinc-700 hover:bg-zinc-50">Hủy</button>
+      <button class="h-10 px-5 rounded-xl bg-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-200 hover:bg-blue-800">Thêm sân</button>
     </div>
   </div>
 </div>
@@ -509,22 +433,6 @@ document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.g
 (function(){const btn=document.getElementById('profileBtn'),drop=document.getElementById('profileDrop'),chev=document.getElementById('profileChevron');
 btn.addEventListener('click',e=>{e.stopPropagation();const h=drop.classList.contains('hidden');if(h){drop.classList.remove('hidden');drop.style.cssText='opacity:0;transform:translateY(-6px);transition:opacity .15s,transform .15s';requestAnimationFrame(()=>{drop.style.opacity='1';drop.style.transform='translateY(0)';});chev.style.transform='rotate(180deg)';}else{drop.style.opacity='0';drop.style.transform='translateY(-6px)';setTimeout(()=>{drop.classList.add('hidden');drop.style.cssText='';},150);chev.style.transform='';}});
 document.addEventListener('click',e=>{if(!drop.classList.contains('hidden')&&!btn.contains(e.target)){drop.classList.add('hidden');drop.style.cssText='';chev.style.transform='';}});})();
-
-function setView(v){
-  const grid=document.getElementById('courtGrid'),list=document.getElementById('courtList');
-  const bg=document.getElementById('btnGrid'),bl=document.getElementById('btnList');
-  if(v==='grid'){grid.classList.remove('hidden');list.classList.add('hidden');bg.className='px-3 py-1.5 text-sm flex items-center gap-1.5 bg-zinc-900 text-white transition-colors';bl.className='px-3 py-1.5 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50 transition-colors';}
-  else{list.classList.remove('hidden');grid.classList.add('hidden');bl.className='px-3 py-1.5 text-sm flex items-center gap-1.5 bg-zinc-900 text-white transition-colors';bg.className='px-3 py-1.5 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50 transition-colors';}
-}
-function toggleMenu(id){
-  document.querySelectorAll('[id^="m"]').forEach(m=>{if(m.id!==id)m.classList.add('hidden');});
-  document.getElementById(id).classList.toggle('hidden');
-}
-function changeStatus(id){document.getElementById('statusCourtName').textContent=id;document.getElementById('statusModal').classList.remove('hidden');}
-function openEdit(id){document.getElementById('courtModal').classList.remove('hidden');}
-document.addEventListener('click',e=>{if(!e.target.closest('[onclick^="toggleMenu"]')&&!e.target.closest('[id^="m"]'))document.querySelectorAll('[id^="m"]').forEach(m=>m.classList.add('hidden'));});
-function filterType(v){}
-function filterStatus(v){}
 </script>
 </body>
 </html>
