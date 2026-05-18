@@ -54,7 +54,7 @@ body { font-family: 'Inter', sans-serif; }
 <aside id="sidebar" class="w-[248px] h-screen fixed left-0 top-0 bg-white border-r border-zinc-200 z-30 flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
   <div class="px-5 py-4 border-b border-zinc-100 flex items-center gap-3">
     <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shrink-0 shadow-md shadow-blue-200">
-      <span class="material-symbols-outlined text-white text-[18px]" >sports_tennis</span>
+      <span class="material-symbols-outlined text-white text-[18px]">sports_tennis</span>
     </div>
     <div>
       <p class="text-sm font-bold text-zinc-900 leading-tight tracking-tight">V-SPORT</p>
@@ -75,7 +75,7 @@ body { font-family: 'Inter', sans-serif; }
   </div>
   <nav class="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-1">
     <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mb-1.5">Vận hành</p>
-    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[19px]" >space_dashboard</span>Tổng quan</a>
+    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">space_dashboard</span>Tổng quan</a>
     <a href="LichDatSan.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">event</span>Lịch đặt sân<span class="ml-auto text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-md">5</span></a>
     <a href="QuanLySan.html" class="nav-link active"><span class="material-symbols-outlined text-[19px]" style="font-variation-settings:'FILL' 1">stadium</span>Quản lý sân</a>
     <a href="KhoDichVu.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">inventory_2</span>Kho & Dịch vụ<span class="ml-auto text-[10px] font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md">3</span></a>
@@ -83,6 +83,8 @@ body { font-family: 'Inter', sans-serif; }
     <a href="NhanSu.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">groups</span>Nhân sự</a>
     <a href="HoaDon.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">receipt_long</span>Hóa đơn</a>
     <a href="KhuyenMai.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">loyalty</span>Khuyến mãi</a>
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mt-5 mb-1.5">Hỗ trợ</p>
+    <a href="HoTro.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">contact_support</span>Hỗ trợ Admin</a>
   </nav>
   <div class="px-3 py-3 border-t border-zinc-100">
     <a href="../admin/Dashboard.html" class="nav-link text-zinc-400 text-xs"><span class="material-symbols-outlined text-[16px]">arrow_back_ios</span>Về Admin Portal</a>
@@ -95,11 +97,11 @@ body { font-family: 'Inter', sans-serif; }
     <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">menu</span></button>
     <div>
       <h1 class="text-sm font-bold text-zinc-900 tracking-tight">Quản lý sân</h1>
-      <p class="text-xs text-zinc-500 flex items-center gap-1.5"><span class="material-symbols-outlined text-[12px]">database</span>Bảng San  LoaiSan  CS01</p>
+      <p class="text-xs text-zinc-500 flex items-center gap-1.5"><span class="material-symbols-outlined text-[12px]">database</span>Bảng San · LoaiSan · CS01</p>
     </div>
   </div>
   <div class="flex items-center gap-1.5">
-    <button class="hidden sm:flex items-center gap-1.5 h-9 px-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 text-zinc-600 text-xs font-medium">
+    <button onclick="switchTab('types')" class="hidden sm:flex items-center gap-1.5 h-9 px-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 text-zinc-600 text-xs font-medium">
       <span class="material-symbols-outlined text-[15px]">help</span>Hỗ trợ
     </button>
     <button class="relative p-2 rounded-lg hover:bg-zinc-100 text-zinc-500">
@@ -116,31 +118,41 @@ body { font-family: 'Inter', sans-serif; }
         </div>
         <span id="profileChevron" class="material-symbols-outlined text-[16px] text-zinc-400 hidden sm:block transition-transform duration-150">expand_more</span>
       </button>
-      <div id="profileDrop" class="hidden absolute right-0 top-[calc(100%+8px)] w-[260px] bg-white rounded-2xl shadow-2xl border border-zinc-200 z-50 overflow-hidden">
-        <div class="px-4 py-3 border-b border-zinc-100 bg-gradient-to-br from-blue-50 to-white">
-          <div class="flex items-center gap-3">
-            <img src="https://i.pravatar.cc/80?img=68" class="w-12 h-12 rounded-full object-cover ring-2 ring-white shadow" alt="">
-            <div>
-              <p class="text-sm font-bold text-zinc-900">Nguyễn Văn Quân</p>
-              <p class="text-xs text-zinc-500">quan.nv@vsport.vn</p>
-              <span class="inline-flex items-center gap-1 mt-1 text-[10px] font-semibold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded"><span class="material-symbols-outlined text-[10px]">verified</span>Manager · CS01</span>
+            <div id="profileDrop" class="hidden absolute top-[calc(100%+8px)] right-0 w-[320px] bg-white rounded-2xl shadow-xl border border-zinc-200 z-50 overflow-hidden">
+        <div class="relative px-5 py-4 border-b border-zinc-100">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-600/[0.04] to-transparent pointer-events-none"></div>
+          <div class="flex items-start gap-3.5">
+            <div class="relative shrink-0"><img class="w-[52px] h-[52px] rounded-full object-cover ring-2 ring-blue-600/30" src="https://i.pravatar.cc/80?img=68"><span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-[#05cd99] border-2 border-white"></span></div>
+            <div class="flex-1 min-w-0">
+              <p class="font-bold text-[15px] text-zinc-900 leading-tight">Nguyễn Văn Quân</p>
+              <div class="flex items-center gap-1.5 mt-1 flex-wrap"><span class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full whitespace-nowrap"><span class="material-symbols-outlined text-[11px]" style="font-variation-settings:'FILL' 1">verified_user</span>Quản lý chi nhánh</span><span class="inline-flex items-center gap-1 text-[11px] font-medium text-[#05cd99] bg-[#e6fcf5] px-2 py-0.5 rounded-full whitespace-nowrap"><span class="w-1.5 h-1.5 rounded-full bg-[#05cd99] inline-block"></span>Online</span></div>
+              <p class="text-xs text-zinc-500 mt-1.5">ID: <span class="font-semibold text-zinc-800 font-mono">MGR042</span></p>
             </div>
           </div>
         </div>
-        <div class="py-1.5">
-          <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[17px] text-zinc-400">manage_accounts</span>Hồ sơ cá nhân</button>
-          <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[17px] text-zinc-400">lock_reset</span>Đổi mật khẩu</button>
-          <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[17px] text-zinc-400">settings</span>Cài đặt</button>
+        <div class="px-4 py-3 border-b border-zinc-100 flex flex-col gap-2.5">
+          <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-zinc-400 w-4 shrink-0">mail</span><p class="text-[13px] text-zinc-700 truncate">quan.nv@vsport.vn</p></div>
+          <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-zinc-400 w-4 shrink-0">phone</span><p class="text-[13px] text-zinc-700">+84 912 345 678</p></div>
+          <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-zinc-400 w-4 shrink-0">domain</span><p class="text-[13px] text-zinc-700">CS01 — V-Sport Vũng Tàu</p></div>
+          <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-zinc-400 w-4 shrink-0">schedule</span><p class="text-[13px] text-zinc-500">Đăng nhập lần cuối: <span class="text-zinc-700 font-medium">18/05/2026 09:42</span></p></div>
+          <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[16px] text-zinc-400 w-4 shrink-0">calendar_today</span><p class="text-[13px] text-zinc-500">Tạo tài khoản: <span class="text-zinc-700 font-medium">12/03/2024</span></p></div>
         </div>
-        <div class="border-t border-zinc-100 py-1.5">
-          <button class="flex items-center gap-3 w-full px-4 py-2 text-sm text-zinc-800 hover:bg-zinc-100"><span class="material-symbols-outlined text-[17px]">logout</span>Đăng xuất</button>
+        <div class="px-4 py-3 border-b border-zinc-100">
+          <p class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-2">Hoạt động chi nhánh hôm nay</p>
+          <div class="grid grid-cols-3 gap-2"><div class="bg-zinc-50 rounded-xl py-2.5 px-2 text-center"><p class="text-[17px] font-bold text-blue-700 leading-none">18</p><p class="text-[10px] text-zinc-500 mt-1 leading-tight">Lịch đặt<br>hôm nay</p></div><div class="bg-zinc-50 rounded-xl py-2.5 px-2 text-center"><p class="text-[17px] font-bold text-blue-700 leading-none">8/14</p><p class="text-[10px] text-zinc-500 mt-1 leading-tight">Nhân sự<br>làm việc</p></div><div class="bg-zinc-50 rounded-xl py-2.5 px-2 text-center"><p class="text-[17px] font-bold text-blue-700 leading-none">12/15</p><p class="text-[10px] text-zinc-500 mt-1 leading-tight">Hiệu suất<br>sân</p></div></div>
+        </div>
+        <div class="p-2">
+          <button onclick="document.getElementById('profileDrop').classList.add('hidden');document.getElementById('editProfileModal').classList.remove('hidden');" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-zinc-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-zinc-400">manage_accounts</span><span class="text-[13px] font-medium text-zinc-700">Hồ sơ cá nhân</span></button>
+          <button onclick="document.getElementById('profileDrop').classList.add('hidden');document.getElementById('changePwModal').classList.remove('hidden');" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-zinc-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-zinc-400">lock_reset</span><span class="text-[13px] font-medium text-zinc-700">Đổi mật khẩu</span></button>
+          <button class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-zinc-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-zinc-400">settings</span><span class="text-[13px] font-medium text-zinc-700">Cài đặt</span></button>
+          <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-red-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-red-600">logout</span><span class="text-[13px] font-medium text-red-600">Đăng xuất</span></button></div>
         </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- Main -->
+<!-- Main Container -->
 <main class="lg:ml-[248px] mt-[64px] p-4 lg:p-6 flex flex-col gap-5">
 
   <!-- Header section -->
@@ -150,279 +162,168 @@ body { font-family: 'Inter', sans-serif; }
       <p class="text-sm text-zinc-500 mt-0.5">Theo dõi tình trạng và cấu hình toàn bộ sân tại chi nhánh</p>
     </div>
     <div class="flex items-center gap-2">
-      <button class="flex items-center gap-1.5 h-10 px-4 rounded-xl bg-white border border-zinc-200 text-sm font-semibold text-zinc-700 hover:bg-zinc-50">
+      <button onclick="switchTab('types')" class="flex items-center gap-1.5 h-10 px-4 rounded-xl bg-white border border-zinc-200 text-sm font-semibold text-zinc-700 hover:bg-zinc-50">
         <span class="material-symbols-outlined text-[16px]">tune</span>Cấu hình giá
       </button>
-      <button onclick="document.getElementById('courtModal').classList.remove('hidden')" class="flex items-center gap-1.5 h-10 px-4 rounded-xl bg-zinc-800 text-white text-sm font-semibold shadow-md shadow-zinc-300 hover:bg-zinc-700">
+      <button id="mainActionBtn" onclick="openCreateModal()" class="flex items-center gap-1.5 h-10 px-4 rounded-xl bg-zinc-800 text-white text-sm font-semibold shadow-md shadow-zinc-300 hover:bg-zinc-700">
         <span class="material-symbols-outlined text-[16px]">add</span>Thêm sân mới
       </button>
     </div>
   </section>
 
-  <!-- Stats -->
-  <section data-aos="fade-up" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-    <div data-aos="fade-up" class="card p-4 hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-blue-700">stadium</span></div><div><p class="text-[11px] text-zinc-500 font-medium">Tổng số sân</p><p class="text-2xl font-black text-zinc-900">15</p></div></div>
+  <!-- Navigation Tabs -->
+  <section data-aos="fade-up" class="flex border-b border-zinc-200 gap-6">
+    <button id="btnTabCourts" onclick="switchTab('courts')" class="pb-3 text-sm font-bold border-b-2 border-blue-600 text-blue-600 flex items-center gap-2 transition-all">
+      <span class="material-symbols-outlined text-[18px]">stadium</span>Danh sách sân thi đấu
+    </button>
+    <button id="btnTabTypes" onclick="switchTab('types')" class="pb-3 text-sm font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-800 flex items-center gap-2 transition-all">
+      <span class="material-symbols-outlined text-[18px]">payments</span>Cấu hình loại sân & Bảng giá
+    </button>
+  </section>
+
+  <!-- Stats Grid (Dynamically updated) -->
+  <section id="statsSection" data-aos="fade-up" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-blue-700">stadium</span></div>
+        <div>
+          <p class="text-[11px] text-zinc-500 font-medium">Tổng số sân</p>
+          <p id="statTotal" class="text-2xl font-black text-zinc-900">0</p>
+        </div>
+      </div>
     </div>
-    <div data-aos="fade-up" class="card p-4 hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-green-700">check_circle</span></div><div><p class="text-[11px] text-zinc-500 font-medium">Đang sẵn sàng</p><p class="text-2xl font-black text-green-600">12</p></div></div>
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-green-700">check_circle</span></div>
+        <div>
+          <p class="text-[11px] text-zinc-500 font-medium">Đang sẵn sàng</p>
+          <p id="statReady" class="text-2xl font-black text-green-650">0</p>
+        </div>
+      </div>
     </div>
-    <div data-aos="fade-up" class="card p-4 hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-amber-700">build</span></div><div><p class="text-[11px] text-zinc-500 font-medium">Đang bảo trì</p><p class="text-2xl font-black text-amber-600">2</p></div></div>
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-amber-700">build</span></div>
+        <div>
+          <p class="text-[11px] text-zinc-500 font-medium">Đang bảo trì</p>
+          <p id="statMaintenance" class="text-2xl font-black text-amber-600">0</p>
+        </div>
+      </div>
     </div>
-    <div data-aos="fade-up" class="card p-4 hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-red-600">block</span></div><div><p class="text-[11px] text-zinc-500 font-medium">Tạm đóng</p><p class="text-2xl font-black text-red-500">1</p></div></div>
+    <div class="card p-4 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined text-[20px] text-red-650">block</span></div>
+        <div>
+          <p class="text-[11px] text-zinc-500 font-medium">Tạm đóng</p>
+          <p id="statClosed" class="text-2xl font-black text-red-500">0</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Toolbar -->
-  <section data-aos="fade-up" class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+  <!-- Toolbar Section -->
+  <section id="toolbarSection" data-aos="fade-up" class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
     <div class="flex items-center gap-2 flex-wrap">
+      <!-- View mode switch -->
       <div class="flex rounded-xl border border-zinc-200 overflow-hidden bg-white">
-        <button class="px-3 py-2 text-sm flex items-center gap-1.5 bg-zinc-800 text-white"><span class="material-symbols-outlined text-[15px]">grid_view</span>Lưới</button>
-        <button class="px-3 py-2 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50"><span class="material-symbols-outlined text-[15px]">list</span>Danh sách</button>
+        <button id="btnViewGrid" onclick="setViewMode('grid')" class="px-3 py-2 text-sm flex items-center gap-1.5 bg-zinc-800 text-white font-semibold">
+          <span class="material-symbols-outlined text-[15px]">grid_view</span>Lưới
+        </button>
+        <button id="btnViewList" onclick="setViewMode('list')" class="px-3 py-2 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50">
+          <span class="material-symbols-outlined text-[15px]">list</span>Danh sách
+        </button>
       </div>
-      <select class="h-10 pl-3 pr-8 rounded-xl border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30">
-        <option>Tất cả loại sân</option><option>Cầu lông</option><option>Bóng đá</option><option>Pickleball</option><option>Tennis</option>
+      <!-- Type Filter -->
+      <select id="filterType" onchange="applyFilters()" class="h-10 pl-3 pr-8 rounded-xl border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30">
+        <option value="all">Tất cả loại sân</option>
       </select>
-      <select class="h-10 pl-3 pr-8 rounded-xl border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30">
-        <option>Tất cả trạng thái</option><option>Sẵn sàng</option><option>Bảo trì</option><option>Tạm đóng</option>
+      <!-- Status Filter -->
+      <select id="filterStatus" onchange="applyFilters()" class="h-10 pl-3 pr-8 rounded-xl border border-zinc-200 bg-white text-sm text-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/30">
+        <option value="all">Tất cả trạng thái</option>
+        <option value="Sẵn sàng">Sẵn sàng</option>
+        <option value="Đang dùng">Đang dùng</option>
+        <option value="Bảo trì">Bảo trì</option>
+        <option value="Tạm đóng">Tạm đóng</option>
       </select>
     </div>
+    <!-- Search Bar -->
     <div class="relative max-w-xs flex-1">
       <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-zinc-400">search</span>
-      <input type="text" placeholder="Tìm theo mã sân hoặc tên..." class="h-10 w-full pl-9 pr-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+      <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Tìm theo mã sân hoặc tên..." class="h-10 w-full pl-9 pr-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
     </div>
   </section>
 
-  <!-- Court Grid -->
-  <section>
-    <div id="courtGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-
-      <!-- Court 1: Sân A1 - Đang dùng -->
-      <div data-aos="fade-up" class="court-card card overflow-hidden">
-        <div class="relative h-36 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1600679472829-3044539ce8ed?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="" onerror="this.style.display='none'">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          <div class="absolute top-2 left-2 flex items-center gap-1"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN001</span></div>
-          <div class="absolute top-2 right-2"><span class="badge badge-green flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-green-500 live-dot"></span>Đang dùng</span></div>
-          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân A1</p><p class="text-[10px] opacity-90">Bóng đá 5 · Sân cỏ nhân tạo</p></div>
-        </div>
-        <div class="p-3">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
-            <p class="text-sm font-bold text-zinc-900">200K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
-          </div>
-          <div class="flex items-center gap-2 mb-3">
-            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:75%"></div></div>
-            <span class="text-[10px] font-bold text-green-700">75%</span>
-          </div>
-          <p class="text-[10px] text-zinc-500 mb-2 truncate"><span class="font-semibold text-zinc-700">Nguyễn Văn Hùng</span> · 08:00–10:00</p>
-          <div class="flex items-center gap-1.5">
-            <button class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span>Xem</button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">more_horiz</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Court 2: Sân A2 - Sẵn sàng -->
-      <div data-aos="fade-up" class="court-card card overflow-hidden">
-        <div class="relative h-36 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN002</span></div>
-          <div class="absolute top-2 right-2"><span class="badge badge-blue shadow-sm">Sẵn sàng</span></div>
-          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân A2</p><p class="text-[10px] opacity-90">Cầu lông · Sàn gỗ</p></div>
-        </div>
-        <div class="p-3">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
-            <p class="text-sm font-bold text-zinc-900">80K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
-          </div>
-          <div class="flex items-center gap-2 mb-3">
-            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style="width:60%"></div></div>
-            <span class="text-[10px] font-bold text-blue-700">60%</span>
-          </div>
-          <p class="text-[10px] text-zinc-500 mb-2">Lịch tiếp theo: <span class="font-semibold text-zinc-700">15:00 hôm nay</span></p>
-          <div class="flex items-center gap-1.5">
-            <button class="flex-1 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">event_available</span>Đặt ngay</button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Court 3: Sân A3 - Đang dùng -->
-      <div data-aos="fade-up" class="court-card card overflow-hidden">
-        <div class="relative h-36 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN003</span></div>
-          <div class="absolute top-2 right-2"><span class="badge badge-green flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-green-500 live-dot"></span>Đang dùng</span></div>
-          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân A3</p><p class="text-[10px] opacity-90">Bóng đá 7 · Sân cỏ nhân tạo</p></div>
-        </div>
-        <div class="p-3">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
-            <p class="text-sm font-bold text-zinc-900">280K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
-          </div>
-          <div class="flex items-center gap-2 mb-3">
-            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:88%"></div></div>
-            <span class="text-[10px] font-bold text-green-700">88%</span>
-          </div>
-          <p class="text-[10px] text-zinc-500 mb-2 truncate"><span class="font-semibold text-zinc-700">Phạm Minh Tuấn</span> · 14:00–16:00</p>
-          <div class="flex items-center gap-1.5">
-            <button class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span>Xem</button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">more_horiz</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Court 4: Sân A4 - Bảo trì -->
-      <div data-aos="fade-up" class="court-card card overflow-hidden ring-2 ring-amber-200">
-        <div class="relative h-36 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover grayscale" alt="">
-          <div class="absolute inset-0 bg-gradient-to-t from-amber-900/70 via-amber-900/20 to-transparent"></div>
-          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN004</span></div>
-          <div class="absolute top-2 right-2"><span class="badge badge-amber shadow-sm">⚠ Bảo trì</span></div>
-          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân A4</p><p class="text-[10px] opacity-90">Bóng đá 5 · Đang sửa mặt sân</p></div>
-        </div>
-        <div class="p-3">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-amber-600">build</span><span class="text-[11px] text-amber-700 font-semibold">Hoàn thành 20/05</span></div>
-            <p class="text-sm font-bold text-zinc-400 line-through">200K</p>
-          </div>
-          <div class="p-2 bg-amber-50 rounded-lg mb-3">
-            <p class="text-[10px] text-amber-800"><span class="font-semibold">Lý do:</span> Sửa mặt sân nhân tạo, kiểm tra hệ thống đèn</p>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <button class="flex-1 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-800 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>Hoàn thành</button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Court 5: Sân B1 - Sẵn sàng -->
-      <div data-aos="fade-up" class="court-card card overflow-hidden">
-        <div class="relative h-36 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1594470117722-de4b9a02ebed?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN005</span></div>
-          <div class="absolute top-2 right-2"><span class="badge badge-blue shadow-sm">Sẵn sàng</span></div>
-          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân B1</p><p class="text-[10px] opacity-90">Cầu lông cao cấp</p></div>
-        </div>
-        <div class="p-3">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
-            <p class="text-sm font-bold text-zinc-900">100K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
-          </div>
-          <div class="flex items-center gap-2 mb-3">
-            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style="width:45%"></div></div>
-            <span class="text-[10px] font-bold text-blue-700">45%</span>
-          </div>
-          <p class="text-[10px] text-zinc-500 mb-2">Lịch tiếp theo: <span class="font-semibold text-zinc-700">17:00 hôm nay</span></p>
-          <div class="flex items-center gap-1.5">
-            <button class="flex-1 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">event_available</span>Đặt ngay</button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Court 6: Sân B3 - Đang dùng -->
-      <div data-aos="fade-up" class="court-card card overflow-hidden">
-        <div class="relative h-36 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN006</span></div>
-          <div class="absolute top-2 right-2"><span class="badge badge-green flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-green-500 live-dot"></span>Đang dùng</span></div>
-          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân B3</p><p class="text-[10px] opacity-90">Cầu lông tiêu chuẩn</p></div>
-        </div>
-        <div class="p-3">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
-            <p class="text-sm font-bold text-zinc-900">80K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
-          </div>
-          <div class="flex items-center gap-2 mb-3">
-            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" style="width:92%"></div></div>
-            <span class="text-[10px] font-bold text-green-700">92%</span>
-          </div>
-          <p class="text-[10px] text-zinc-500 mb-2 truncate"><span class="font-semibold text-zinc-700">Trần Thị Lan</span> · 09:00–11:00</p>
-          <div class="flex items-center gap-1.5">
-            <button class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">visibility</span>Xem</button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">more_horiz</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Court 7: Sân P1 - Sẵn sàng -->
-      <div data-aos="fade-up" class="court-card card overflow-hidden">
-        <div class="relative h-36 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover" alt="">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN010</span></div>
-          <div class="absolute top-2 right-2"><span class="badge badge-blue shadow-sm">Sẵn sàng</span></div>
-          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân P1</p><p class="text-[10px] opacity-90">Pickleball · Trong nhà</p></div>
-        </div>
-        <div class="p-3">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span><span class="text-[11px] text-zinc-500">06:00 – 22:00</span></div>
-            <p class="text-sm font-bold text-zinc-900">90K<span class="text-[10px] text-zinc-400 font-normal">/giờ</span></p>
-          </div>
-          <div class="flex items-center gap-2 mb-3">
-            <div class="flex-1 h-2 bg-zinc-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full" style="width:55%"></div></div>
-            <span class="text-[10px] font-bold text-blue-700">55%</span>
-          </div>
-          <p class="text-[10px] text-zinc-500 mb-2">Lịch tiếp theo: <span class="font-semibold text-zinc-700">16:30 hôm nay</span></p>
-          <div class="flex items-center gap-1.5">
-            <button class="flex-1 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">event_available</span>Đặt ngay</button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Court 8: Sân T1 - Tạm đóng -->
-      <div data-aos="fade-up" class="court-card card overflow-hidden ring-2 ring-red-200 opacity-90">
-        <div class="relative h-36 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=500&h=300&fit=crop" class="court-img w-full h-full object-cover grayscale" alt="">
-          <div class="absolute inset-0 bg-gradient-to-t from-red-900/70 via-red-900/20 to-transparent"></div>
-          <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">SAN012</span></div>
-          <div class="absolute top-2 right-2"><span class="badge badge-red shadow-sm">⛔ Tạm đóng</span></div>
-          <div class="absolute bottom-2 left-2 text-white"><p class="text-sm font-bold">Sân T1</p><p class="text-[10px] opacity-90">Tennis · Ngoài trời</p></div>
-        </div>
-        <div class="p-3">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-red-500">block</span><span class="text-[11px] text-red-600 font-semibold">Chưa xác định</span></div>
-            <p class="text-sm font-bold text-zinc-400 line-through">250K</p>
-          </div>
-          <div class="p-2 bg-red-50 rounded-lg mb-3">
-            <p class="text-[10px] text-red-800"><span class="font-semibold">Lý do:</span> Chờ cấp phép cải tạo, hệ thống thoát nước</p>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <button class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">power_settings_new</span>Mở lại</button>
-            <button class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center"><span class="material-symbols-outlined text-[14px]">edit</span></button>
-          </div>
-        </div>
-      </div>
-
+  <!-- Court List & Types Grid Layout Containers -->
+  <section class="min-h-[400px]">
+    <!-- Court Cards (Grid View) -->
+    <div id="mainCourtGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- Generated Dynamically -->
     </div>
 
-    <!-- Pagination -->
-    <div class="flex items-center justify-between mt-5 text-xs text-zinc-500">
-      <span>Hiển thị <span class="font-semibold text-zinc-700">8 / 15</span> sân</span>
-      <div class="flex items-center gap-1">
-        <button class="px-2 py-1 rounded-md hover:bg-zinc-100 text-zinc-400 disabled:opacity-40" disabled><span class="material-symbols-outlined text-[14px]">chevron_left</span></button>
-        <button class="px-2.5 py-1 rounded-md bg-zinc-800 text-white font-semibold">1</button>
-        <button class="px-2.5 py-1 rounded-md hover:bg-zinc-100">2</button>
-        <button class="px-2 py-1 rounded-md hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">chevron_right</span></button>
+    <!-- Court Table (List View) - hidden by default -->
+    <div id="mainCourtList" class="hidden card overflow-hidden bg-white border border-zinc-200 shadow-sm rounded-2xl">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-zinc-200 text-xs font-bold text-zinc-500 uppercase tracking-wider bg-zinc-50/50">
+              <th class="px-5 py-3.5">Mã sân</th>
+              <th class="px-5 py-3.5">Tên sân</th>
+              <th class="px-5 py-3.5">Loại sân / Bộ môn</th>
+              <th class="px-5 py-3.5">Giá không đèn / Có đèn</th>
+              <th class="px-5 py-3.5">Thời gian lên đèn</th>
+              <th class="px-5 py-3.5">Trạng thái</th>
+              <th class="px-5 py-3.5 text-right">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="courtListTableBody" class="divide-y divide-zinc-100 text-xs text-zinc-700">
+            <!-- Generated Dynamically -->
+          </tbody>
+        </table>
       </div>
     </div>
+
+    <!-- Pricing and Court Types View (Tab 2) - hidden by default -->
+    <div id="pricingTypesView" class="hidden card overflow-hidden bg-white border border-zinc-200 shadow-sm rounded-2xl">
+      <div class="p-4 border-b border-zinc-150 flex items-center justify-between">
+        <div>
+          <h3 class="text-sm font-bold text-zinc-800">Cấu hình Loại sân & Bảng giá giờ lên đèn</h3>
+          <p class="text-[11px] text-zinc-400">Điều chỉnh biểu phí giờ bật đèn riêng cho từng môn thể thao</p>
+        </div>
+        <button onclick="openCreateTypeModal()" class="flex items-center gap-1.5 h-8 px-3 rounded-lg bg-zinc-850 hover:bg-zinc-750 text-white text-[11px] font-bold transition-all shadow-sm">
+          <span class="material-symbols-outlined text-[14px]">add</span>Thêm loại sân mới
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-zinc-200 text-xs font-bold text-zinc-500 uppercase tracking-wider bg-zinc-50/50">
+              <th class="px-5 py-3.5">Mã Loại</th>
+              <th class="px-5 py-3.5">Tên Loại Sân</th>
+              <th class="px-5 py-3.5">Bộ môn</th>
+              <th class="px-5 py-3.5">Giá không đèn (Tiêu chuẩn)</th>
+              <th class="px-5 py-3.5">Giá có đèn (Tối)</th>
+              <th class="px-5 py-3.5">Giờ bắt đầu lên đèn</th>
+              <th class="px-5 py-3.5 text-right">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="typeListTableBody" class="divide-y divide-zinc-100 text-xs text-zinc-700">
+            <!-- Generated Dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Empty State Placeholder -->
+  <section id="emptyState" class="hidden flex-col items-center justify-center p-12 text-center bg-white rounded-3xl border border-dashed border-zinc-200">
+    <span class="material-symbols-outlined text-[48px] text-zinc-300">stadium</span>
+    <p class="text-sm font-bold text-zinc-800 mt-2">Không tìm thấy sân thi đấu nào</p>
+    <p class="text-xs text-zinc-400 mt-0.5">Vui lòng điều chỉnh bộ lọc hoặc tạo thêm sân thi đấu mới.</p>
   </section>
 
 </main>
 
-<!-- Modal: Tạo lịch đặt mới -->
+<!-- Modal: Tạo lịch đặt mới (Liên kết với receptionist dashboard) -->
 <div id="bookingModal" class="fixed inset-0 bg-zinc-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all duration-355 opacity-0 pointer-events-none">
   <div id="bookingModalCard" class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh] transform scale-95 transition-all duration-355">
     
@@ -530,14 +431,14 @@ body { font-family: 'Inter', sans-serif; }
             </div>
           </div>
 
-          <!-- Court Grid Selection -->
+          <!-- Court Grid Selection inside Modal -->
           <div>
             <div class="flex items-center justify-between mb-1.5">
               <label class="text-[11px] font-bold text-zinc-600">Chọn sân thi đấu cụ thể <span class="text-red-500">*</span></label>
               <span class="text-[10px] text-zinc-400 font-medium">Bấm vào sân trống để chọn</span>
             </div>
             
-            <div id="courtGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <div id="modalCourtGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               <!-- Dynamically populated cards -->
             </div>
           </div>
@@ -675,653 +576,1333 @@ body { font-family: 'Inter', sans-serif; }
 </div>
 
 <!-- SUCCESS TOAST NOTIFICATION -->
-<div id="successToast" class="fixed bottom-6 right-6 bg-zinc-900 text-white rounded-2xl p-4 shadow-2xl border border-zinc-800 z-50 flex items-start gap-3 transition-all duration-300 translate-y-12 opacity-0 pointer-events-none w-80">
+<div id="successToast" class="fixed bottom-6 right-6 bg-zinc-900 text-white rounded-2xl p-4 shadow-2xl border border-zinc-800 z-[99] flex items-start gap-3 transition-all duration-300 translate-y-12 opacity-0 pointer-events-none w-80">
   <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
     <span class="material-symbols-outlined text-[18px]">check</span>
   </div>
+  <div class="flex-1">
+    <h4 class="text-xs font-bold text-zinc-100">Thành công!</h4>
+    <p id="successToastMessage" class="text-[10px] text-zinc-400 mt-0.5">Thao tác được thực hiện thành công.</p>
+  </div>
+</div>
 
-<!-- Add court modal -->
+<!-- Modal 1: Thêm/Sửa sân (`courtModal`) -->
 <div id="courtModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
-  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('courtModal').classList.add('hidden')"></div>
-  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[480px] max-h-[90vh] overflow-y-auto">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeCourtModal()"></div>
+  <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-[480px] max-h-[92vh] overflow-y-auto border border-zinc-200">
     <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
-      <div><h2 class="text-base font-bold text-zinc-900">Thêm sân mới</h2><p class="text-xs text-zinc-500 mt-0.5">Tạo sân thi đấu cho chi nhánh CS01</p></div>
-      <button onclick="document.getElementById('courtModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+      <div>
+        <h2 id="courtModalTitle" class="text-base font-bold text-zinc-900">Thêm sân mới</h2>
+        <p class="text-xs text-zinc-500 mt-0.5">Tạo sân thi đấu mới cho chi nhánh CS01</p>
+      </div>
+      <button onclick="closeCourtModal()" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
     </div>
     <div class="px-6 py-4 flex flex-col gap-4">
+      <input type="hidden" id="courtEditId">
       <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Mã sân *</label><input type="text" placeholder="VD: SAN016" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"></div>
-        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Tên sân *</label><input type="text" placeholder="Tên hiển thị" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"></div>
-      </div>
-      <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Loại sân * <span class="text-zinc-400 font-normal">· Bảng LoaiSan</span></label>
-        <select class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"><option>-- Chọn loại sân --</option><option>Cầu lông tiêu chuẩn</option><option>Cầu lông cao cấp</option><option>Bóng đá 5 người</option><option>Bóng đá 7 người</option><option>Pickleball</option><option>Tennis</option></select>
-      </div>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Giờ mở</label><input type="time" value="06:00" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"></div>
-        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Giờ đóng</label><input type="time" value="22:00" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"></div>
-      </div>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Giá ngày thường</label><div class="relative"><input type="number" placeholder="80000" class="h-10 w-full pl-3 pr-12 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400">đ/giờ</span></div></div>
-        <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Giá cuối tuần</label><div class="relative"><input type="number" placeholder="100000" class="h-10 w-full pl-3 pr-12 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400">đ/giờ</span></div></div>
-      </div>
-      <div class="flex flex-col gap-1.5"><label class="text-xs font-semibold text-zinc-700">Ảnh sân</label>
-        <div class="border-2 border-dashed border-zinc-200 rounded-xl p-6 text-center hover:border-blue-400 hover:bg-blue-50/30 transition-colors cursor-pointer">
-          <span class="material-symbols-outlined text-[32px] text-zinc-400">cloud_upload</span>
-          <p class="text-xs text-zinc-500 mt-1">Kéo thả ảnh vào đây hoặc <span class="text-blue-700 font-semibold">chọn file</span></p>
-          <p class="text-[10px] text-zinc-400 mt-0.5">PNG, JPG (tối đa 5MB)</p>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-700">Mã sân *</label>
+          <input type="text" id="courtCode" placeholder="VD: SAN016" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-700">Tên sân *</label>
+          <input type="text" id="courtName" placeholder="Tên hiển thị" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
         </div>
       </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-700">Loại sân * <span class="text-zinc-400 font-normal">· LoaiSan Table</span></label>
+        <select id="courtTypeSelect" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+          <!-- Populated dynamically -->
+        </select>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-700">Trạng thái *</label>
+        <select id="courtStatus" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+          <option value="Sẵn sàng">Sẵn sàng</option>
+          <option value="Đang dùng">Đang dùng</option>
+          <option value="Bảo trì">Bảo trì</option>
+          <option value="Tạm đóng">Tạm đóng</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-700">Mô tả chi tiết</label>
+        <textarea id="courtDesc" rows="3" placeholder="Sân cỏ chất lượng tốt, đầy đủ ánh sáng..." class="px-3 py-2 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 resize-none"></textarea>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-700">Ảnh sân (Để trống để tự động lấy ảnh mẫu theo bộ môn)</label>
+        <input type="text" id="courtImage" placeholder="https://unsplash.com/..." class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+      </div>
     </div>
-    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
-      <button onclick="document.getElementById('courtModal').classList.add('hidden')" class="h-10 px-4 rounded-xl border border-zinc-200 text-sm font-semibold text-zinc-700 hover:bg-zinc-50">Hủy</button>
-      <button class="h-10 px-5 rounded-xl bg-zinc-800 text-white text-sm font-semibold shadow-md shadow-zinc-300 hover:bg-zinc-700">Thêm sân</button>
+    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2 bg-zinc-50/50">
+      <button onclick="closeCourtModal()" class="h-10 px-4 rounded-xl border border-zinc-200 text-sm font-semibold text-zinc-700 hover:bg-zinc-50">Hủy</button>
+      <button id="saveCourtBtn" onclick="saveCourt()" class="h-10 px-5 rounded-xl bg-zinc-800 text-white text-sm font-semibold shadow-md shadow-zinc-300 hover:bg-zinc-700">Thêm sân</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Thêm/Sửa loại sân & Bảng giá (`typeModal`) -->
+<div id="typeModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeTypeModal()"></div>
+  <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-[480px] max-h-[92vh] overflow-y-auto border border-zinc-200">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <div>
+        <h2 id="typeModalTitle" class="text-base font-bold text-zinc-900">Thêm loại sân mới</h2>
+        <p class="text-xs text-zinc-500 mt-0.5">Thiết lập bộ môn, bảng giá và giờ lên đèn</p>
+      </div>
+      <button onclick="closeTypeModal()" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+    </div>
+    <div class="px-6 py-4 flex flex-col gap-4">
+      <input type="hidden" id="typeEditId">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-700">Môn thể thao *</label>
+        <select id="typeSportSelect" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+          <!-- Will populate based on mockSports -->
+        </select>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-700">Tên loại sân *</label>
+        <input type="text" id="typeName" placeholder="VD: Sân bóng đá 7 người" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-700">Giá ngày (Không đèn) *</label>
+          <div class="relative">
+            <input type="text" id="typePriceNoLight" placeholder="150,000" class="h-10 w-full pl-3 pr-10 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-zinc-450">đ</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-700">Giá tối (Có đèn phụ thu) *</label>
+          <div class="relative">
+            <input type="text" id="typePriceWithLight" placeholder="200,000" class="h-10 w-full pl-3 pr-10 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-zinc-450">đ</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-700">Giờ bắt đầu lên đèn *</label>
+        <input type="time" id="typeLightStart" value="17:30" class="h-10 px-3 rounded-xl border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400">
+        <p class="text-[10px] text-zinc-450 mt-1">💡 Đối với loại sân trong nhà như Cầu lông, vui lòng chọn <span class="font-semibold">06:00</span> để đèn bật 100% full ca (Không phụ thu thêm hoặc đã tính thẳng vào giá sân).</p>
+      </div>
+    </div>
+    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2 bg-zinc-50/50">
+      <button onclick="closeTypeModal()" class="h-10 px-4 rounded-xl border border-zinc-200 text-sm font-semibold text-zinc-700 hover:bg-zinc-50">Hủy</button>
+      <button id="saveTypeBtn" onclick="saveType()" class="h-10 px-5 rounded-xl bg-zinc-800 text-white text-sm font-semibold shadow-md shadow-zinc-300 hover:bg-zinc-700">Lưu lại</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 600, once: true });
+
+  // Sidebar mobile menu toggle
+  document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('-translate-x-full');
+  });
+
+  );
+
+  // -------------------------------------------------------------
+  // MOCK DATA: Synced perfectly with QuanLiSport_V4 Database schema
+  // -------------------------------------------------------------
+  
+  const mockSports = [
+    { id: 1, name: 'Bóng đá', icon: 'sports_soccer' },
+    { id: 2, name: 'Cầu lông', icon: 'sports_tennis' },
+    { id: 3, name: 'Pickleball', icon: 'sports_kabaddi' },
+    { id: 4, name: 'Tennis', icon: 'sports_tennis' }
+  ];
+
+  let mockLoaiSan = [
+    { id: 1, sportId: 1, name: 'Sân bóng đá 5 người', priceNoLight: 150000, priceWithLight: 200000, lightStart: '17:30' },
+    { id: 2, sportId: 2, name: 'Sân Cầu lông thảm PVC', priceNoLight: 60000, priceWithLight: 60000, lightStart: '06:00' },
+    { id: 3, sportId: 3, name: 'Sân Pickleball chuẩn', priceNoLight: 80000, priceWithLight: 120000, lightStart: '17:00' },
+    { id: 4, sportId: 4, name: 'Sân Tennis tiêu chuẩn', priceNoLight: 180000, priceWithLight: 250000, lightStart: '18:00' }
+  ];
+
+  let mockSan = [
+    { id: 1, typeId: 1, code: 'SAN001', name: 'Sân bóng A1', status: 'Đang dùng', desc: 'Sân cỏ nhân tạo chất lượng cao' },
+    { id: 2, typeId: 1, code: 'SAN002', name: 'Sân bóng A2', status: 'Sẵn sàng', desc: 'Sân cỏ nhân tạo mới nâng cấp' },
+    { id: 3, typeId: 1, code: 'SAN003', name: 'Sân bóng A3', status: 'Sẵn sàng', desc: 'Đèn cao áp chiếu sáng cực tốt' },
+    { id: 4, typeId: 1, code: 'SAN004', name: 'Sân bóng A4', status: 'Bảo trì', desc: 'Sửa nền sân và cỏ nhân tạo' },
+    { id: 5, typeId: 2, code: 'SAN005', name: 'Sân cầu lông B1', status: 'Sẵn sàng', desc: 'Thảm PVC chống trơn trượt chuẩn' },
+    { id: 6, typeId: 2, code: 'SAN006', name: 'Sân cầu lông B2', status: 'Đang dùng', desc: 'Trần cao, hệ thống đèn chống chói' },
+    { id: 7, typeId: 2, code: 'SAN007', name: 'Sân cầu lông B3', status: 'Sẵn sàng', desc: 'Đầy đủ cột lưới tiêu chuẩn thi đấu' },
+    { id: 8, typeId: 2, code: 'SAN008', name: 'Sân cầu lông B4', status: 'Tạm đóng', desc: 'Đang sửa chữa điện chiếu sáng' },
+    { id: 9, typeId: 3, code: 'SAN009', name: 'Sân Pickleball P1', status: 'Sẵn sàng', desc: 'Sân Pickleball ngoài trời thoáng đãng' },
+    { id: 10, typeId: 3, code: 'SAN010', name: 'Sân Pickleball P2', status: 'Đang dùng', desc: 'Khu vực Pickleball có lưới che nắng' },
+    { id: 11, typeId: 3, code: 'SAN011', name: 'Sân Pickleball P3', status: 'Bảo trì', desc: 'Đang sơn lại vạch kẻ nền sân' },
+    { id: 12, typeId: 4, code: 'SAN012', name: 'Sân Tennis T1', status: 'Sẵn sàng', desc: 'Sân Tennis đất nện chuẩn quốc tế' },
+    { id: 13, typeId: 4, code: 'SAN013', name: 'Sân Tennis T2', status: 'Tạm đóng', desc: 'Chờ vệ sinh bề mặt sân' }
+  ];
+
+  // Presets of Unsplash sports images
+  const sportImages = {
+    1: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&h=300&fit=crop',
+    2: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500&h=300&fit=crop',
+    3: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=500&h=300&fit=crop',
+    4: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=500&h=300&fit=crop'
+  };
+
+  // State Management
+  let currentTab = 'courts'; // 'courts' or 'types'
+  let viewMode = 'grid'; // 'grid' or 'list'
+
+  // Smart Real-time Currency Formatter (Retains cursor position)
+  function initCurrencyFormatter(inputId) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    input.addEventListener('input', (e) => {
+      let value = e.target.value.replace(/,/g, '').replace(/[^0-9]/g, '');
+      if (value === '') {
+        e.target.value = '';
+        return;
+      }
+      let num = parseInt(value, 10);
+      let cursorPosition = e.target.selectionStart;
+      const originalLength = e.target.value.length;
+      const formatted = num.toLocaleString('en-US');
+      e.target.value = formatted;
+      const newLength = formatted.length;
+      cursorPosition = cursorPosition + (newLength - originalLength);
+      e.target.setSelectionRange(cursorPosition, cursorPosition);
+    });
+  }
+
+  // Parse thousands formatted numbers back to pure integers
+  function parseFormattedNumber(val) {
+    return parseInt(val.replace(/,/g, ''), 10) || 0;
+  }
+
+  // Initialize page components
+  document.addEventListener('DOMContentLoaded', () => {
+    initCurrencyFormatter('typePriceNoLight');
+    initCurrencyFormatter('typePriceWithLight');
+    populateSportDropdowns();
+    populateLoaiSanFilters();
+    renderAll();
+  });
+
+  // Switch tabs
+  function switchTab(tab) {
+    currentTab = tab;
+    const btnTabCourts = document.getElementById('btnTabCourts');
+    const btnTabTypes = document.getElementById('btnTabTypes');
+    const mainActionBtn = document.getElementById('mainActionBtn');
+    
+    const toolbar = document.getElementById('toolbarSection');
+    const stats = document.getElementById('statsSection');
+    const gridContainer = document.getElementById('mainCourtGrid');
+    const listContainer = document.getElementById('mainCourtList');
+    const pricingView = document.getElementById('pricingTypesView');
+
+    if (tab === 'courts') {
+      btnTabCourts.className = 'pb-3 text-sm font-bold border-b-2 border-blue-600 text-blue-600 flex items-center gap-2 transition-all';
+      btnTabTypes.className = 'pb-3 text-sm font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-800 flex items-center gap-2 transition-all';
+      mainActionBtn.innerHTML = `<span class="material-symbols-outlined text-[16px]">add</span>Thêm sân mới`;
+      mainActionBtn.setAttribute('onclick', 'openCreateModal()');
+      
+      toolbar.classList.remove('hidden');
+      stats.classList.remove('hidden');
+      pricingView.classList.add('hidden');
+      setViewMode(viewMode);
+    } else {
+      btnTabTypes.className = 'pb-3 text-sm font-bold border-b-2 border-blue-600 text-blue-600 flex items-center gap-2 transition-all';
+      btnTabCourts.className = 'pb-3 text-sm font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-800 flex items-center gap-2 transition-all';
+      mainActionBtn.innerHTML = `<span class="material-symbols-outlined text-[16px]">playlist_add</span>Thêm loại sân`;
+      mainActionBtn.setAttribute('onclick', 'openCreateTypeModal()');
+
+      toolbar.classList.add('hidden');
+      stats.classList.add('hidden');
+      gridContainer.classList.add('hidden');
+      listContainer.classList.add('hidden');
+      pricingView.classList.remove('hidden');
+      document.getElementById('emptyState').classList.add('hidden');
+      renderTypesList();
+    }
+  }
+
+  // View Mode toggling
+  function setViewMode(mode) {
+    viewMode = mode;
+    const btnGrid = document.getElementById('btnViewGrid');
+    const btnList = document.getElementById('btnViewList');
+    const mainCourtGrid = document.getElementById('mainCourtGrid');
+    const mainCourtList = document.getElementById('mainCourtList');
+
+    if (currentTab !== 'courts') return;
+
+    if (mode === 'grid') {
+      btnGrid.className = 'px-3 py-2 text-sm flex items-center gap-1.5 bg-zinc-800 text-white font-semibold';
+      btnList.className = 'px-3 py-2 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50';
+      mainCourtGrid.classList.remove('hidden');
+      mainCourtList.classList.add('hidden');
+    } else {
+      btnList.className = 'px-3 py-2 text-sm flex items-center gap-1.5 bg-zinc-800 text-white font-semibold';
+      btnGrid.className = 'px-3 py-2 text-sm flex items-center gap-1.5 text-zinc-500 hover:bg-zinc-50';
+      mainCourtGrid.classList.add('hidden');
+      mainCourtList.classList.remove('hidden');
+    }
+    renderCourts();
+  }
+
+  // Populate dynamic sports & types options
+  function populateSportDropdowns() {
+    const sportSelect = document.getElementById('typeSportSelect');
+    sportSelect.innerHTML = mockSports.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+
+    const courtTypeSelect = document.getElementById('courtTypeSelect');
+    courtTypeSelect.innerHTML = mockLoaiSan.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
+  }
+
+  function populateLoaiSanFilters() {
+    const filter = document.getElementById('filterType');
+    filter.innerHTML = `<option value="all">Tất cả loại sân</option>` + 
+      mockLoaiSan.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
+  }
+
+  // Renders both statistics and courts
+  function renderAll() {
+    renderStats();
+    renderCourts();
+  }
+
+  function renderStats() {
+    document.getElementById('statTotal').innerText = mockSan.length;
+    document.getElementById('statReady').innerText = mockSan.filter(s => s.status === 'Sẵn sàng').length;
+    document.getElementById('statMaintenance').innerText = mockSan.filter(s => s.status === 'Bảo trì').length;
+    document.getElementById('statClosed').innerText = mockSan.filter(s => s.status === 'Tạm đóng').length;
+  }
+
+  // Filtering Logic
+  function applyFilters() {
+    renderCourts();
+  }
+
+  function renderCourts() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const typeIdFilter = document.getElementById('filterType').value;
+    const statusFilter = document.getElementById('filterStatus').value;
+
+    let filtered = mockSan.map(c => {
+      const typeObj = mockLoaiSan.find(l => l.id === c.typeId) || {};
+      const sportObj = mockSports.find(s => s.id === typeObj.sportId) || {};
+      return { ...c, type: typeObj, sport: sportObj };
+    });
+
+    if (query) {
+      filtered = filtered.filter(c => c.code.toLowerCase().includes(query) || c.name.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query));
+    }
+    if (typeIdFilter !== 'all') {
+      filtered = filtered.filter(c => c.typeId === parseInt(typeIdFilter));
+    }
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(c => c.status === statusFilter);
+    }
+
+    const empty = document.getElementById('emptyState');
+    if (filtered.length === 0) {
+      document.getElementById('mainCourtGrid').classList.add('hidden');
+      document.getElementById('mainCourtList').classList.add('hidden');
+      empty.classList.remove('hidden');
+      return;
+    } else {
+      empty.classList.add('hidden');
+      if (viewMode === 'grid') {
+        document.getElementById('mainCourtGrid').classList.remove('hidden');
+      } else {
+        document.getElementById('mainCourtList').classList.remove('hidden');
+      }
+    }
+
+    if (viewMode === 'grid') {
+      renderGridView(filtered);
+    } else {
+      renderListView(filtered);
+    }
+  }
+
+  function renderGridView(courts) {
+    const grid = document.getElementById('mainCourtGrid');
+    grid.innerHTML = courts.map(c => {
+      const image = c.image || sportImages[c.sport.id] || sportImages[1];
+      
+      let statusBadge = '';
+      let statusBorder = '';
+      if (c.status === 'Sẵn sàng') {
+        statusBadge = `<span class="badge badge-blue shadow-sm">Sẵn sàng</span>`;
+      } else if (c.status === 'Đang dùng') {
+        statusBadge = `<span class="badge badge-green flex items-center gap-1 shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-green-500 live-dot"></span>Đang dùng</span>`;
+      } else if (c.status === 'Bảo trì') {
+        statusBadge = `<span class="badge badge-amber shadow-sm">⚠ Bảo trì</span>`;
+        statusBorder = 'ring-2 ring-amber-200';
+      } else {
+        statusBadge = `<span class="badge badge-red shadow-sm">⛔ Tạm đóng</span>`;
+        statusBorder = 'ring-2 ring-red-200 opacity-90';
+      }
+
+      return `
+        <div data-aos="fade-up" class="court-card card overflow-hidden ${statusBorder}">
+          <div class="relative h-36 overflow-hidden">
+            <img src="${image}" class="court-img w-full h-full object-cover" alt="${c.name}">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute top-2 left-2"><span class="text-[10px] font-black bg-white/95 backdrop-blur px-2 py-1 rounded-md text-zinc-800 shadow">${c.code}</span></div>
+            <div class="absolute top-2 right-2">${statusBadge}</div>
+            <div class="absolute bottom-2 left-2 text-white">
+              <p class="text-sm font-bold">${c.name}</p>
+              <p class="text-[10px] opacity-90">${c.type.name} · ${c.sport.name}</p>
+            </div>
+          </div>
+          <div class="p-3">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px] text-zinc-400">schedule</span>
+                <span class="text-[10px] text-zinc-500">${c.type.lightStart === '06:00' ? 'Bật đèn full-time' : 'Đèn lúc ' + c.type.lightStart}</span>
+              </div>
+              <p class="text-sm font-black text-zinc-900">${c.type.priceNoLight.toLocaleString('vi-VN')}đ<span class="text-[10px] text-zinc-400 font-normal">/h</span></p>
+            </div>
+            <p class="text-[10px] text-zinc-500 mb-3 line-clamp-1">${c.desc || 'Không có mô tả sân.'}</p>
+            
+            <div class="flex items-center gap-1.5">
+              ${c.status === 'Sẵn sàng' ? 
+                `<button onclick="openQuickBooking(${c.id})" class="flex-1 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-white flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">event_available</span>Đặt ngay</button>` : 
+                `<button onclick="quickUpdateStatus(${c.id}, 'Sẵn sàng')" class="flex-1 h-8 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-xs font-semibold text-zinc-700 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>Mở lại</button>`
+              }
+              <button onclick="openEditModal(${c.id})" class="h-8 w-8 rounded-lg border border-zinc-200 text-zinc-500 hover:bg-zinc-50 flex items-center justify-center" title="Sửa sân"><span class="material-symbols-outlined text-[14px]">edit</span></button>
+              <button onclick="deleteCourt(${c.id})" class="h-8 w-8 rounded-lg border border-red-200 text-red-500 hover:bg-red-50 flex items-center justify-center" title="Xóa sân"><span class="material-symbols-outlined text-[14px]">delete</span></button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderListView(courts) {
+    const tbody = document.getElementById('courtListTableBody');
+    tbody.innerHTML = courts.map(c => {
+      let statusBadge = '';
+      if (c.status === 'Sẵn sàng') {
+        statusBadge = `<span class="badge badge-blue">Sẵn sàng</span>`;
+      } else if (c.status === 'Đang dùng') {
+        statusBadge = `<span class="badge badge-green">Đang dùng</span>`;
+      } else if (c.status === 'Bảo trì') {
+        statusBadge = `<span class="badge badge-amber">Bảo trì</span>`;
+      } else {
+        statusBadge = `<span class="badge badge-red">Tạm đóng</span>`;
+      }
+
+      return `
+        <tr class="hover:bg-zinc-50/50 transition-colors">
+          <td class="px-5 py-3 font-semibold text-zinc-800">${c.code}</td>
+          <td class="px-5 py-3 font-bold">${c.name}</td>
+          <td class="px-5 py-3">
+            <p class="font-semibold text-zinc-800">${c.type.name}</p>
+            <p class="text-[10px] text-zinc-400 mt-0.5">${c.sport.name}</p>
+          </td>
+          <td class="px-5 py-3">
+            <p class="font-semibold text-zinc-800">${c.type.priceNoLight.toLocaleString('vi-VN')}đ / giờ</p>
+            <p class="text-[10px] text-zinc-450 mt-0.5">Có đèn: ${c.type.priceWithLight.toLocaleString('vi-VN')}đ</p>
+          </td>
+          <td class="px-5 py-3 text-zinc-500 font-medium">${c.type.lightStart === '06:00' ? 'Full-time' : 'Từ ' + c.type.lightStart}</td>
+          <td class="px-5 py-3">${statusBadge}</td>
+          <td class="px-5 py-3 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="openEditModal(${c.id})" class="h-7 w-7 rounded-lg border border-zinc-200 text-zinc-550 hover:bg-zinc-50 flex items-center justify-center" title="Sửa"><span class="material-symbols-outlined text-[13px]">edit</span></button>
+              <button onclick="deleteCourt(${c.id})" class="h-7 w-7 rounded-lg border border-red-200 text-red-500 hover:bg-red-50 flex items-center justify-center" title="Xóa"><span class="material-symbols-outlined text-[13px]">delete</span></button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // -------------------------------------------------------------
+  // COURT TYPES & PRICING TAB (LoaiSan CRUD)
+  // -------------------------------------------------------------
+  
+  function renderTypesList() {
+    const tbody = document.getElementById('typeListTableBody');
+    tbody.innerHTML = mockLoaiSan.map(l => {
+      const sport = mockSports.find(s => s.id === l.sportId) || {};
+      return `
+        <tr class="hover:bg-zinc-50/50 transition-colors">
+          <td class="px-5 py-3.5 font-bold text-zinc-800">L-0${l.id}</td>
+          <td class="px-5 py-3.5 font-extrabold text-zinc-900">${l.name}</td>
+          <td class="px-5 py-3.5">
+            <span class="inline-flex items-center gap-1 font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-md text-[10px]">
+              <span class="material-symbols-outlined text-[12px]">${sport.icon || 'sports'}</span>${sport.name}
+            </span>
+          </td>
+          <td class="px-5 py-3.5 font-semibold text-zinc-800">${l.priceNoLight.toLocaleString('vi-VN')}đ / giờ</td>
+          <td class="px-5 py-3.5 font-semibold text-amber-700">${l.priceWithLight.toLocaleString('vi-VN')}đ / giờ</td>
+          <td class="px-5 py-3.5">
+            <span class="font-medium text-zinc-500">${l.lightStart === '06:00' ? '💡 Full-time (Trong nhà)' : '💡 Sau ' + l.lightStart}</span>
+          </td>
+          <td class="px-5 py-3.5 text-right">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="openEditTypeModal(${l.id})" class="h-7 w-7 rounded-lg border border-zinc-200 text-zinc-550 hover:bg-zinc-50 flex items-center justify-center" title="Sửa loại sân"><span class="material-symbols-outlined text-[13px]">edit</span></button>
+              <button onclick="deleteType(${l.id})" class="h-7 w-7 rounded-lg border border-red-200 text-red-500 hover:bg-red-50 flex items-center justify-center" title="Xóa loại sân"><span class="material-symbols-outlined text-[13px]">delete</span></button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // Toast Helper
+  function showToast(message) {
+    const toast = document.getElementById('successToast');
+    document.getElementById('successToastMessage').innerText = message;
+    toast.classList.remove('opacity-0', 'translate-y-12', 'pointer-events-none');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-12', 'pointer-events-none');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 3500);
+  }
+
+  // -------------------------------------------------------------
+  // CRUD ACTIONS FOR COURTS (San)
+  // -------------------------------------------------------------
+  
+  function openCreateModal() {
+    document.getElementById('courtModalTitle').innerText = 'Thêm sân thi đấu mới';
+    document.getElementById('courtEditId').value = '';
+    document.getElementById('courtCode').value = 'SAN0' + (mockSan.length + 1);
+    document.getElementById('courtName').value = '';
+    document.getElementById('courtDesc').value = '';
+    document.getElementById('courtImage').value = '';
+    document.getElementById('courtStatus').value = 'Sẵn sàng';
+    document.getElementById('saveCourtBtn').innerText = 'Thêm sân';
+    
+    populateSportDropdowns();
+    document.getElementById('courtModal').classList.remove('hidden');
+  }
+
+  function openEditModal(id) {
+    const court = mockSan.find(c => c.id === id);
+    if (!court) return;
+
+    document.getElementById('courtModalTitle').innerText = 'Chỉnh sửa sân thi đấu';
+    document.getElementById('courtEditId').value = court.id;
+    document.getElementById('courtCode').value = court.code;
+    document.getElementById('courtName').value = court.name;
+    document.getElementById('courtDesc').value = court.desc || '';
+    document.getElementById('courtImage').value = court.image || '';
+    document.getElementById('courtStatus').value = court.status;
+    document.getElementById('saveCourtBtn').innerText = 'Lưu thay đổi';
+
+    populateSportDropdowns();
+    document.getElementById('courtTypeSelect').value = court.typeId;
+    document.getElementById('courtModal').classList.remove('hidden');
+  }
+
+  function closeCourtModal() {
+    document.getElementById('courtModal').classList.add('hidden');
+  }
+
+  function saveCourt() {
+    const id = document.getElementById('courtEditId').value;
+    const code = document.getElementById('courtCode').value.trim();
+    const name = document.getElementById('courtName').value.trim();
+    const typeId = parseInt(document.getElementById('courtTypeSelect').value);
+    const status = document.getElementById('courtStatus').value;
+    const desc = document.getElementById('courtDesc').value.trim();
+    const image = document.getElementById('courtImage').value.trim();
+
+    if (!code || !name) {
+      alert('Vui lòng điền đầy đủ các thông tin bắt buộc (*)');
+      return;
+    }
+
+    if (id) {
+      // Update
+      const court = mockSan.find(c => c.id === parseInt(id));
+      if (court) {
+        court.code = code;
+        court.name = name;
+        court.typeId = typeId;
+        court.status = status;
+        court.desc = desc;
+        court.image = image;
+        showToast(`Đã cập nhật thông tin sân ${name} thành công!`);
+      }
+    } else {
+      // Create
+      const newCourt = {
+        id: Math.max(0, ...mockSan.map(s => s.id)) + 1,
+        code,
+        name,
+        typeId,
+        status,
+        desc,
+        image
+      };
+      mockSan.push(newCourt);
+      showToast(`Đã thêm sân mới ${name} vào hệ thống thành công!`);
+    }
+
+    closeCourtModal();
+    renderAll();
+  }
+
+  function deleteCourt(id) {
+    const court = mockSan.find(c => c.id === id);
+    if (!court) return;
+
+    if (confirm(`Bạn có chắc chắn muốn xóa sân ${court.name} (${court.code}) khỏi cơ sở dữ liệu?`)) {
+      mockSan = mockSan.filter(c => c.id !== id);
+      showToast(`Đã xóa sân ${court.name} thành công!`);
+      renderAll();
+    }
+  }
+
+  function quickUpdateStatus(id, newStatus) {
+    const court = mockSan.find(c => c.id === id);
+    if (court) {
+      court.status = newStatus;
+      showToast(`Đã chuyển trạng thái sân ${court.name} sang "${newStatus}"!`);
+      renderAll();
+    }
+  }
+
+  // -------------------------------------------------------------
+  // CRUD ACTIONS FOR COURT TYPES (LoaiSan)
+  // -------------------------------------------------------------
+  
+  function openCreateTypeModal() {
+    document.getElementById('typeModalTitle').innerText = 'Thêm cấu hình loại sân mới';
+    document.getElementById('typeEditId').value = '';
+    document.getElementById('typeName').value = '';
+    document.getElementById('typePriceNoLight').value = '';
+    document.getElementById('typePriceWithLight').value = '';
+    document.getElementById('typeLightStart').value = '17:30';
+    document.getElementById('saveTypeBtn').innerText = 'Thêm cấu hình';
+    document.getElementById('typeModal').classList.remove('hidden');
+  }
+
+  function openEditTypeModal(id) {
+    const typeObj = mockLoaiSan.find(t => t.id === id);
+    if (!typeObj) return;
+
+    document.getElementById('typeModalTitle').innerText = 'Chỉnh sửa loại sân & Bảng giá';
+    document.getElementById('typeEditId').value = typeObj.id;
+    document.getElementById('typeSportSelect').value = typeObj.sportId;
+    document.getElementById('typeName').value = typeObj.name;
+    document.getElementById('typePriceNoLight').value = typeObj.priceNoLight.toLocaleString('en-US');
+    document.getElementById('typePriceWithLight').value = typeObj.priceWithLight.toLocaleString('en-US');
+    document.getElementById('typeLightStart').value = typeObj.lightStart;
+    document.getElementById('saveTypeBtn').innerText = 'Lưu cấu hình';
+    document.getElementById('typeModal').classList.remove('hidden');
+  }
+
+  function closeTypeModal() {
+    document.getElementById('typeModal').classList.add('hidden');
+  }
+
+  function saveType() {
+    const id = document.getElementById('typeEditId').value;
+    const sportId = parseInt(document.getElementById('typeSportSelect').value);
+    const name = document.getElementById('typeName').value.trim();
+    const priceNoLight = parseFormattedNumber(document.getElementById('typePriceNoLight').value);
+    const priceWithLight = parseFormattedNumber(document.getElementById('typePriceWithLight').value);
+    const lightStart = document.getElementById('typeLightStart').value;
+
+    if (!name || !priceNoLight || !priceWithLight || !lightStart) {
+      alert('Vui lòng điền đầy đủ thông tin loại sân!');
+      return;
+    }
+
+    if (id) {
+      // Update
+      const typeObj = mockLoaiSan.find(t => t.id === parseInt(id));
+      if (typeObj) {
+        typeObj.sportId = sportId;
+        typeObj.name = name;
+        typeObj.priceNoLight = priceNoLight;
+        typeObj.priceWithLight = priceWithLight;
+        typeObj.lightStart = lightStart;
+        showToast(`Cập nhật biểu phí loại sân ${name} thành công!`);
+      }
+    } else {
+      // Create
+      const newType = {
+        id: Math.max(0, ...mockLoaiSan.map(l => l.id)) + 1,
+        sportId,
+        name,
+        priceNoLight,
+        priceWithLight,
+        lightStart
+      };
+      mockLoaiSan.push(newType);
+      showToast(`Đã thêm cấu hình loại sân ${name} thành công!`);
+    }
+
+    closeTypeModal();
+    populateLoaiSanFilters();
+    renderTypesList();
+  }
+
+  function deleteType(id) {
+    const typeObj = mockLoaiSan.find(t => t.id === id);
+    if (!typeObj) return;
+
+    if (confirm(`Bạn có chắc chắn muốn xóa loại sân ${typeObj.name}? Mọi sân liên kết với loại hình này sẽ cần được cấu hình lại.`)) {
+      mockLoaiSan = mockLoaiSan.filter(t => t.id !== id);
+      showToast(`Đã xóa loại sân ${typeObj.name} thành công!`);
+      populateLoaiSanFilters();
+      renderTypesList();
+    }
+  }
+
+  // -------------------------------------------------------------
+  // INTEGRATED BOOKING MODAL LOGIC (Preserving all user functionality)
+  // -------------------------------------------------------------
+
+  const bookingModal = document.getElementById('bookingModal');
+  const bookingModalCard = document.getElementById('bookingModalCard');
+  const closeBookingBtn = document.getElementById('closeBookingModalBtn');
+  const cancelBookingBtn = document.getElementById('cancelBookingBtn');
+  const confirmBookingBtn = document.getElementById('confirmBookingBtn');
+
+  const btnCustVip = document.getElementById('btnCustVip');
+  const btnCustWalkin = document.getElementById('btnCustWalkin');
+  const custVipSection = document.getElementById('custVipSection');
+  const custWalkinSection = document.getElementById('custWalkinSection');
+
+  const custSearchInput = document.getElementById('custSearchInput');
+  const custSuggestions = document.getElementById('custSuggestions');
+  const selectedCustCard = document.getElementById('selectedCustCard');
+  const removeSelectedCustBtn = document.getElementById('removeSelectedCustBtn');
+  const clearSearchBtn = document.getElementById('clearCustSearchBtn');
+
+  const selectSport = document.getElementById('selectSport');
+  const selectLoaiSan = document.getElementById('selectLoaiSan');
+  const modalCourtGrid = document.getElementById('modalCourtGrid');
+
+  const bookingDate = document.getElementById('bookingDate');
+  const timeStart = document.getElementById('timeStart');
+  const timeEnd = document.getElementById('timeEnd');
+  const toggleLight = document.getElementById('toggleLight');
+  const lightInfoText = document.getElementById('lightInfoText');
+
+  const summaryCourt = document.getElementById('summaryCourt');
+  const summaryDuration = document.getElementById('summaryDuration');
+  const summaryRate = document.getElementById('summaryRate');
+  const summaryLightRow = document.getElementById('summaryLightRow');
+  const summaryLightFee = document.getElementById('summaryLightFee');
+  const summaryTotal = document.getElementById('summaryTotal');
+
+  const mockCustomers = [
+    { id: 1, name: 'Nguyễn Văn Hùng', phone: '0909000123', email: 'hung.nv@gmail.com', elo: 1050, vip: 'VIP Đồng', avatar: 'https://i.pravatar.cc/80?img=11' },
+    { id: 2, name: 'Trần Thị Lan', phone: '0987654321', email: 'lan.tt@gmail.com', elo: 1120, vip: 'VIP Bạc', avatar: 'https://i.pravatar.cc/80?img=25' },
+    { id: 3, name: 'Lê Hoàng Việt', phone: '0912345678', email: 'viet.lh@gmail.com', elo: 980, vip: 'Thành viên', avatar: 'https://i.pravatar.cc/80?img=32' },
+    { id: 4, name: 'Phạm Minh Tuấn', phone: '0933344455', email: 'tuan.pm@gmail.com', elo: 1250, vip: 'VIP Vàng', avatar: 'https://i.pravatar.cc/80?img=58' },
+    { id: 5, name: 'Đỗ Thị Mai', phone: '0955566677', email: 'mai.dt@gmail.com', elo: 1020, vip: 'Thành viên', avatar: 'https://i.pravatar.cc/80?img=47' }
+  ];
+
+  let activeCustomerType = 'VIP';
+  let selectedCustomer = null;
+  let selectedSportId = 1;
+  let selectedLoaiSan = null;
+  let selectedCourt = null;
+  let selectedSource = 'Walk-in';
+
+  bookingDate.valueAsDate = new Date();
+
+  // Open Quick Booking Modal from Court Card
+  function openQuickBooking(courtId) {
+    const court = mockSan.find(c => c.id === courtId);
+    if (!court) return;
+
+    bookingModal.classList.remove('pointer-events-none', 'opacity-0');
+    bookingModalCard.classList.remove('scale-95');
+    bookingModalCard.classList.add('scale-100');
+    
+    initBookingSports();
+    
+    // Auto-select the sport & loai san of the clicked court
+    const typeObj = mockLoaiSan.find(t => t.id === court.typeId);
+    if (typeObj) {
+      selectSport.value = typeObj.sportId;
+      selectedSportId = typeObj.sportId;
+      loadBookingLoaiSan(typeObj.sportId);
+      selectLoaiSan.value = typeObj.id;
+      selectedLoaiSan = typeObj;
+      loadBookingCourts(typeObj.id);
+      
+      // Select the specific court
+      setTimeout(() => {
+        const card = document.querySelector(`#modalCourtGrid [data-id="${courtId}"]`);
+        if (card) card.click();
+      }, 50);
+    }
+  }
+
+  btnCustVip.addEventListener('click', () => setCustomerType('VIP'));
+  btnCustWalkin.addEventListener('click', () => setCustomerType('Walkin'));
+
+  function setCustomerType(type) {
+    activeCustomerType = type;
+    if(type === 'VIP') {
+      btnCustVip.className = 'px-3 py-1 rounded-md bg-white shadow-sm text-zinc-800 transition-all border border-zinc-200';
+      btnCustWalkin.className = 'px-3 py-1 rounded-md text-zinc-500 hover:text-zinc-800 transition-all';
+      custVipSection.classList.remove('hidden');
+      custWalkinSection.classList.add('hidden');
+    } else {
+      btnCustWalkin.className = 'px-3 py-1 rounded-md bg-white shadow-sm text-zinc-800 transition-all border border-zinc-200';
+      btnCustVip.className = 'px-3 py-1 rounded-md text-zinc-500 hover:text-zinc-800 transition-all';
+      custWalkinSection.classList.remove('hidden');
+      custVipSection.classList.add('hidden');
+      selectedCustomer = null;
+      updatePriceSummary();
+    }
+  }
+
+  // VIP Customer Search
+  custSearchInput.addEventListener('input', () => {
+    const query = custSearchInput.value.toLowerCase().trim();
+    if(!query) {
+      custSuggestions.classList.add('hidden');
+      clearSearchBtn.classList.add('hidden');
+      return;
+    }
+    clearSearchBtn.classList.remove('hidden');
+
+    const filtered = mockCustomers.filter(c => c.name.toLowerCase().includes(query) || c.phone.includes(query));
+    
+    if(filtered.length === 0) {
+      custSuggestions.innerHTML = '<div class="p-3 text-xs text-zinc-400 text-center">Không tìm thấy khách hàng nào</div>';
+    } else {
+      custSuggestions.innerHTML = filtered.map(c => `
+        <div class="cust-suggest-item flex items-center justify-between p-2.5 hover:bg-zinc-50 cursor-pointer transition-colors" data-id="${c.id}">
+          <div class="flex items-center gap-2.5">
+            <img src="${c.avatar}" class="w-8 h-8 rounded-full object-cover">
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-semibold text-zinc-800">${c.name}</span>
+                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full ${c.vip === 'VIP Vàng' ? 'bg-amber-100 text-amber-700' : c.vip === 'VIP Bạc' ? 'bg-zinc-100 text-zinc-650' : c.vip === 'VIP Đồng' ? 'bg-orange-50 text-orange-700' : 'bg-blue-50 text-blue-700'}">${c.vip}</span>
+              </div>
+              <p class="text-[10px] text-zinc-500 mt-0.5">SĐT: ${c.phone} · ELO: ${c.elo}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.cust-suggest-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const id = parseInt(item.getAttribute('data-id'));
+          selectCustomerProfile(id);
+        });
+      });
+    }
+    custSuggestions.classList.remove('hidden');
+  });
+
+  clearSearchBtn.addEventListener('click', () => {
+    custSearchInput.value = '';
+    custSuggestions.classList.add('hidden');
+    clearSearchBtn.classList.add('hidden');
+  });
+
+  function selectCustomerProfile(id) {
+    selectedCustomer = mockCustomers.find(c => c.id === id);
+    custSearchInput.classList.add('hidden');
+    custSuggestions.classList.add('hidden');
+    clearSearchBtn.classList.add('hidden');
+
+    document.getElementById('selectedCustAvatar').src = selectedCustomer.avatar;
+    document.getElementById('selectedCustName').innerText = selectedCustomer.name;
+    document.getElementById('selectedCustPhone').innerText = selectedCustomer.phone;
+    document.getElementById('selectedCustElo').innerText = selectedCustomer.elo;
+    
+    const vipBadge = document.getElementById('selectedCustVip');
+    vipBadge.innerText = selectedCustomer.vip;
+    vipBadge.className = 'badge text-[9px] ';
+    if(selectedCustomer.vip === 'VIP Vàng') vipBadge.classList.add('badge-amber');
+    else if(selectedCustomer.vip === 'VIP Bạc') vipBadge.classList.add('badge-gray');
+    else if(selectedCustomer.vip === 'VIP Đồng') vipBadge.classList.add('badge-amber');
+    else vipBadge.classList.add('badge-blue');
+
+    selectedCustCard.classList.remove('hidden');
+    updatePriceSummary();
+  }
+
+  removeSelectedCustBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    selectedCustomer = null;
+    selectedCustCard.classList.add('hidden');
+    custSearchInput.value = '';
+    custSearchInput.classList.remove('hidden');
+    custSearchInput.focus();
+    updatePriceSummary();
+  });
+
+  document.addEventListener('click', (e) => {
+    if(!custSearchInput.contains(e.target) && !custSuggestions.contains(e.target)) {
+      custSuggestions.classList.add('hidden');
+    }
+  });
+
+  // Booking source selectors
+  document.querySelectorAll('.source-chip').forEach(chip => {
+    if(chip.getAttribute('data-source') === 'Walk-in') {
+      chip.classList.add('border-blue-600', 'bg-blue-50/50', 'text-blue-700');
+    }
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.source-chip').forEach(c => c.classList.remove('border-blue-600', 'bg-blue-50/50', 'text-blue-700'));
+      chip.classList.add('border-blue-600', 'bg-blue-50/50', 'text-blue-700');
+      selectedSource = chip.getAttribute('data-source');
+    });
+  });
+
+  function initBookingSports() {
+    selectSport.innerHTML = mockSports.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+    selectSport.removeEventListener('change', onBookingSportChange);
+    selectSport.addEventListener('change', onBookingSportChange);
+    loadBookingLoaiSan(1);
+  }
+
+  function onBookingSportChange() {
+    selectedSportId = parseInt(selectSport.value);
+    loadBookingLoaiSan(selectedSportId);
+  }
+
+  function loadBookingLoaiSan(sportId) {
+    const filtered = mockLoaiSan.filter(l => l.sportId === sportId);
+    selectLoaiSan.innerHTML = filtered.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
+    
+    selectLoaiSan.removeEventListener('change', onBookingLoaiSanChange);
+    selectLoaiSan.addEventListener('change', onBookingLoaiSanChange);
+    onBookingLoaiSanChange();
+  }
+
+  function onBookingLoaiSanChange() {
+    const loaiSanId = parseInt(selectLoaiSan.value);
+    selectedLoaiSan = mockLoaiSan.find(l => l.id === loaiSanId);
+    
+    if(selectedLoaiSan.lightStart === '06:00') {
+      lightInfoText.innerText = `💡 Đèn chiếu sáng bật cố định full-time (Không phụ thu)`;
+    } else {
+      lightInfoText.innerText = `💡 Hệ thống tự động tính phí đèn từ ${selectedLoaiSan.lightStart}`;
+    }
+
+    loadBookingCourts(loaiSanId);
+    checkLightingTime();
+  }
+
+  function loadBookingCourts(typeId) {
+    const filtered = mockSan.filter(s => s.typeId === typeId);
+    modalCourtGrid.innerHTML = filtered.map(c => {
+      let statusClass = '';
+      let disabled = false;
+      let badge = '';
+      
+      if(c.status === 'Bảo trì') {
+        statusClass = 'border-amber-100 bg-amber-50/30 text-amber-600 cursor-not-allowed opacity-60';
+        disabled = true;
+        badge = '<span class="badge badge-amber text-[9px] py-0 px-1 mt-1">Bảo trì</span>';
+      } else if(c.status === 'Đang dùng') {
+        statusClass = 'border-red-100 bg-red-55/30 text-red-500 cursor-not-allowed opacity-60';
+        disabled = true;
+        badge = '<span class="badge badge-red text-[9px] py-0 px-1 mt-1">Đang bận</span>';
+      } else {
+        statusClass = 'border-zinc-200 bg-white hover:border-blue-300 hover:bg-blue-50/10 cursor-pointer';
+        badge = '<span class="badge badge-green text-[9px] py-0 px-1 mt-1">Trống</span>';
+      }
+
+      return `
+        <div class="modal-court-card border rounded-xl p-3 flex flex-col justify-between h-20 transition-all ${statusClass}" data-id="${c.id}" data-disabled="${disabled}">
+          <div class="flex items-center justify-between">
+            <p class="text-xs font-bold text-zinc-800 name-text">${c.name}</p>
+            <span class="material-symbols-outlined text-[16px] text-blue-650 hidden check-icon">check_circle</span>
+          </div>
+          <div>
+            ${badge}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    selectedCourt = null;
+    summaryCourt.innerText = '-';
+
+    document.querySelectorAll('.modal-court-card').forEach(card => {
+      if(card.getAttribute('data-disabled') === 'true') return;
+
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.modal-court-card').forEach(c => {
+          c.classList.remove('border-blue-600', 'bg-blue-50/30', 'ring-2', 'ring-blue-500/10');
+          c.querySelector('.check-icon').classList.add('hidden');
+          c.querySelector('.name-text').classList.remove('text-blue-700');
+        });
+
+        card.classList.add('border-blue-600', 'bg-blue-50/30', 'ring-2', 'ring-blue-500/10');
+        card.querySelector('.check-icon').classList.remove('hidden');
+        card.querySelector('.name-text').classList.add('text-blue-700');
+
+        const id = parseInt(card.getAttribute('data-id'));
+        selectedCourt = mockSan.find(s => s.id === id);
+        summaryCourt.innerText = selectedCourt.name;
+        updatePriceSummary();
+      });
+    });
+    
+    updatePriceSummary();
+  }
+
+  // Booking duration presets
+  document.querySelectorAll('.btn-duration').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.btn-duration').forEach(b => {
+        b.classList.remove('bg-blue-50', 'text-blue-700', 'border', 'border-blue-100');
+        b.classList.add('bg-zinc-100', 'text-zinc-700');
+      });
+      btn.classList.remove('bg-zinc-100', 'text-zinc-700');
+      btn.classList.add('bg-blue-50', 'text-blue-700', 'border', 'border-blue-100');
+
+      const duration = parseFloat(btn.getAttribute('data-duration'));
+      calculateEndTimeFromDuration(duration);
+    });
+  });
+
+  function calculateEndTimeFromDuration(hours) {
+    const startVal = timeStart.value;
+    if(!startVal) return;
+
+    const [h, m] = startVal.split(':').map(Number);
+    let totalMinutes = h * 60 + m + hours * 60;
+    
+    const endH = Math.floor(totalMinutes / 60) % 24;
+    const endM = totalMinutes % 60;
+    
+    timeEnd.value = `${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`;
+    checkLightingTime();
+    updatePriceSummary();
+  }
+
+  timeStart.addEventListener('change', () => {
+    checkLightingTime();
+    updatePriceSummary();
+  });
+  timeEnd.addEventListener('change', () => {
+    checkLightingTime();
+    updatePriceSummary();
+  });
+  toggleLight.addEventListener('change', () => {
+    updatePriceSummary();
+  });
+
+  function checkLightingTime() {
+    if(!selectedLoaiSan) return;
+    
+    const startVal = timeStart.value;
+    const endVal = timeEnd.value;
+    if(!startVal || !endVal) return;
+
+    if(selectedLoaiSan.lightStart === '06:00') {
+      toggleLight.checked = true;
+      toggleLight.disabled = true;
+      return;
+    }
+    
+    toggleLight.disabled = false;
+
+    const [sh, sm] = startVal.split(':').map(Number);
+    const [eh, em] = endVal.split(':').map(Number);
+    const [lh, lm] = selectedLoaiSan.lightStart.split(':').map(Number);
+
+    const startMins = sh * 60 + sm;
+    const endMins = eh * 60 + em;
+    const lightMins = lh * 60 + lm;
+
+    if (endMins > lightMins) {
+      toggleLight.checked = true;
+      lightInfoText.innerText = `💡 Tự động bật đèn (Sau ${selectedLoaiSan.lightStart})`;
+    } else {
+      toggleLight.checked = false;
+      lightInfoText.innerText = `💡 Không phụ thu đèn (Trước ${selectedLoaiSan.lightStart})`;
+    }
+  }
+
+  function updatePriceSummary() {
+    if(!selectedLoaiSan) return;
+
+    const startVal = timeStart.value;
+    const endVal = timeEnd.value;
+    if(!startVal || !endVal) return;
+
+    const [sh, sm] = startVal.split(':').map(Number);
+    const [eh, em] = endVal.split(':').map(Number);
+
+    let diffMins = (eh * 60 + em) - (sh * 60 + sm);
+    if(diffMins < 0) diffMins += 24 * 60;
+
+    const totalHours = diffMins / 60;
+    summaryDuration.innerText = `${totalHours.toFixed(1)} giờ`;
+
+    const isLightApplied = toggleLight.checked;
+    let finalPrice = 0;
+    
+    if(selectedLoaiSan.lightStart === '06:00') {
+      finalPrice = totalHours * selectedLoaiSan.priceNoLight;
+      summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ / giờ`;
+      summaryLightRow.classList.add('hidden');
+    } else {
+      const [lh, lm] = selectedLoaiSan.lightStart.split(':').map(Number);
+      const startMins = sh * 60 + sm;
+      const endMins = eh * 60 + em;
+      const lightMins = lh * 60 + lm;
+
+      if(isLightApplied) {
+        if(endMins > lightMins) {
+          const normalMins = Math.max(0, lightMins - startMins);
+          const lightMinsDiff = Math.max(0, endMins - Math.max(startMins, lightMins));
+
+          const normalHours = normalMins / 60;
+          const lightHours = lightMinsDiff / 60;
+
+          const normalCost = normalHours * selectedLoaiSan.priceNoLight;
+          const lightCost = lightHours * selectedLoaiSan.priceWithLight;
+
+          finalPrice = normalCost + lightCost;
+          
+          summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ (Khung thường)`;
+          summaryLightRow.classList.remove('hidden');
+          summaryLightFee.innerText = `+${Math.round(lightCost).toLocaleString('vi-VN')}đ (${lightHours.toFixed(1)}h có đèn)`;
+        } else {
+          finalPrice = totalHours * selectedLoaiSan.priceWithLight;
+          summaryRate.innerText = `${selectedLoaiSan.priceWithLight.toLocaleString('vi-VN')}đ / giờ`;
+          summaryLightRow.classList.add('hidden');
+        }
+      } else {
+        finalPrice = totalHours * selectedLoaiSan.priceNoLight;
+        summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ / giờ`;
+        summaryLightRow.classList.add('hidden');
+      }
+    }
+
+    summaryTotal.innerText = `${Math.round(finalPrice).toLocaleString('vi-VN')}đ`;
+  }
+
+  function closeBookingModal() {
+    bookingModal.classList.add('pointer-events-none', 'opacity-0');
+    bookingModalCard.classList.remove('scale-100');
+    bookingModalCard.classList.add('scale-95');
+    resetBookingForm();
+  }
+
+  closeBookingBtn.addEventListener('click', closeBookingModal);
+  cancelBookingBtn.addEventListener('click', closeBookingModal);
+  
+  bookingModal.addEventListener('click', (e) => {
+    if(e.target === bookingModal) closeBookingModal();
+  });
+
+  function resetBookingForm() {
+    selectedCustomer = null;
+    selectedCourt = null;
+    custSearchInput.value = '';
+    custSearchInput.classList.remove('hidden');
+    selectedCustCard.classList.add('hidden');
+    document.getElementById('walkinName').value = '';
+    document.getElementById('walkinPhone').value = '';
+    document.getElementById('bookingNotes').value = '';
+    setCustomerType('VIP');
+  }
+
+  confirmBookingBtn.addEventListener('click', () => {
+    let custName = '';
+    if(activeCustomerType === 'VIP') {
+      if(!selectedCustomer) {
+        alert('Vui lòng chọn khách hàng thành viên!');
+        return;
+      }
+      custName = selectedCustomer.name;
+    } else {
+      const walkinName = document.getElementById('walkinName').value.trim();
+      const walkinPhone = document.getElementById('walkinPhone').value.trim();
+      if(!walkinName || !walkinPhone) {
+        alert('Vui lòng nhập tên và số điện thoại khách vãng lai!');
+        return;
+      }
+      custName = walkinName;
+    }
+
+    if(!selectedCourt) {
+      alert('Vui lòng chọn sân thi đấu cụ thể!');
+      return;
+    }
+
+    // Booked court status change to Đang dùng
+    selectedCourt.status = 'Đang dùng';
+    showToast(`Đã đặt sân ${selectedCourt.name} thành công cho khách hàng ${custName}!`);
+    closeBookingModal();
+    renderAll();
+  });
+</script>
+
+<!-- Edit Profile Modal -->
+<div id="editProfileModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('editProfileModal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[520px] max-h-[90vh] overflow-y-auto z-10 border border-zinc-200">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
+      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] text-blue-700">manage_accounts</span><h3 class="text-base font-bold text-zinc-900">Hồ sơ cá nhân</h3></div>
+      <button onclick="document.getElementById('editProfileModal').classList.add('hidden')" class="w-8 h-8 rounded-full hover:bg-zinc-100 flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+    </div>
+    <div class="flex flex-col items-center gap-3 pt-6 pb-4 border-b border-zinc-100">
+      <div class="relative"><img id="editAvatarPreview" class="w-20 h-20 rounded-full object-cover ring-2 ring-blue-600/30" src="https://i.pravatar.cc/80?img=68"><label for="avatarUpload" class="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-blue-700 text-white flex items-center justify-center cursor-pointer shadow hover:opacity-90 transition-opacity"><span class="material-symbols-outlined text-[14px]">photo_camera</span></label><input id="avatarUpload" type="file" accept="image/*" class="hidden" onchange="previewAvatar(this)"></div>
+      <p class="text-xs text-zinc-500">Nhấn biểu tượng máy ảnh để thay ảnh đại diện</p>
+    </div>
+    <div class="px-6 py-5">
+      <p class="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-4">Thông tin chi tiết — <span class="text-blue-700">Bảng Accounts</span></p>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Họ và tên</label><input type="text" id="editFullName" value="Nguyễn Văn Quân" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Mã tài khoản</label><input type="text" value="MGR042" readonly class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Email</label><input type="email" id="editEmail" value="quan.nv@vsport.vn" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Số điện thoại</label><input type="tel" id="editPhone" value="+84 912 345 678" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Vai trò</label><input type="text" value="Quản lý chi nhánh" readonly class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Chi nhánh</label><div class="relative"><input type="text" value="CS01 — V-Sport Vũng Tàu" readonly class="w-full h-10 px-3 pr-9 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none"><span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-zinc-400">lock</span></div></div>
+      </div>
+      <p class="text-[11px] text-zinc-500 mt-4 italic">Dữ liệu được đồng bộ từ bảng <code class="font-mono bg-zinc-50 px-1 rounded">Accounts</code> của CSDL V-Sport V4</p>
+    </div>
+    <div class="px-6 pb-5 flex gap-3 justify-end">
+      <button onclick="document.getElementById('editProfileModal').classList.add('hidden')" class="h-10 px-5 rounded-lg border border-zinc-200 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 transition-colors">Hủy</button>
+      <button onclick="saveProfileChanges()" class="h-10 px-5 rounded-lg bg-blue-700 text-white text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Lưu thay đổi</button>
+    </div>
+  </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePwModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('changePwModal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[400px] z-10 border border-zinc-200">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
+      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] text-blue-700">lock_reset</span><h3 class="text-base font-bold text-zinc-900">Đổi mật khẩu</h3></div>
+      <button onclick="document.getElementById('changePwModal').classList.add('hidden')" class="w-8 h-8 rounded-full hover:bg-zinc-100 flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+    </div>
+    <div class="px-6 py-5 flex flex-col gap-4">
+      <div><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Mật khẩu hiện tại</label><div class="relative"><input type="password" id="pwCurrent" placeholder="••••••••" class="w-full h-10 px-3 pr-10 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"><button type="button" onclick="togglePw(this)" data-target="pwCurrent" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700 transition-colors"><span class="material-symbols-outlined text-[18px]">visibility_off</span></button></div></div>
+      <div><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Mật khẩu mới</label><div class="relative"><input type="password" id="pwNew" placeholder="••••••••" oninput="updatePwStrength(this)" class="w-full h-10 px-3 pr-10 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"><button type="button" onclick="togglePw(this)" data-target="pwNew" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700 transition-colors"><span class="material-symbols-outlined text-[18px]">visibility_off</span></button></div><div class="flex gap-1 mt-2"><div class="h-1 flex-1 rounded-full bg-zinc-100" id="str1"></div><div class="h-1 flex-1 rounded-full bg-zinc-100" id="str2"></div><div class="h-1 flex-1 rounded-full bg-zinc-100" id="str3"></div><div class="h-1 flex-1 rounded-full bg-zinc-100" id="str4"></div></div><p id="pwStrengthLabel" class="text-[11px] text-zinc-500 mt-1"></p></div>
+      <div><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Xác nhận mật khẩu mới</label><div class="relative"><input type="password" id="pwConfirm" placeholder="••••••••" class="w-full h-10 px-3 pr-10 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"><button type="button" onclick="togglePw(this)" data-target="pwConfirm" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700 transition-colors"><span class="material-symbols-outlined text-[18px]">visibility_off</span></button></div></div>
+    </div>
+    <div class="px-6 pb-5 flex gap-3 justify-end">
+      <button onclick="document.getElementById('changePwModal').classList.add('hidden')" class="h-10 px-5 rounded-lg border border-zinc-200 text-sm font-semibold text-zinc-600 hover:bg-zinc-50 transition-colors">Hủy</button>
+      <button onclick="savePassword()" class="h-10 px-5 rounded-lg bg-blue-700 text-white text-sm font-semibold hover:opacity-90 transition-opacity active:scale-95">Đổi mật khẩu</button>
     </div>
   </div>
 </div>
 
 <script>
-document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('-translate-x-full'));
-(function(){const btn=document.getElementById('profileBtn'),drop=document.getElementById('profileDrop'),chev=document.getElementById('profileChevron');
-btn.addEventListener('click',e=>{e.stopPropagation();const h=drop.classList.contains('hidden');if(h){drop.classList.remove('hidden');drop.style.cssText='opacity:0;transform:translateY(-6px);transition:opacity .15s,transform .15s';requestAnimationFrame(()=>{drop.style.opacity='1';drop.style.transform='translateY(0)';});chev.style.transform='rotate(180deg)';}else{drop.style.opacity='0';drop.style.transform='translateY(-6px)';setTimeout(()=>{drop.classList.add('hidden');drop.style.cssText='';},150);chev.style.transform='';}});
-document.addEventListener('click',e=>{if(!drop.classList.contains('hidden')&&!btn.contains(e.target)){drop.classList.add('hidden');drop.style.cssText='';chev.style.transform='';}});})();
-</script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-
-
-// Mock Data based on QuanLiSport_V4 Database Tables: Accounts, MonTheThao, LoaiSan, San, LichDatSan
-const mockCustomers = [
-  { id: 1, name: 'Nguyễn Văn Hùng', phone: '0909000123', email: 'hung.nv@gmail.com', elo: 1050, vip: 'VIP Đồng', avatar: 'https://i.pravatar.cc/80?img=11' },
-  { id: 2, name: 'Trần Thị Lan', phone: '0987654321', email: 'lan.tt@gmail.com', elo: 1120, vip: 'VIP Bạc', avatar: 'https://i.pravatar.cc/80?img=25' },
-  { id: 3, name: 'Lê Hoàng Việt', phone: '0912345678', email: 'viet.lh@gmail.com', elo: 980, vip: 'Thành viên', avatar: 'https://i.pravatar.cc/80?img=32' },
-  { id: 4, name: 'Phạm Minh Tuấn', phone: '0933344455', email: 'tuan.pm@gmail.com', elo: 1250, vip: 'VIP Vàng', avatar: 'https://i.pravatar.cc/80?img=58' },
-  { id: 5, name: 'Đỗ Thị Mai', phone: '0955566677', email: 'mai.dt@gmail.com', elo: 1020, vip: 'Thành viên', avatar: 'https://i.pravatar.cc/80?img=47' }
-];
-
-const mockSports = [
-  { id: 1, name: 'Bóng đá', icon: 'sports_soccer' },
-  { id: 2, name: 'Cầu lông', icon: 'sports_tennis' },
-  { id: 3, name: 'Pickleball', icon: 'sports_kabaddi' },
-  { id: 4, name: 'Tennis', icon: 'sports_tennis' }
-];
-
-const mockLoaiSan = [
-  { id: 1, sportId: 1, name: 'Sân bóng đá 5 người', priceNoLight: 150000, priceWithLight: 200000, lightStart: '17:30' },
-  { id: 2, sportId: 2, name: 'Sân Cầu lông thảm PVC', priceNoLight: 60000, priceWithLight: 60000, lightStart: '06:00' },
-  { id: 3, sportId: 3, name: 'Sân Pickleball chuẩn', priceNoLight: 80000, priceWithLight: 120000, lightStart: '17:00' },
-  { id: 4, sportId: 4, name: 'Sân Tennis tiêu chuẩn', priceNoLight: 180000, priceWithLight: 250000, lightStart: '18:00' }
-];
-
-const mockSan = [
-  // Bóng đá (LoaiSanId 1)
-  { id: 1, typeId: 1, name: 'Sân bóng A1', status: 'Sẵn sàng' },
-  { id: 2, typeId: 1, name: 'Sân bóng A2', status: 'Sẵn sàng' },
-  { id: 3, typeId: 1, name: 'Sân bóng A3', status: 'Sẵn sàng' },
-  { id: 4, typeId: 1, name: 'Sân bóng A4', status: 'Bảo trì' },
-  // Cầu lông (LoaiSanId 2)
-  { id: 5, typeId: 2, name: 'Sân cầu lông B1', status: 'Sẵn sàng' },
-  { id: 6, typeId: 2, name: 'Sân cầu lông B2', status: 'Sẵn sàng' },
-  { id: 7, typeId: 2, name: 'Sân cầu lông B3', status: 'Sẵn sàng' },
-  { id: 8, typeId: 2, name: 'Sân cầu lông B4', status: 'Đang hoạt động' },
-  // Pickleball (LoaiSanId 3)
-  { id: 9, typeId: 3, name: 'Sân Pickleball P1', status: 'Sẵn sàng' },
-  { id: 10, typeId: 3, name: 'Sân Pickleball P2', status: 'Đang hoạt động' },
-  { id: 11, typeId: 3, name: 'Sân Pickleball P3', status: 'Sẵn sàng' },
-  // Tennis (LoaiSanId 4)
-  { id: 12, typeId: 4, name: 'Sân Tennis T1', status: 'Sẵn sàng' },
-  { id: 13, typeId: 4, name: 'Sân Tennis T2', status: 'Bảo trì' }
-];
-
-// Elements
-const modal = document.getElementById('bookingModal');
-const modalCard = document.getElementById('bookingModalCard');
-const createBookingBtn = document.getElementById('createBookingBtn');
-const closeBtn = document.getElementById('closeBookingModalBtn');
-const cancelBtn = document.getElementById('cancelBookingBtn');
-const confirmBtn = document.getElementById('confirmBookingBtn');
-
-const btnCustVip = document.getElementById('btnCustVip');
-const btnCustWalkin = document.getElementById('btnCustWalkin');
-const custVipSection = document.getElementById('custVipSection');
-const custWalkinSection = document.getElementById('custWalkinSection');
-
-const custSearchInput = document.getElementById('custSearchInput');
-const custSuggestions = document.getElementById('custSuggestions');
-const selectedCustCard = document.getElementById('selectedCustCard');
-const removeSelectedCustBtn = document.getElementById('removeSelectedCustBtn');
-const clearSearchBtn = document.getElementById('clearCustSearchBtn');
-
-const selectSport = document.getElementById('selectSport');
-const selectLoaiSan = document.getElementById('selectLoaiSan');
-const courtGrid = document.getElementById('courtGrid');
-
-const bookingDate = document.getElementById('bookingDate');
-const timeStart = document.getElementById('timeStart');
-const timeEnd = document.getElementById('timeEnd');
-const toggleLight = document.getElementById('toggleLight');
-const lightInfoText = document.getElementById('lightInfoText');
-
-const summaryCourt = document.getElementById('summaryCourt');
-const summaryDuration = document.getElementById('summaryDuration');
-const summaryRate = document.getElementById('summaryRate');
-const summaryLightRow = document.getElementById('summaryLightRow');
-const summaryLightFee = document.getElementById('summaryLightFee');
-const summaryTotal = document.getElementById('summaryTotal');
-
-// Modal State
-let activeCustomerType = 'VIP'; // 'VIP' or 'Walkin'
-let selectedCustomer = null;
-let selectedSportId = 1;
-let selectedLoaiSan = null;
-let selectedCourt = null;
-let selectedSource = 'Walk-in';
-
-// Set current date
-bookingDate.valueAsDate = new Date();
-
-// Toggle customer types
-btnCustVip.addEventListener('click', () => setCustomerType('VIP'));
-btnCustWalkin.addEventListener('click', () => setCustomerType('Walkin'));
-
-function setCustomerType(type) {
-  activeCustomerType = type;
-  if(type === 'VIP') {
-    btnCustVip.className = 'px-3 py-1 rounded-md bg-white shadow-sm text-zinc-800 transition-all';
-    btnCustWalkin.className = 'px-3 py-1 rounded-md text-zinc-500 hover:text-zinc-800 transition-all';
-    custVipSection.classList.remove('hidden');
-    custWalkinSection.classList.add('hidden');
-  } else {
-    btnCustWalkin.className = 'px-3 py-1 rounded-md bg-white shadow-sm text-zinc-800 transition-all';
-    btnCustVip.className = 'px-3 py-1 rounded-md text-zinc-500 hover:text-zinc-800 transition-all';
-    custWalkinSection.classList.remove('hidden');
-    custVipSection.classList.add('hidden');
-    selectedCustomer = null;
-    updatePriceSummary();
-  }
-}
-
-// Search existing customer
-custSearchInput.addEventListener('input', () => {
-  const query = custSearchInput.value.toLowerCase().trim();
-  if(!query) {
-    custSuggestions.classList.add('hidden');
-    clearSearchBtn.classList.add('hidden');
-    return;
-  }
-  clearSearchBtn.classList.remove('hidden');
-
-  const filtered = mockCustomers.filter(c => c.name.toLowerCase().includes(query) || c.phone.includes(query));
-  
-  if(filtered.length === 0) {
-    custSuggestions.innerHTML = '<div class="p-3 text-xs text-zinc-400 text-center">Không tìm thấy khách hàng nào</div>';
-  } else {
-    custSuggestions.innerHTML = filtered.map(c => `
-      <div class="cust-suggest-item flex items-center justify-between p-2.5 hover:bg-zinc-50 cursor-pointer transition-colors" data-id="${c.id}">
-        <div class="flex items-center gap-2.5">
-          <img src="${c.avatar}" class="w-8 h-8 rounded-full object-cover">
-          <div>
-            <div class="flex items-center gap-1.5">
-              <span class="text-xs font-semibold text-zinc-800">${c.name}</span>
-              <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full ${c.vip === 'VIP Vàng' ? 'bg-amber-100 text-amber-700' : c.vip === 'VIP Bạc' ? 'bg-zinc-100 text-zinc-650' : c.vip === 'VIP Đồng' ? 'bg-orange-50 text-orange-700' : 'bg-blue-50 text-blue-700'}">${c.vip}</span>
-            </div>
-            <p class="text-[10px] text-zinc-500 mt-0.5">SĐT: ${c.phone} · ELO: ${c.elo}</p>
-          </div>
-        </div>
-      </div>
-    `).join('');
-
-    document.querySelectorAll('.cust-suggest-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const id = parseInt(item.getAttribute('data-id'));
-        selectCustomerProfile(id);
+(function(){
+  const btn = document.getElementById('profileBtn');
+  const drop = document.getElementById('profileDrop');
+  const chev = document.getElementById('profileChevron');
+  if (btn && drop) {
+    function openDrop() {
+      drop.classList.remove('hidden');
+      drop.style.cssText = 'opacity:0;transform:translateY(-8px) scale(0.97);transition:opacity 0.18s ease,transform 0.18s ease';
+      requestAnimationFrame(() => {
+        drop.style.opacity = '1';
+        drop.style.transform = 'translateY(0) scale(1)';
       });
-    });
-  }
-  custSuggestions.classList.remove('hidden');
-});
-
-clearSearchBtn.addEventListener('click', () => {
-  custSearchInput.value = '';
-  custSuggestions.classList.add('hidden');
-  clearSearchBtn.classList.add('hidden');
-});
-
-function selectCustomerProfile(id) {
-  selectedCustomer = mockCustomers.find(c => c.id === id);
-  custSearchInput.classList.add('hidden');
-  custSuggestions.classList.add('hidden');
-  clearSearchBtn.classList.add('hidden');
-
-  document.getElementById('selectedCustAvatar').src = selectedCustomer.avatar;
-  document.getElementById('selectedCustName').innerText = selectedCustomer.name;
-  document.getElementById('selectedCustPhone').innerText = selectedCustomer.phone;
-  document.getElementById('selectedCustElo').innerText = selectedCustomer.elo;
-  
-  const vipBadge = document.getElementById('selectedCustVip');
-  vipBadge.innerText = selectedCustomer.vip;
-  vipBadge.className = 'badge text-[9px] ';
-  if(selectedCustomer.vip === 'VIP Vàng') vipBadge.classList.add('badge-amber');
-  else if(selectedCustomer.vip === 'VIP Bạc') vipBadge.classList.add('badge-gray');
-  else if(selectedCustomer.vip === 'VIP Đồng') vipBadge.classList.add('badge-amber');
-  else vipBadge.classList.add('badge-blue');
-
-  selectedCustCard.classList.remove('hidden');
-  updatePriceSummary();
-}
-
-removeSelectedCustBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  selectedCustomer = null;
-  selectedCustCard.classList.add('hidden');
-  custSearchInput.value = '';
-  custSearchInput.classList.remove('hidden');
-  custSearchInput.focus();
-  updatePriceSummary();
-});
-
-// Hide dropdown on click outside
-document.addEventListener('click', (e) => {
-  if(!custSearchInput.contains(e.target) && !custSuggestions.contains(e.target)) {
-    custSuggestions.classList.add('hidden');
-  }
-});
-
-// Sources chips
-document.querySelectorAll('.source-chip').forEach(chip => {
-  if(chip.getAttribute('data-source') === 'Walk-in') {
-    chip.classList.add('border-blue-600', 'bg-blue-50/50', 'text-blue-700');
-  }
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.source-chip').forEach(c => c.classList.remove('border-blue-600', 'bg-blue-50/50', 'text-blue-700'));
-    chip.classList.add('border-blue-600', 'bg-blue-50/50', 'text-blue-700');
-    selectedSource = chip.getAttribute('data-source');
-  });
-});
-
-// Load Sports & Types
-function initSports() {
-  selectSport.innerHTML = mockSports.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-  selectSport.removeEventListener('change', onSportChange);
-  selectSport.addEventListener('change', onSportChange);
-  loadLoaiSan(1);
-}
-
-function onSportChange() {
-  selectedSportId = parseInt(selectSport.value);
-  loadLoaiSan(selectedSportId);
-}
-
-function loadLoaiSan(sportId) {
-  const filtered = mockLoaiSan.filter(l => l.sportId === sportId);
-  selectLoaiSan.innerHTML = filtered.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
-  
-  selectLoaiSan.removeEventListener('change', onLoaiSanChange);
-  selectLoaiSan.addEventListener('change', onLoaiSanChange);
-
-  onLoaiSanChange();
-}
-
-function onLoaiSanChange() {
-  const loaiSanId = parseInt(selectLoaiSan.value);
-  selectedLoaiSan = mockLoaiSan.find(l => l.id === loaiSanId);
-  
-  if(selectedLoaiSan.lightStart === '06:00') {
-    lightInfoText.innerText = `💡 Đèn chiếu sáng bật cố định full-time (Không phụ thu)`;
-  } else {
-    lightInfoText.innerText = `💡 Hệ thống tự động tính phí đèn từ ${selectedLoaiSan.lightStart}`;
-  }
-
-  loadCourts(loaiSanId);
-  checkLightingTime();
-}
-
-function loadCourts(typeId) {
-  const filtered = mockSan.filter(s => s.typeId === typeId);
-  courtGrid.innerHTML = filtered.map(c => {
-    let statusClass = '';
-    let disabled = false;
-    let badge = '';
-    
-    if(c.status === 'Bảo trì') {
-      statusClass = 'border-amber-100 bg-amber-50/30 text-amber-600 cursor-not-allowed opacity-60';
-      disabled = true;
-      badge = '<span class="badge badge-amber text-[9px] py-0 px-1 mt-1">Bảo trì</span>';
-    } else if(c.status === 'Đang hoạt động') {
-      statusClass = 'border-red-100 bg-red-50/30 text-red-500 cursor-not-allowed opacity-60';
-      disabled = true;
-      badge = '<span class="badge badge-red text-[9px] py-0 px-1 mt-1">Đang bận</span>';
-    } else {
-      statusClass = 'border-zinc-200 bg-white hover:border-blue-300 hover:bg-blue-50/10 cursor-pointer';
-      badge = '<span class="badge badge-green text-[9px] py-0 px-1 mt-1">Trống</span>';
+      if (chev) chev.style.transform = 'rotate(180deg)';
     }
-
-    return `
-      <div class="court-card border rounded-xl p-3 flex flex-col justify-between h-20 transition-all ${statusClass}" data-id="${c.id}" data-disabled="${disabled}">
-        <div class="flex items-center justify-between">
-          <p class="text-xs font-bold text-zinc-800 name-text">${c.name}</p>
-          <span class="material-symbols-outlined text-[16px] text-blue-650 hidden check-icon">check_circle</span>
-        </div>
-        <div>
-          ${badge}
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  selectedCourt = null;
-  summaryCourt.innerText = '-';
-
-  document.querySelectorAll('.court-card').forEach(card => {
-    if(card.getAttribute('data-disabled') === 'true') return;
-
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.court-card').forEach(c => {
-        c.classList.remove('border-blue-600', 'bg-blue-50/30', 'ring-2', 'ring-blue-500/10');
-        c.querySelector('.check-icon').classList.add('hidden');
-        c.querySelector('.name-text').classList.remove('text-blue-700');
-      });
-
-      card.classList.add('border-blue-600', 'bg-blue-50/30', 'ring-2', 'ring-blue-500/10');
-      card.querySelector('.check-icon').classList.remove('hidden');
-      card.querySelector('.name-text').classList.add('text-blue-700');
-
-      const id = parseInt(card.getAttribute('data-id'));
-      selectedCourt = mockSan.find(s => s.id === id);
-      summaryCourt.innerText = selectedCourt.name;
-      updatePriceSummary();
+    function closeDrop() {
+      drop.style.opacity = '0';
+      drop.style.transform = 'translateY(-8px) scale(0.97)';
+      setTimeout(() => {
+        drop.classList.add('hidden');
+        drop.style.cssText = '';
+      }, 180);
+      if (chev) chev.style.transform = '';
+    }
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      drop.classList.contains('hidden') ? openDrop() : closeDrop();
     });
-  });
-  
-  updatePriceSummary();
-}
-
-// Preset Durations
-document.querySelectorAll('.btn-duration').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.btn-duration').forEach(b => {
-      b.classList.remove('bg-blue-50', 'text-blue-700', 'border', 'border-blue-100');
-      b.classList.add('bg-zinc-100', 'text-zinc-700');
-    });
-    btn.classList.remove('bg-zinc-100', 'text-zinc-700');
-    btn.classList.add('bg-blue-50', 'text-blue-700', 'border', 'border-blue-100');
-
-    const duration = parseFloat(btn.getAttribute('data-duration'));
-    calculateEndTimeFromDuration(duration);
-  });
-});
-
-function calculateEndTimeFromDuration(hours) {
-  const startVal = timeStart.value;
-  if(!startVal) return;
-
-  const [h, m] = startVal.split(':').map(Number);
-  let totalMinutes = h * 60 + m + hours * 60;
-  
-  const endH = Math.floor(totalMinutes / 60) % 24;
-  const endM = totalMinutes % 60;
-  
-  timeEnd.value = `${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`;
-  checkLightingTime();
-  updatePriceSummary();
-}
-
-timeStart.addEventListener('change', () => {
-  checkLightingTime();
-  updatePriceSummary();
-});
-timeEnd.addEventListener('change', () => {
-  checkLightingTime();
-  updatePriceSummary();
-});
-toggleLight.addEventListener('change', () => {
-  updatePriceSummary();
-});
-
-// Check if booking overlaps with Lighting start hour
-function checkLightingTime() {
-  if(!selectedLoaiSan) return;
-  
-  const startVal = timeStart.value;
-  const endVal = timeEnd.value;
-  if(!startVal || !endVal) return;
-
-  // Cầu lông trong nhà bật đèn 100% full ca (Không phụ thu thêm hoặc đã tính thẳng vào giá)
-  if(selectedLoaiSan.lightStart === '06:00') {
-    toggleLight.checked = true;
-    toggleLight.disabled = true; // Fixed to active
-    return;
-  }
-  
-  toggleLight.disabled = false;
-
-  const [sh, sm] = startVal.split(':').map(Number);
-  const [eh, em] = endVal.split(':').map(Number);
-  const [lh, lm] = selectedLoaiSan.lightStart.split(':').map(Number);
-
-  const startMins = sh * 60 + sm;
-  const endMins = eh * 60 + em;
-  const lightMins = lh * 60 + lm;
-
-  // If end time is past light starting minutes, turn on light checkbox automatically
-  if (endMins > lightMins) {
-    toggleLight.checked = true;
-    lightInfoText.innerText = `💡 Tự động bật đèn (Khung giờ sau ${selectedLoaiSan.lightStart})`;
-  } else {
-    toggleLight.checked = false;
-    lightInfoText.innerText = `💡 Không phụ thu đèn (Khung giờ trước ${selectedLoaiSan.lightStart})`;
-  }
-}
-
-// Calculate hours and prices
-function updatePriceSummary() {
-  if(!selectedLoaiSan) return;
-
-  const startVal = timeStart.value;
-  const endVal = timeEnd.value;
-  if(!startVal || !endVal) return;
-
-  const [sh, sm] = startVal.split(':').map(Number);
-  const [eh, em] = endVal.split(':').map(Number);
-
-  let diffMins = (eh * 60 + em) - (sh * 60 + sm);
-  if(diffMins < 0) diffMins += 24 * 60; // Cross-midnight, though unlikely in a sports club
-
-  const totalHours = diffMins / 60;
-  summaryDuration.innerText = `${totalHours.toFixed(1)} giờ`;
-
-  const isLightApplied = toggleLight.checked;
-  let finalPrice = 0;
-  
-  // Calculate pricing breakdown
-  if(selectedLoaiSan.lightStart === '06:00') {
-    // Indoor Cầu Lông: static price
-    finalPrice = totalHours * selectedLoaiSan.priceNoLight;
-    summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ / giờ`;
-    summaryLightRow.classList.add('hidden');
-  } else {
-    const [lh, lm] = selectedLoaiSan.lightStart.split(':').map(Number);
-    const startMins = sh * 60 + sm;
-    const endMins = eh * 60 + em;
-    const lightMins = lh * 60 + lm;
-
-    if(isLightApplied) {
-      if(endMins > lightMins) {
-        // There is lighting overlap. Calculate exact hours split!
-        const normalMins = Math.max(0, lightMins - startMins);
-        const lightMinsDiff = Math.max(0, endMins - Math.max(startMins, lightMins));
-
-        const normalHours = normalMins / 60;
-        const lightHours = lightMinsDiff / 60;
-
-        const normalCost = normalHours * selectedLoaiSan.priceNoLight;
-        const lightCost = lightHours * selectedLoaiSan.priceWithLight;
-
-        finalPrice = normalCost + lightCost;
-        
-        summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ (Khung thường)`;
-        summaryLightRow.classList.remove('hidden');
-        summaryLightFee.innerText = `+${Math.round(lightCost).toLocaleString('vi-VN')}đ (${lightHours.toFixed(1)}h có đèn)`;
-      } else {
-        // Forced lighting check (even if before light start)
-        finalPrice = totalHours * selectedLoaiSan.priceWithLight;
-        summaryRate.innerText = `${selectedLoaiSan.priceWithLight.toLocaleString('vi-VN')}đ / giờ`;
-        summaryLightRow.classList.add('hidden');
+    document.addEventListener('click', e => {
+      if (!drop.classList.contains('hidden') && !btn.contains(e.target) && !drop.contains(e.target)) {
+        closeDrop();
       }
-    } else {
-      finalPrice = totalHours * selectedLoaiSan.priceNoLight;
-      summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ / giờ`;
-      summaryLightRow.classList.add('hidden');
-    }
+    });
   }
+})();
 
-  summaryTotal.innerText = `${Math.round(finalPrice).toLocaleString('vi-VN')}đ`;
+function showToast(msg) {
+  let t = document.createElement('div');
+  t.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-900 text-white px-5 py-2.5 rounded-full text-sm font-semibold z-[9999] shadow-lg flex items-center gap-2 border border-zinc-800';
+  t.innerHTML = '<span class="material-symbols-outlined text-[16px] text-blue-500" style="font-variation-settings:\'FILL\' 1">check_circle</span> ' + msg;
+  document.body.appendChild(t);
+  setTimeout(() => {
+    t.style.transition = 'opacity 0.3s';
+    t.style.opacity = '0';
+    setTimeout(() => { t.remove(); }, 350);
+  }, 2200);
 }
 
-// Modal open/close actions
-createBookingBtn.addEventListener('click', () => {
-  modal.classList.remove('pointer-events-none', 'opacity-0');
-  modalCard.classList.remove('scale-95');
-  modalCard.classList.add('scale-100');
-  initSports();
-});
-
-function closeModal() {
-  modal.classList.add('pointer-events-none', 'opacity-0');
-  modalCard.classList.remove('scale-100');
-  modalCard.classList.add('scale-95');
-  resetForm();
+function saveProfileChanges() {
+  document.getElementById('editProfileModal').classList.add('hidden');
+  showToast('Đã lưu thay đổi hồ sơ');
 }
-
-closeBtn.addEventListener('click', closeModal);
-cancelBtn.addEventListener('click', closeModal);
-
-modal.addEventListener('click', (e) => {
-  if(e.target === modal) closeModal();
-});
-
-function resetForm() {
-  selectedCustomer = null;
-  selectedCourt = null;
-  custSearchInput.value = '';
-  custSearchInput.classList.remove('hidden');
-  selectedCustCard.classList.add('hidden');
-  document.getElementById('walkinName').value = '';
-  document.getElementById('walkinPhone').value = '';
-  document.getElementById('bookingNotes').value = '';
-  setCustomerType('VIP');
-}
-
-// Confirm Booking Submission
-confirmBtn.addEventListener('click', () => {
-  // Validate Customer
-  let custName = '';
-  let custSourceBadge = 'Walk-in';
-  let custAvatar = 'https://i.pravatar.cc/40?img=9'; // Default avatar
-
-  if(activeCustomerType === 'VIP') {
-    if(!selectedCustomer) {
-      alert('Vui lòng tìm và chọn khách hàng thành viên!');
-      return;
-    }
-    custName = selectedCustomer.name;
-    custAvatar = selectedCustomer.avatar;
-  } else {
-    const walkinName = document.getElementById('walkinName').value.trim();
-    const walkinPhone = document.getElementById('walkinPhone').value.trim();
-    if(!walkinName || !walkinPhone) {
-      alert('Vui lòng nhập tên và số điện thoại khách vãng lai!');
-      return;
-    }
-    custName = walkinName;
-  }
-
-  // Validate Court
-  if(!selectedCourt) {
-    alert('Vui lòng chọn một sân trống thi đấu!');
+function savePassword() {
+  const pw = document.getElementById('pwNew');
+  const cf = document.getElementById('pwConfirm');
+  if (!pw.value) return;
+  if (pw.value !== cf.value) {
+    cf.style.borderColor = '#ef4444';
+    setTimeout(() => { cf.style.borderColor = ''; }, 1500);
     return;
   }
-
-  const sportName = selectSport.options[selectSport.selectedIndex].text;
-  const timeStartVal = timeStart.value;
-  const timeEndVal = timeEnd.value;
-  const totalCost = summaryTotal.innerText;
-
-  // Insert to the Dashboard booking list container!
-  const listContainer = document.getElementById('bookingsListContainer');
-  if(listContainer) {
-    const isZalo = selectedSource === 'Zalo';
-    const isApp = selectedSource === 'App';
-    const isCall = selectedSource === 'Call';
-    
-    let sourceBadgeClass = 'badge-gray';
-    if(isZalo) sourceBadgeClass = 'badge-purple';
-    if(isApp) sourceBadgeClass = 'badge-blue';
-    if(isCall) sourceBadgeClass = 'badge-amber';
-
-    const newBookingHtml = `
-      <div class="flex items-center gap-3 px-5 py-3 hover:bg-zinc-50/50 transition-colors animate-pop duration-300 bg-blue-50/20 border-l-4 border-blue-500">
-        <img src="${custAvatar}" class="w-10 h-10 rounded-full object-cover ring-2 ring-blue-100" alt="">
-        <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-2">
-            <p class="text-sm font-semibold text-zinc-900 truncate">${custName}</p>
-            <span class="badge ${sourceBadgeClass}">${selectedSource}</span>
-            ${activeCustomerType === 'VIP' ? '<span class="badge badge-amber text-[9px]">VIP</span>' : ''}
-          </div>
-          <div class="flex items-center gap-2 text-[11px] text-zinc-500 mt-0.5">
-            <span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[11px]">stadium</span>${selectedCourt.name} · ${sportName}</span>
-            <span class="text-zinc-300">·</span>
-            <span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[11px]">schedule</span>${timeStartVal}–${timeEndVal}</span>
-          </div>
-        </div>
-        <div class="text-right shrink-0">
-          <p class="text-sm font-bold text-zinc-900">${totalCost.replace(' VNĐ', '')}</p>
-          <span class="badge badge-green mt-0.5">Đã đặt</span>
-        </div>
-      </div>
-    `;
-    listContainer.insertAdjacentHTML('afterbegin', newBookingHtml);
+  document.getElementById('changePwModal').classList.add('hidden');
+  document.getElementById('pwCurrent').value = '';
+  pw.value = '';
+  cf.value = '';
+  ['str1', 'str2', 'str3', 'str4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.backgroundColor = '';
+  });
+  const lbl = document.getElementById('pwStrengthLabel');
+  if (lbl) lbl.textContent = '';
+  showToast('Đã đổi mật khẩu thành công');
+}
+function togglePw(btn) {
+  const inp = document.getElementById(btn.dataset.target);
+  const ic = btn.querySelector('.material-symbols-outlined');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    ic.textContent = 'visibility';
+  } else {
+    inp.type = 'password';
+    ic.textContent = 'visibility_off';
   }
-
-  // Increment KPI Dashboard Count
-  const kpiCount = document.getElementById('kpiBookingTodayCount');
-  if(kpiCount) {
-    const current = parseInt(kpiCount.innerText);
-    kpiCount.innerText = current + 1;
-    kpiCount.classList.add('scale-110', 'text-blue-600');
-    setTimeout(() => kpiCount.classList.remove('scale-110', 'text-blue-600'), 400);
+}
+function updatePwStrength(inp) {
+  const v = inp.value;
+  let s = 0;
+  if (v.length >= 8) s++;
+  if (/[A-Z]/.test(v)) s++;
+  if (/[0-9]/.test(v)) s++;
+  if (/[^A-Za-z0-9]/.test(v)) s++;
+  const cols = ['#ef4444', '#f59e0b', '#2563eb', '#10b981'];
+  const labs = ['', 'Yếu', 'Trung bình', 'Mạnh', 'Rất mạnh'];
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('str' + i);
+    if (el) el.style.backgroundColor = i <= s ? cols[s - 1] : '';
   }
-
-  // Insert recent activities
-  const actContainer = document.getElementById('recentActivitiesContainer');
-  if(actContainer) {
-    const newActHtml = `
-      <div class="flex items-start gap-3 animate-pop duration-300">
-        <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[14px] text-blue-700">event</span></div>
-        <div class="flex-1 min-w-0"><p class="text-xs text-zinc-700"><span class="font-semibold">${custName}</span> vừa được tạo lịch đặt sân <span class="font-semibold">${selectedCourt.name}</span></p><p class="text-[10px] text-zinc-400">Vừa xong</p></div>
-      </div>
-    `;
-    actContainer.insertAdjacentHTML('afterbegin', newActHtml);
+  const lbl = document.getElementById('pwStrengthLabel');
+  if (lbl) lbl.textContent = v.length ? labs[s] : '';
+}
+function previewAvatar(input) {
+  if (input.files && input.files[0]) {
+    const r = new FileReader();
+    r.onload = function(e) {
+      document.getElementById('editAvatarPreview').src = e.target.result;
+    };
+    r.readAsDataURL(input.files[0]);
   }
-
-  // Show Toast
-  const toast = document.getElementById('successToast');
-  toast.classList.remove('opacity-0', 'translate-y-12');
-  toast.classList.add('opacity-100', 'translate-y-0');
-  
-  setTimeout(() => {
-    toast.classList.add('opacity-0', 'translate-y-12');
-    toast.classList.remove('opacity-100', 'translate-y-0');
-  }, 4000);
-
-  // Close and clean
-  closeModal();
-});
-
-// Original profile drop and menu logic
-document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('-translate-x-full'));
-(function(){const btn=document.getElementById('profileBtn'),drop=document.getElementById('profileDrop'),chev=document.getElementById('profileChevron');
-btn.addEventListener('click',e=>{e.stopPropagation();const h=drop.classList.contains('hidden');if(h){drop.classList.remove('hidden');drop.style.cssText='opacity:0;transform:translateY(-6px);transition:opacity .15s,transform .15s';requestAnimationFrame(()=>{drop.style.opacity='1';drop.style.transform='translateY(0)';});chev.style.transform='rotate(180deg)';}else{drop.style.opacity='0';drop.style.transform='translateY(-6px)';setTimeout(()=>{drop.classList.add('hidden');drop.style.cssText='';},150);chev.style.transform='';}});
-document.addEventListener('click',e=>{if(!drop.classList.contains('hidden')&&!btn.contains(e.target)){drop.classList.add('hidden');drop.style.cssText='';chev.style.transform='';}});})();
+}
 </script>
 </body>
 </html>
