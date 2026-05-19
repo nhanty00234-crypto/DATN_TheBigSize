@@ -101,7 +101,7 @@
     </div>
   </div>
   <div class="flex items-center gap-1.5">
-    <button onclick="location.href='HoTro.html'" class="hidden sm:flex items-center gap-1.5 h-9 px-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 text-zinc-600 text-xs font-medium">
+    <button onclick="toggleAdminChat()" class="hidden sm:flex items-center gap-1.5 h-9 px-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 text-zinc-600 text-xs font-medium">
       <span class="material-symbols-outlined text-[15px]">help</span>Hỗ trợ
     </button>
     <button class="relative p-2 rounded-lg hover:bg-zinc-100 text-zinc-500">
@@ -720,6 +720,132 @@ function previewAvatar(input) {
     r.readAsDataURL(input.files[0]);
   }
 }
+</script>
+
+<!-- Admin Support Chat Drawer -->
+<div id="adminChatDrawer" class="fixed inset-y-0 right-0 w-full sm:w-[400px] bg-white border-l border-zinc-200 shadow-2xl z-[150] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <!-- Header -->
+    <div class="px-5 py-4 border-b border-zinc-100 flex items-center justify-between bg-zinc-50">
+        <div class="flex items-center gap-3">
+            <div class="relative">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=18181b&color=fff&bold=true" class="w-10 h-10 rounded-full ring-2 ring-blue-500/20 object-cover" alt="Admin">
+                <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-zinc-900 leading-tight">Admin Hệ thống</h3>
+                <p class="text-[11px] text-green-600 font-medium flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse"></span> Đang trực tuyến</p>
+            </div>
+        </div>
+        <button onclick="toggleAdminChat()" class="w-8 h-8 rounded-full hover:bg-zinc-200 flex items-center justify-center text-zinc-500 transition-colors"><span class="material-symbols-outlined text-[20px]">close</span></button>
+    </div>
+    
+    <!-- Messages Body -->
+    <div id="chatMessages" class="flex-1 overflow-y-auto p-5 flex flex-col gap-5 bg-white">
+        <div class="text-center mb-2">
+            <span class="text-[10px] font-medium text-zinc-500 bg-zinc-100 px-3 py-1 rounded-full">Hôm nay</span>
+        </div>
+        
+        <!-- Admin Msg -->
+        <div class="flex items-start gap-2 max-w-[85%]">
+            <img src="https://ui-avatars.com/api/?name=Admin&background=18181b&color=fff&bold=true" class="w-8 h-8 rounded-full shadow-sm" alt="Admin">
+            <div>
+                <div class="bg-zinc-100 px-4 py-2.5 rounded-2xl rounded-tl-sm text-sm text-zinc-800">
+                    Chào bạn, chi nhánh hôm nay hoạt động ổn chứ? Cần hỗ trợ gì cứ nhắn tin nhé!
+                </div>
+                <p class="text-[10px] text-zinc-400 mt-1 ml-1">08:30</p>
+            </div>
+        </div>
+        
+        <!-- User Msg -->
+        <div class="flex items-start gap-2 max-w-[85%] self-end flex-row-reverse">
+            <img src="https://ui-avatars.com/api/?name=Quan+Ly&background=1d4ed8&color=fff&bold=true" class="w-8 h-8 rounded-full shadow-sm" alt="Quản lý">
+            <div>
+                <div class="bg-blue-600 text-white px-4 py-2.5 rounded-2xl rounded-tr-sm text-sm shadow-sm shadow-blue-600/20">
+                    Dạ chi nhánh CS01 ổn ạ. Doanh thu đang đạt target tốt.
+                </div>
+                <p class="text-[10px] text-zinc-400 mt-1 mr-1 text-right">09:15</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Input Area -->
+    <div class="p-4 border-t border-zinc-100 bg-white shrink-0">
+        <form onsubmit="sendAdminMessage(event)" class="flex items-end gap-2 relative">
+            <button type="button" class="p-2 mb-1 text-zinc-400 hover:text-blue-600 transition-colors hover:bg-zinc-100 rounded-full"><span class="material-symbols-outlined text-[20px]">attach_file</span></button>
+            <div class="flex-1 bg-zinc-50 border border-zinc-200 rounded-2xl p-1 pr-1.5 flex items-end focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
+                <textarea id="chatInput" rows="1" placeholder="Nhập tin nhắn..." class="w-full bg-transparent border-none focus:ring-0 text-sm text-zinc-800 px-3 py-2.5 resize-none max-h-24 outline-none leading-snug" onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendAdminMessage(event); }" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+                <button type="submit" class="w-8 h-8 mb-1 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0 hover:bg-blue-700 active:scale-95 transition-all"><span class="material-symbols-outlined text-[16px] -ml-0.5">send</span></button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Backdrop for Chat -->
+<div id="adminChatBackdrop" onclick="toggleAdminChat()" class="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-[140] hidden opacity-0 transition-opacity duration-300"></div>
+
+<script>
+    // Chat Drawer Logic
+    window.toggleAdminChat = function() {
+        const drawer = document.getElementById('adminChatDrawer');
+        const backdrop = document.getElementById('adminChatBackdrop');
+        if(drawer.classList.contains('translate-x-full')) {
+            drawer.classList.remove('translate-x-full');
+            backdrop.classList.remove('hidden');
+            // Ensure scroll is at bottom when opening
+            const chatBody = document.getElementById('chatMessages');
+            chatBody.scrollTop = chatBody.scrollHeight;
+            setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+        } else {
+            drawer.classList.add('translate-x-full');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => backdrop.classList.add('hidden'), 300);
+        }
+    };
+
+    window.sendAdminMessage = function(e) {
+        e.preventDefault();
+        const input = document.getElementById('chatInput');
+        const msg = input.value.trim();
+        if(!msg) return;
+        
+        const chatBody = document.getElementById('chatMessages');
+        const now = new Date();
+        const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+        
+        const msgHTML = `
+            <div class="flex items-start gap-2 max-w-[85%] self-end flex-row-reverse animate__animated animate__fadeInUp animate__faster">
+                <img src="https://ui-avatars.com/api/?name=Quan+Ly&background=1d4ed8&color=fff&bold=true" class="w-8 h-8 rounded-full shadow-sm" alt="Quản lý">
+                <div>
+                    <div class="bg-blue-600 text-white px-4 py-2.5 rounded-2xl rounded-tr-sm text-sm shadow-sm shadow-blue-600/20">
+                        ${msg.replace(/\n/g, '<br>')}
+                    </div>
+                    <p class="text-[10px] text-zinc-400 mt-1 mr-1 text-right">${timeStr}</p>
+                </div>
+            </div>
+        `;
+        chatBody.insertAdjacentHTML('beforeend', msgHTML);
+        input.value = '';
+        input.style.height = 'auto'; // reset height
+        chatBody.scrollTop = chatBody.scrollHeight;
+        
+        // Auto reply demo
+        setTimeout(() => {
+            const replyTime = new Date();
+            const replyTimeStr = String(replyTime.getHours()).padStart(2, '0') + ':' + String(replyTime.getMinutes()).padStart(2, '0');
+            const replyHTML = `
+                <div class="flex items-start gap-2 max-w-[85%] animate__animated animate__fadeInUp animate__faster">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=18181b&color=fff&bold=true" class="w-8 h-8 rounded-full shadow-sm" alt="Admin">
+                    <div>
+                        <div class="bg-zinc-100 px-4 py-2.5 rounded-2xl rounded-tl-sm text-sm text-zinc-800">
+                            Đã nhận thông tin. Admin sẽ phản hồi trong giây lát nhé!
+                        </div>
+                        <p class="text-[10px] text-zinc-400 mt-1 ml-1">${replyTimeStr}</p>
+                    </div>
+                </div>
+            `;
+            chatBody.insertAdjacentHTML('beforeend', replyHTML);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 1200);
+    };
 </script>
 </body>
 </html>
