@@ -21,32 +21,33 @@ body { font-family: 'Inter', sans-serif; }
   .badge-blue { background:#dbeafe;color:#1e40af; }
   .badge-gray { background:#f4f4f5;color:#52525b; }
   .badge-purple { background:#f3e8ff;color:#7e22ce; }
+  .promo-card { background:#fff; border:1px solid #e4e4e7; border-radius:16px; overflow:hidden; transition:all .2s ease; display:flex; flex-direction:column; position:relative; }
+  .promo-card:hover { transform:translateY(-3px); box-shadow:0 12px 24px -10px rgba(0,0,0,.08); border-color:#d4d4d8; }
   ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d4d4d8;border-radius:6px}
   ::-webkit-scrollbar-thumb:hover{background:#a1a1aa}
-  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes pop { 0% { opacity:0; transform:scale(.94); } 100% { opacity:1; transform:scale(1); } }
+  
+  /* Robust Pure CSS entry transitions (Offline friendly!) */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
   @keyframes pulse-dot { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4);} 50%{box-shadow:0 0 0 6px rgba(34,197,94,0);} }
-  @keyframes drawBar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-  main > section { animation: fadeUp .4s ease both; }
-  main > section:nth-child(1) { animation-delay: 0ms; }
-  main > section:nth-child(2) { animation-delay: 80ms; }
-  main > section:nth-child(3) { animation-delay: 160ms; }
-  main > section:nth-child(4) { animation-delay: 240ms; }
-  .stagger > *:nth-child(1){animation:pop .35s ease both;animation-delay:50ms}
-  .stagger > *:nth-child(2){animation:pop .35s ease both;animation-delay:120ms}
-  .stagger > *:nth-child(3){animation:pop .35s ease both;animation-delay:190ms}
-  .stagger > *:nth-child(4){animation:pop .35s ease both;animation-delay:260ms}
-  button { transition: transform .12s ease, opacity .15s ease, background-color .15s ease; }
-  button:active:not([disabled]) { transform: scale(.97); }
+  
+  .animate-fade-up {
+    animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-scale-in {
+    animation: scaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
   .live-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
-  .chart-bar { transform-origin: bottom; animation: drawBar .6s cubic-bezier(.34,1.56,.64,1) both; }
-  .chart-bar:nth-child(1){animation-delay:50ms} .chart-bar:nth-child(2){animation-delay:120ms} .chart-bar:nth-child(3){animation-delay:190ms} .chart-bar:nth-child(4){animation-delay:260ms} .chart-bar:nth-child(5){animation-delay:330ms} .chart-bar:nth-child(6){animation-delay:400ms} .chart-bar:nth-child(7){animation-delay:470ms}
   aside a .material-symbols-outlined { transition: transform .2s ease; }
   aside a:hover .material-symbols-outlined { transform: translateX(2px); }
-  .hero-gradient { background: linear-gradient(135deg, #fafafa 0%, #f4f4f5 60%, #eff6ff 100%); }
   @media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation:none!important;transition:none!important;} }
 </style>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body class="bg-zinc-50 text-zinc-900 min-h-screen">
 
@@ -54,7 +55,7 @@ body { font-family: 'Inter', sans-serif; }
 <aside id="sidebar" class="w-[248px] h-screen fixed left-0 top-0 bg-white border-r border-zinc-200 z-30 flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
   <div class="px-5 py-4 border-b border-zinc-100 flex items-center gap-3">
     <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shrink-0 shadow-md shadow-blue-200">
-      <span class="material-symbols-outlined text-white text-[18px]" >sports_tennis</span>
+      <span class="material-symbols-outlined text-white text-[18px]">sports_tennis</span>
     </div>
     <div>
       <p class="text-sm font-bold text-zinc-900 leading-tight tracking-tight">V-SPORT</p>
@@ -75,7 +76,7 @@ body { font-family: 'Inter', sans-serif; }
   </div>
   <nav class="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-1">
     <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mb-1.5">Vận hành</p>
-    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[19px]" >space_dashboard</span>Tổng quan</a>
+    <a href="Dashboard.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">space_dashboard</span>Tổng quan</a>
     <a href="LichDatSan.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">event</span>Lịch đặt sân<span class="ml-auto text-[10px] font-bold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-md">5</span></a>
     <a href="QuanLySan.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">stadium</span>Quản lý sân</a>
     <a href="KhoDichVu.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">inventory_2</span>Kho & Dịch vụ<span class="ml-auto text-[10px] font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md">3</span></a>
@@ -83,6 +84,8 @@ body { font-family: 'Inter', sans-serif; }
     <a href="NhanSu.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">groups</span>Nhân sự</a>
     <a href="HoaDon.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">receipt_long</span>Hóa đơn</a>
     <a href="KhuyenMai.html" class="nav-link active"><span class="material-symbols-outlined text-[19px]" style="font-variation-settings:'FILL' 1">loyalty</span>Khuyến mãi</a>
+    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400 px-3 mt-5 mb-1.5">Hỗ trợ</p>
+    <a href="HoTro.html" class="nav-link"><span class="material-symbols-outlined text-[19px]">contact_support</span>Hỗ trợ Admin</a>
   </nav>
   <div class="px-3 py-3 border-t border-zinc-100">
     <a href="../admin/Dashboard.html" class="nav-link text-zinc-400 text-xs"><span class="material-symbols-outlined text-[16px]">arrow_back_ios</span>Về Admin Portal</a>
@@ -95,11 +98,11 @@ body { font-family: 'Inter', sans-serif; }
     <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg hover:bg-zinc-100 text-zinc-500"><span class="material-symbols-outlined text-[20px]">menu</span></button>
     <div>
       <h1 class="text-sm font-bold text-zinc-900 tracking-tight">Khuyến mãi</h1>
-      <p class="text-xs text-zinc-500 flex items-center gap-1.5"><span class="material-symbols-outlined text-[12px]">database</span>Bảng KhuyenMai  lọc theo CoSoID = CS01</p>
+      <p class="text-xs text-zinc-555 text-zinc-500 flex items-center gap-1.5"><span class="material-symbols-outlined text-[12px]">database</span>Bảng KhuyenMai lọc theo CoSoID = CS01</p>
     </div>
   </div>
   <div class="flex items-center gap-1.5">
-    <button onclick="location.href='HoTro.html'" class="hidden sm:flex items-center gap-1.5 h-9 px-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 text-zinc-600 text-xs font-medium">
+    <button onclick="location.href='HoTro.html'" class="hidden sm:flex items-center gap-1.5 h-9 px-3 rounded-lg border border-zinc-200 hover:bg-zinc-50 text-zinc-650 text-xs font-semibold">
       <span class="material-symbols-outlined text-[15px]">help</span>Hỗ trợ
     </button>
     <button class="relative p-2 rounded-lg hover:bg-zinc-100 text-zinc-500">
@@ -110,13 +113,13 @@ body { font-family: 'Inter', sans-serif; }
     <div class="relative">
       <button id="profileBtn" class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors">
         <img src="https://i.pravatar.cc/64?img=68" class="w-8 h-8 rounded-full object-cover ring-2 ring-white" alt="">
-        <div class="hidden sm:block text-left">
-          <p class="text-sm font-semibold text-zinc-900 leading-tight">Nguyễn Văn Quân</p>
-          <p class="text-[10px] text-zinc-500">Quản lý · CS01</p>
+        <div class="hidden sm:block text-left font-sans">
+          <p class="text-sm font-bold text-zinc-900 leading-tight">Nguyễn Văn Quân</p>
+          <p class="text-[10px] font-semibold text-zinc-450 text-zinc-500">Quản lý · CS01</p>
         </div>
         <span id="profileChevron" class="material-symbols-outlined text-[16px] text-zinc-400 hidden sm:block transition-transform duration-150">expand_more</span>
       </button>
-            <div id="profileDrop" class="hidden absolute top-[calc(100%+8px)] right-0 w-[320px] bg-white rounded-2xl shadow-xl border border-zinc-200 z-50 overflow-hidden">
+      <div id="profileDrop" class="hidden absolute top-[calc(100%+8px)] right-0 w-[320px] bg-white rounded-2xl shadow-xl border border-zinc-200 z-50 overflow-hidden font-sans">
         <div class="relative px-5 py-4 border-b border-zinc-100">
           <div class="absolute inset-0 bg-gradient-to-br from-blue-600/[0.04] to-transparent pointer-events-none"></div>
           <div class="flex items-start gap-3.5">
@@ -124,7 +127,7 @@ body { font-family: 'Inter', sans-serif; }
             <div class="flex-1 min-w-0">
               <p class="font-bold text-[15px] text-zinc-900 leading-tight">Nguyễn Văn Quân</p>
               <div class="flex items-center gap-1.5 mt-1 flex-wrap"><span class="inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full whitespace-nowrap"><span class="material-symbols-outlined text-[11px]" style="font-variation-settings:'FILL' 1">verified_user</span>Quản lý chi nhánh</span><span class="inline-flex items-center gap-1 text-[11px] font-medium text-[#05cd99] bg-[#e6fcf5] px-2 py-0.5 rounded-full whitespace-nowrap"><span class="w-1.5 h-1.5 rounded-full bg-[#05cd99] inline-block"></span>Online</span></div>
-              <p class="text-xs text-zinc-500 mt-1.5">ID: <span class="font-semibold text-zinc-800 font-mono">MGR042</span></p>
+              <p class="text-xs text-zinc-555 text-zinc-500 mt-1.5">ID: <span class="font-bold text-zinc-800 font-mono">MGR042</span></p>
             </div>
           </div>
         </div>
@@ -143,7 +146,7 @@ body { font-family: 'Inter', sans-serif; }
           <button onclick="document.getElementById('profileDrop').classList.add('hidden');document.getElementById('editProfileModal').classList.remove('hidden');" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-zinc-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-zinc-400">manage_accounts</span><span class="text-[13px] font-medium text-zinc-700">Hồ sơ cá nhân</span></button>
           <button onclick="document.getElementById('profileDrop').classList.add('hidden');document.getElementById('changePwModal').classList.remove('hidden');" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-zinc-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-zinc-400">lock_reset</span><span class="text-[13px] font-medium text-zinc-700">Đổi mật khẩu</span></button>
           <button class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-zinc-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-zinc-400">settings</span><span class="text-[13px] font-medium text-zinc-700">Cài đặt</span></button>
-          <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-red-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-red-600">logout</span><span class="text-[13px] font-medium text-red-600">Đăng xuất</span></button></div>
+          <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-red-50 transition-colors text-left w-full"><span class="material-symbols-outlined text-[17px] text-red-600">logout</span><span class="text-[13px] font-semibold text-red-650 text-red-650 text-red-600">Đăng xuất</span></button></div>
         </div>
       </div>
     </div>
@@ -155,1296 +158,190 @@ body { font-family: 'Inter', sans-serif; }
 
   <!-- Stats -->
   <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-    <div data-aos="fade-up" class="card p-4 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px] text-green-600">campaign</span></div>
-      <div><p class="text-xs text-zinc-500">Đang chạy</p><p class="text-xl font-bold text-green-600">3</p></div>
+    <div class="card p-4 flex items-center gap-3 animate-fade-up" style="animation-delay: 0ms;">
+      <div class="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center shrink-0 border border-green-100/50"><span class="material-symbols-outlined text-[18px] text-green-600">campaign</span></div>
+      <div><p class="text-xs text-zinc-500 font-semibold">Đang chạy</p><p id="statActiveCount" class="text-xl font-extrabold text-green-600">0</p></div>
     </div>
-    <div data-aos="fade-up" class="card p-4 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px] text-blue-600">schedule</span></div>
-      <div><p class="text-xs text-zinc-500">Sắp diễn ra</p><p class="text-xl font-bold text-blue-600">2</p></div>
+    <div class="card p-4 flex items-center gap-3 animate-fade-up" style="animation-delay: 50ms;">
+      <div class="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100/50"><span class="material-symbols-outlined text-[18px] text-blue-600">schedule</span></div>
+      <div><p class="text-xs text-zinc-500 font-semibold">Sắp diễn ra</p><p id="statUpcomingCount" class="text-xl font-extrabold text-blue-600">0</p></div>
     </div>
-    <div data-aos="fade-up" class="card p-4 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-zinc-100 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px] text-zinc-600">history</span></div>
-      <div><p class="text-xs text-zinc-500">Đã kết thúc</p><p class="text-xl font-bold text-zinc-600">8</p></div>
+    <div class="card p-4 flex items-center gap-3 animate-fade-up" style="animation-delay: 100ms;">
+      <div class="w-9 h-9 rounded-lg bg-zinc-100 flex items-center justify-center shrink-0 border border-zinc-200/50"><span class="material-symbols-outlined text-[18px] text-zinc-500">history</span></div>
+      <div><p class="text-xs text-zinc-500 font-semibold">Đã kết thúc</p><p id="statExpiredCount" class="text-xl font-extrabold text-zinc-555 text-zinc-600">0</p></div>
     </div>
-    <div data-aos="fade-up" class="card p-4 flex items-center gap-3">
-      <div class="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px] text-amber-600">savings</span></div>
-      <div><p class="text-xs text-zinc-500">Đã tiết kiệm</p><p class="text-xl font-bold text-zinc-900">2.4M đ</p></div>
+    <div class="card p-4 flex items-center gap-3 animate-fade-up" style="animation-delay: 150ms;">
+      <div class="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center shrink-0 border border-amber-100/50"><span class="material-symbols-outlined text-[18px] text-amber-600">savings</span></div>
+      <div><p class="text-xs text-zinc-500 font-semibold">Tổng đã giảm</p><p id="statTotalSaved" class="text-xl font-extrabold text-zinc-900">0 đ</p></div>
     </div>
   </div>
 
   <!-- Toolbar -->
-  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fade-up" style="animation-delay: 200ms;">
     <div class="flex items-center gap-2 flex-wrap">
       <!-- Status filter tabs -->
       <div class="flex rounded-lg border border-zinc-200 overflow-hidden bg-white text-sm">
-        <button onclick="filterPromo(this,'all')" class="promo-tab px-3 py-1.5 bg-zinc-900 text-white font-medium">Tất cả</button>
-        <button onclick="filterPromo(this,'active')" class="promo-tab px-3 py-1.5 text-zinc-500 hover:bg-zinc-50">Đang chạy</button>
-        <button onclick="filterPromo(this,'upcoming')" class="promo-tab px-3 py-1.5 text-zinc-500 hover:bg-zinc-50">Sắp tới</button>
-        <button onclick="filterPromo(this,'expired')" class="promo-tab px-3 py-1.5 text-zinc-500 hover:bg-zinc-50">Đã kết thúc</button>
+        <button id="tabFilterAll" onclick="switchFilterTab('all')" class="promo-tab px-3.5 py-1.5 bg-zinc-900 text-white font-semibold transition-all">Tất cả</button>
+        <button id="tabFilterActive" onclick="switchFilterTab('Đang chạy')" class="promo-tab px-3.5 py-1.5 text-zinc-500 hover:bg-zinc-50 transition-all font-medium">Đang chạy</button>
+        <button id="tabFilterUpcoming" onclick="switchFilterTab('Sắp diễn ra')" class="promo-tab px-3.5 py-1.5 text-zinc-500 hover:bg-zinc-50 transition-all font-medium">Sắp tới</button>
+        <button id="tabFilterExpired" onclick="switchFilterTab('Đã kết thúc')" class="promo-tab px-3.5 py-1.5 text-zinc-500 hover:bg-zinc-50 transition-all font-medium">Đã kết thúc</button>
       </div>
       <div class="relative">
-        <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[15px] text-zinc-400">search</span>
-        <input type="text" placeholder="Tìm khuyến mãi..." class="h-9 pl-8 pr-3 rounded-lg border border-zinc-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400 w-[180px]">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[15px] text-zinc-400 font-bold">search</span>
+        <input id="searchPromo" type="text" placeholder="Tìm mã, tên khuyến mãi..." class="h-9 pl-8 pr-3 rounded-lg border border-zinc-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400 w-[220px]">
       </div>
     </div>
-    <button onclick="document.getElementById('promoModal').classList.remove('hidden')" class="flex items-center gap-1.5 h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800 transition-colors shrink-0">
-      <span class="material-symbols-outlined text-[16px]">add</span>Tạo khuyến mãi
+    <button onclick="document.getElementById('promoModal').classList.remove('hidden'); document.getElementById('promoModalCard').classList.add('animate-scale-in');" class="flex items-center gap-1.5 h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-semibold hover:bg-zinc-800 active:scale-95 transition-all shrink-0 shadow-sm">
+      <span class="material-symbols-outlined text-[16px] font-bold">add</span>Tạo khuyến mãi
     </button>
   </div>
 
   <!-- Promo cards grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" id="promoGrid">
-
-    <!-- Active promo -->
-    <div data-aos="fade-up" class="promo-card">
-      <div class="h-2 bg-green-500"></div>
-      <div class="p-4">
-        <div class="flex items-start justify-between mb-3">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="badge badge-green">Đang chạy</span>
-              <span class="text-[10px] text-zinc-400 font-mono">KM001</span>
-            </div>
-            <h3 class="text-sm font-bold text-zinc-900">Giảm 20% cuối tuần</h3>
-          </div>
-          <div class="relative">
-            <button onclick="togglePromoMenu('pm1')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="pm1" class="hidden absolute right-0 top-full mt-1 w-[150px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">bar_chart</span>Xem thống kê</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">content_copy</span>Nhân bản</button>
-              <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-800 hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">stop_circle</span>Dừng</button></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center shrink-0">
-            <span class="text-lg font-black text-green-600">20%</span>
-          </div>
-          <div class="text-xs text-zinc-500">
-            <p>Giảm 20% cho tất cả sân vào T7, CN</p>
-            <p class="mt-0.5 text-zinc-400">Không giới hạn số lần dùng</p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-1.5 text-xs text-zinc-500 border-t border-zinc-100 pt-3">
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">calendar_today</span>01/05 – 31/05/2026</span>
-            <span class="font-semibold text-zinc-700">Còn 14 ngày</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">receipt</span>Đã dùng</span>
-            <span class="font-semibold text-zinc-700">47 lần · –940.000 đ</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Active promo 2 -->
-    <div data-aos="fade-up" class="promo-card">
-      <div class="h-2 bg-green-500"></div>
-      <div class="p-4">
-        <div class="flex items-start justify-between mb-3">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="badge badge-green">Đang chạy</span>
-              <span class="text-[10px] text-zinc-400 font-mono">KM002</span>
-            </div>
-            <h3 class="text-sm font-bold text-zinc-900">Mua 10 tặng 1</h3>
-          </div>
-          <div class="relative">
-            <button onclick="togglePromoMenu('pm2')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="pm2" class="hidden absolute right-0 top-full mt-1 w-[150px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">bar_chart</span>Xem thống kê</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">content_copy</span>Nhân bản</button>
-              <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-800 hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">stop_circle</span>Dừng</button></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-[22px] text-green-600">redeem</span>
-          </div>
-          <div class="text-xs text-zinc-500">
-            <p>Đặt 10 giờ sân nhận 1 giờ miễn phí</p>
-            <p class="mt-0.5 text-zinc-400">Áp dụng toàn bộ sân cầu lông</p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-1.5 text-xs text-zinc-500 border-t border-zinc-100 pt-3">
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">calendar_today</span>01/05 – 30/06/2026</span>
-            <span class="font-semibold text-zinc-700">Còn 44 ngày</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">receipt</span>Đã dùng</span>
-            <span class="font-semibold text-zinc-700">12 lần · –960.000 đ</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Active promo 3 -->
-    <div data-aos="fade-up" class="promo-card">
-      <div class="h-2 bg-green-500"></div>
-      <div class="p-4">
-        <div class="flex items-start justify-between mb-3">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="badge badge-green">Đang chạy</span>
-              <span class="text-[10px] text-zinc-400 font-mono">KM003</span>
-            </div>
-            <h3 class="text-sm font-bold text-zinc-900">Khách mới –50.000 đ</h3>
-          </div>
-          <div class="relative">
-            <button onclick="togglePromoMenu('pm3')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="pm3" class="hidden absolute right-0 top-full mt-1 w-[150px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">bar_chart</span>Xem thống kê</button>
-              <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-800 hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">stop_circle</span>Dừng</button></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center shrink-0">
-            <span class="text-sm font-black text-green-600">-50k</span>
-          </div>
-          <div class="text-xs text-zinc-500">
-            <p>Giảm 50.000đ cho lần đặt đầu tiên</p>
-            <p class="mt-0.5 text-zinc-400">Đơn tối thiểu 150.000 đ</p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-1.5 text-xs text-zinc-500 border-t border-zinc-100 pt-3">
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">calendar_today</span>01/01 – 31/12/2026</span>
-            <span class="font-semibold text-zinc-700">Liên tục</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">receipt</span>Đã dùng</span>
-            <span class="font-semibold text-zinc-700">29 lần · –1.450.000 đ</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Upcoming promo -->
-    <div data-aos="fade-up" class="promo-card opacity-90">
-      <div class="h-2 bg-blue-400"></div>
-      <div class="p-4">
-        <div class="flex items-start justify-between mb-3">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="badge badge-blue">Sắp diễn ra</span>
-              <span class="text-[10px] text-zinc-400 font-mono">KM004</span>
-            </div>
-            <h3 class="text-sm font-bold text-zinc-900">Flash Sale 6.6 — Giảm 30%</h3>
-          </div>
-          <div class="relative">
-            <button onclick="togglePromoMenu('pm4')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="pm4" class="hidden absolute right-0 top-full mt-1 w-[150px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">content_copy</span>Nhân bản</button>
-              <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-800 hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">delete</span>Xóa</button></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
-            <span class="text-lg font-black text-blue-600">30%</span>
-          </div>
-          <div class="text-xs text-zinc-500">
-            <p>Giảm 30% tất cả sân · Flash Sale 24h</p>
-            <p class="mt-0.5 text-zinc-400">Giới hạn 100 lượt sử dụng</p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-1.5 text-xs text-zinc-500 border-t border-zinc-100 pt-3">
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">calendar_today</span>06/06/2026 (24h)</span>
-            <span class="font-semibold text-blue-600">Còn 20 ngày</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">confirmation_number</span>Hạn mức</span>
-            <span class="font-semibold text-zinc-700">100 / 100 còn lại</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Upcoming promo 2 -->
-    <div data-aos="fade-up" class="promo-card opacity-90">
-      <div class="h-2 bg-blue-400"></div>
-      <div class="p-4">
-        <div class="flex items-start justify-between mb-3">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="badge badge-blue">Sắp diễn ra</span>
-              <span class="text-[10px] text-zinc-400 font-mono">KM005</span>
-            </div>
-            <h3 class="text-sm font-bold text-zinc-900">Combo gia đình cuối tuần</h3>
-          </div>
-          <div class="relative">
-            <button onclick="togglePromoMenu('pm5')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="pm5" class="hidden absolute right-0 top-full mt-1 w-[150px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
-              <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-800 hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">delete</span>Xóa</button></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-[22px] text-blue-600">family_restroom</span>
-          </div>
-          <div class="text-xs text-zinc-500">
-            <p>Đặt 2 sân liền kề: Giảm 25%</p>
-            <p class="mt-0.5 text-zinc-400">Chỉ T7 & CN từ 09:00–17:00</p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-1.5 text-xs text-zinc-500 border-t border-zinc-100 pt-3">
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">calendar_today</span>01/06 – 31/08/2026</span>
-            <span class="font-semibold text-blue-600">Còn 15 ngày</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Expired promo -->
-    <div data-aos="fade-up" class="promo-card opacity-60">
-      <div class="h-2 bg-zinc-300"></div>
-      <div class="p-4">
-        <div class="flex items-start justify-between mb-3">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="badge badge-gray">Đã kết thúc</span>
-              <span class="text-[10px] text-zinc-400 font-mono">KM006</span>
-            </div>
-            <h3 class="text-sm font-bold text-zinc-600">Khai trương tháng 4</h3>
-          </div>
-          <div class="relative">
-            <button onclick="togglePromoMenu('pm6')" class="p-1 rounded hover:bg-zinc-100"><span class="material-symbols-outlined text-[16px] text-zinc-400">more_vert</span></button>
-            <div id="pm6" class="hidden absolute right-0 top-full mt-1 w-[150px] bg-white rounded-lg shadow-lg border border-zinc-200 py-1 z-10">
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">bar_chart</span>Xem thống kê</button>
-              <button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"><span class="material-symbols-outlined text-[14px]">content_copy</span>Nhân bản</button>
-              <div class="border-t border-zinc-100 mt-1 pt-1"><button class="flex items-center gap-2 w-full px-3 py-1.5 text-sm text-zinc-800 hover:bg-zinc-100"><span class="material-symbols-outlined text-[14px]">delete</span>Xóa</button></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-12 h-12 rounded-xl bg-zinc-100 flex items-center justify-center shrink-0">
-            <span class="text-sm font-black text-zinc-500">50%</span>
-          </div>
-          <div class="text-xs text-zinc-400">
-            <p>Giảm 50% tháng khai trương</p>
-            <p class="mt-0.5">Tối đa 100.000 đ / đơn</p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-1.5 text-xs text-zinc-400 border-t border-zinc-100 pt-3">
-          <div class="flex items-center justify-between">
-            <span>01/04 – 30/04/2026</span>
-            <span class="font-semibold">Đã kết thúc</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <span>Tổng đã dùng</span>
-            <span class="font-semibold">83 lần · –4.150.000 đ</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!-- Dynamic Cards Rendered Here -->
   </div>
 
 </main>
 
-<!-- Modal: Tạo lịch đặt mới -->
-<div id="bookingModal" class="fixed inset-0 bg-zinc-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all duration-355 opacity-0 pointer-events-none">
-  <div id="bookingModalCard" class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl border border-zinc-200 overflow-hidden flex flex-col max-h-[92vh] transform scale-95 transition-all duration-355">
-    
-    <!-- Modal Header -->
-    <div class="px-6 py-4 border-b border-zinc-150 bg-gradient-to-r from-zinc-50 to-white flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-700">
-          <span class="material-symbols-outlined text-[22px]">add_circle</span>
-        </div>
-        <div>
-          <h3 class="text-base font-bold text-zinc-900 leading-tight">Tạo lịch đặt mới</h3>
-          <p class="text-xs text-zinc-500">Đặt sân nhanh, tự động tính toán chi phí & đồng bộ hệ thống</p>
-        </div>
-      </div>
-      <button id="closeBookingModalBtn" class="w-8 h-8 rounded-full hover:bg-zinc-100 flex items-center justify-center text-zinc-400 hover:text-zinc-650 transition-colors">
-        <span class="material-symbols-outlined text-[18px]">close</span>
-      </button>
-    </div>
-
-    <!-- Modal Content -->
-    <div class="flex-1 overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-      
-      <!-- Left Column: Form Fields (8 cols on desktop) -->
-      <div class="lg:col-span-8 flex flex-col gap-5">
-        
-        <!-- SECTION 1: Khách Hàng -->
-        <div class="bg-zinc-50/50 border border-zinc-200/80 rounded-2xl p-4 flex flex-col gap-4">
-          <div class="flex items-center justify-between">
-            <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[15px]">person</span>Thông tin khách hàng
-            </h4>
-            <!-- Customer Type Toggle -->
-            <div class="flex p-0.5 bg-zinc-150 rounded-lg text-[11px] font-semibold border border-zinc-200">
-              <button id="btnCustVip" class="px-3 py-1 rounded-md bg-white shadow-sm text-zinc-800 transition-all">Khách quen (VIP/Thành viên)</button>
-              <button id="btnCustWalkin" class="px-3 py-1 rounded-md text-zinc-500 hover:text-zinc-850 transition-all">Khách vãng lai</button>
-            </div>
-          </div>
-
-          <!-- Existing Customer Select / Search -->
-          <div id="custVipSection" class="relative">
-            <label class="text-[11px] font-bold text-zinc-600 mb-1.5 block">Tìm kiếm khách hàng quen thuộc</label>
-            <div class="relative">
-              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-450 text-[18px]">search</span>
-              <input type="text" id="custSearchInput" class="w-full pl-10 pr-4 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" placeholder="Nhập tên hoặc số điện thoại khách hàng...">
-              <button id="clearCustSearchBtn" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-450 hover:text-zinc-600 hidden">
-                <span class="material-symbols-outlined text-[15px]">close</span>
-              </button>
-            </div>
-            
-            <!-- Autocomplete dropdown -->
-            <div id="custSuggestions" class="hidden absolute left-0 right-0 top-[calc(100%+4px)] max-h-[180px] bg-white border border-zinc-200 rounded-xl shadow-xl z-50 overflow-y-auto divide-y divide-zinc-100">
-              <!-- Render dynamically -->
-            </div>
-
-            <!-- Selected Customer Profile Card -->
-            <div id="selectedCustCard" class="hidden mt-3 p-3 bg-blue-50/40 border border-blue-100/50 rounded-xl flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <img id="selectedCustAvatar" src="" class="w-10 h-10 rounded-full object-cover ring-2 ring-white shadow-sm">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span id="selectedCustName" class="text-xs font-bold text-zinc-900"></span>
-                    <span id="selectedCustVip" class="badge"></span>
-                  </div>
-                  <div class="flex items-center gap-3 text-[10px] text-zinc-500 mt-0.5">
-                    <span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[11px]">call</span><span id="selectedCustPhone"></span></span>
-                    <span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[11px] text-amber-500" style="font-variation-settings:'FILL' 1">star</span>ELO: <span id="selectedCustElo" class="font-bold"></span></span>
-                  </div>
-                </div>
-              </div>
-              <button id="removeSelectedCustBtn" class="text-[10px] text-red-650 font-bold hover:underline">Thay đổi</button>
-            </div>
-          </div>
-
-          <!-- Walk-in Customer Fields -->
-          <div id="custWalkinSection" class="hidden grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div>
-              <label class="text-[11px] font-bold text-zinc-600 mb-1 block">Tên khách hàng <span class="text-red-500">*</span></label>
-              <input type="text" id="walkinName" class="w-full px-3 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" placeholder="Nguyễn Văn A">
-            </div>
-            <div>
-              <label class="text-[11px] font-bold text-zinc-600 mb-1 block">Số điện thoại <span class="text-red-500">*</span></label>
-              <input type="text" id="walkinPhone" class="w-full px-3 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" placeholder="09xxxxxxxx">
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION 2: Chọn Sân & Bộ Môn -->
-        <div class="bg-zinc-50/50 border border-zinc-200/80 rounded-2xl p-4 flex flex-col gap-4">
-          <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[15px]">stadium</span>Cấu hình dịch vụ sân
-          </h4>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div>
-              <label class="text-[11px] font-bold text-zinc-600 mb-1 block">Bộ môn thể thao</label>
-              <select id="selectSport" class="w-full px-3 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
-                <!-- Dynamically populated -->
-              </select>
-            </div>
-            <div class="md:col-span-2">
-              <label class="text-[11px] font-bold text-zinc-600 mb-1 block">Loại hình sân</label>
-              <select id="selectLoaiSan" class="w-full px-3 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
-                <!-- Dynamically populated -->
-              </select>
-            </div>
-          </div>
-
-          <!-- Court Grid Selection -->
-          <div>
-            <div class="flex items-center justify-between mb-1.5">
-              <label class="text-[11px] font-bold text-zinc-600">Chọn sân thi đấu cụ thể <span class="text-red-500">*</span></label>
-              <span class="text-[10px] text-zinc-400 font-medium">Bấm vào sân trống để chọn</span>
-            </div>
-            
-            <div id="courtGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <!-- Dynamically populated cards -->
-            </div>
-          </div>
-
-          <!-- Booking Source -->
-          <div>
-            <label class="text-[11px] font-bold text-zinc-600 mb-2 block">Nguồn đặt sân</label>
-            <div id="sourceContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <button type="button" data-source="Walk-in" class="source-chip flex items-center justify-center gap-1.5 py-2 px-3 border border-zinc-200 bg-white rounded-xl text-xs font-semibold text-zinc-600 hover:bg-zinc-50 active:scale-95 transition-all">
-                <span class="material-symbols-outlined text-[15px]">directions_walk</span>Walk-in
-              </button>
-              <button type="button" data-source="Zalo" class="source-chip flex items-center justify-center gap-1.5 py-2 px-3 border border-zinc-200 bg-white rounded-xl text-xs font-semibold text-zinc-600 hover:bg-zinc-50 active:scale-95 transition-all">
-                <span class="material-symbols-outlined text-[15px]">chat</span>Zalo
-              </button>
-              <button type="button" data-source="App" class="source-chip flex items-center justify-center gap-1.5 py-2 px-3 border border-zinc-200 bg-white rounded-xl text-xs font-semibold text-zinc-600 hover:bg-zinc-50 active:scale-95 transition-all">
-                <span class="material-symbols-outlined text-[15px]">smartphone</span>App
-              </button>
-              <button type="button" data-source="Call" class="source-chip flex items-center justify-center gap-1.5 py-2 px-3 border border-zinc-200 bg-white rounded-xl text-xs font-semibold text-zinc-600 hover:bg-zinc-50 active:scale-95 transition-all">
-                <span class="material-symbols-outlined text-[15px]">call</span>Gọi điện
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right Column: Time, Lighting & Price (4 cols on desktop) -->
-      <div class="lg:col-span-4 flex flex-col gap-5 border-l border-zinc-100 lg:pl-6">
-        
-        <!-- SECTION 3: Thời gian đặt -->
-        <div class="flex flex-col gap-4">
-          <h4 class="text-xs font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[15px]">schedule</span>Thời gian & Khung giờ
-          </h4>
-
-          <div>
-            <label class="text-[11px] font-bold text-zinc-600 mb-1.5 block">Chọn ngày đặt sân</label>
-            <div class="relative">
-              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-[18px]">calendar_today</span>
-              <input type="date" id="bookingDate" class="w-full pl-10 pr-3 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="text-[11px] font-bold text-zinc-600 mb-1 block">Giờ bắt đầu</label>
-              <input type="time" id="timeStart" class="w-full px-3 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" value="08:00">
-            </div>
-            <div>
-              <label class="text-[11px] font-bold text-zinc-600 mb-1 block">Giờ kết thúc</label>
-              <input type="time" id="timeEnd" class="w-full px-3 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" value="10:00">
-            </div>
-          </div>
-
-          <!-- Duration Presets -->
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <span class="text-[10px] text-zinc-400 font-semibold mr-1">Thời lượng:</span>
-            <button type="button" data-duration="1.0" class="btn-duration px-2 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-[10px] font-bold rounded-lg transition-colors">1.0h</button>
-            <button type="button" data-duration="1.5" class="btn-duration px-2 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-[10px] font-bold rounded-lg transition-colors">1.5h</button>
-            <button type="button" data-duration="2.0" class="btn-duration px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 text-[10px] font-bold rounded-lg transition-colors border border-blue-100">2.0h</button>
-            <button type="button" data-duration="3.0" class="btn-duration px-2 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-[10px] font-bold rounded-lg transition-colors">3.0h</button>
-          </div>
-
-          <!-- Lighting Fee Surcharge -->
-          <div class="p-3 bg-zinc-50 border border-zinc-200 rounded-2xl flex items-center justify-between gap-3">
-            <div>
-              <p class="text-xs font-bold text-zinc-800 flex items-center gap-1">
-                <span class="material-symbols-outlined text-[15px] text-amber-500">wb_incandescent</span>Áp dụng đèn chiếu sáng
-              </p>
-              <p id="lightInfoText" class="text-[9px] text-zinc-500 mt-0.5">Không phụ thu đèn</p>
-            </div>
-            <!-- Beautiful Switch -->
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" id="toggleLight" class="sr-only peer">
-              <div class="w-9 h-5 bg-zinc-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-            </label>
-          </div>
-        </div>
-
-        <!-- SECTION 4: Ghi chú -->
-        <div>
-          <label class="text-[11px] font-bold text-zinc-600 mb-1.5 block">Ghi chú đặc biệt</label>
-          <textarea id="bookingNotes" rows="2" class="w-full px-3 py-2 bg-white border border-zinc-250 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none" placeholder="Ví dụ: Cần mượn thêm 2 vợt, bóng thi đấu mới..."></textarea>
-        </div>
-
-        <!-- SECTION 5: Tóm tắt & Thanh toán -->
-        <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 text-white rounded-2xl p-4 shadow-xl flex flex-col gap-3 mt-auto">
-          <div class="border-b border-white/10 pb-2.5">
-            <h5 class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">Tóm tắt thanh toán</h5>
-          </div>
-
-          <div class="flex flex-col gap-1.5 text-xs text-zinc-300">
-            <div class="flex justify-between">
-              <span>Sân thi đấu:</span>
-              <span id="summaryCourt" class="font-bold text-white">-</span>
-            </div>
-            <div class="flex justify-between">
-              <span>Thời lượng đặt:</span>
-              <span id="summaryDuration" class="font-semibold text-white">2.0 giờ</span>
-            </div>
-            <div class="flex justify-between">
-              <span>Đơn giá sân:</span>
-              <span id="summaryRate" class="font-semibold text-white">0đ / giờ</span>
-            </div>
-            <div id="summaryLightRow" class="flex justify-between hidden">
-              <span class="flex items-center gap-0.5 text-amber-300"><span class="material-symbols-outlined text-[11px]">wb_incandescent</span>Phụ thu đèn:</span>
-              <span id="summaryLightFee" class="font-semibold text-amber-300">+0đ</span>
-            </div>
-          </div>
-
-          <div class="border-t border-white/10 pt-3 flex items-baseline justify-between mt-1">
-            <span class="text-xs text-zinc-400 font-semibold">TỔNG CỘNG:</span>
-            <div class="text-right">
-              <p id="summaryTotal" class="text-2xl font-black text-emerald-400 leading-none">0đ</p>
-              <p class="text-[9px] text-zinc-550 mt-1">Giá dự kiến trước VAT</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- Modal Footer -->
-    <div class="px-6 py-4 border-t border-zinc-150 bg-zinc-50 flex items-center justify-end gap-2.5">
-      <button id="cancelBookingBtn" class="h-10 px-5 rounded-xl border border-zinc-250 bg-white hover:bg-zinc-50 text-zinc-650 text-xs font-semibold active:scale-95 transition-all">
-        Hủy bỏ
-      </button>
-      <button id="confirmBookingBtn" class="h-10 px-5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-100 flex items-center gap-1.5 active:scale-95 transition-all">
-        <span class="material-symbols-outlined text-[16px]">check_circle</span>Xác nhận đặt sân
-      </button>
-    </div>
-
-  </div>
-</div>
-
 <!-- SUCCESS TOAST NOTIFICATION -->
-<div id="successToast" class="fixed bottom-6 right-6 bg-zinc-900 text-white rounded-2xl p-4 shadow-2xl border border-zinc-800 z-50 flex items-start gap-3 transition-all duration-300 translate-y-12 opacity-0 pointer-events-none w-80">
+<div id="successToast" class="fixed bottom-6 right-6 bg-zinc-900 text-white rounded-2xl p-4 shadow-2xl border border-zinc-800 z-[9999] flex items-start gap-3 transition-all duration-350 translate-y-12 opacity-0 pointer-events-none w-80">
   <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
     <span class="material-symbols-outlined text-[18px]">check</span>
   </div>
-
-<!-- Create Promo Modal -->
-<div id="promoModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
-  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('promoModal').classList.add('hidden')"></div>
-  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[520px] max-h-[90vh] overflow-y-auto">
-    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
-      <h2 class="text-base font-semibold text-zinc-900">Tạo khuyến mãi mới</h2>
-      <button onclick="document.getElementById('promoModal').classList.add('hidden')" class="p-1.5 rounded-lg hover:bg-zinc-100"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
-    </div>
-    <div class="px-6 py-4 flex flex-col gap-4">
-      <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Mã khuyến mãi <span class="text-red-500">*</span></label>
-          <input type="text" placeholder="VD: KM008" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Tên chương trình <span class="text-red-500">*</span></label>
-          <input type="text" placeholder="Tên hiển thị" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
-      </div>
-      <!-- Discount type -->
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Loại giảm giá <span class="text-red-500">*</span></label>
-        <div class="grid grid-cols-3 gap-2">
-          <label class="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-zinc-900 has-[:checked]:bg-zinc-50">
-            <input type="radio" name="discountType" value="percent" checked class="sr-only">
-            <span class="material-symbols-outlined text-[18px] text-zinc-700">percent</span>
-            <span class="text-xs font-semibold text-zinc-900">Phần trăm</span>
-          </label>
-          <label class="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-zinc-900 has-[:checked]:bg-zinc-50">
-            <input type="radio" name="discountType" value="fixed" class="sr-only">
-            <span class="material-symbols-outlined text-[18px] text-zinc-700">currency_exchange</span>
-            <span class="text-xs font-semibold text-zinc-900">Cố định</span>
-          </label>
-          <label class="flex flex-col items-center gap-1 p-2.5 rounded-lg border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-zinc-900 has-[:checked]:bg-zinc-50">
-            <input type="radio" name="discountType" value="gift" class="sr-only">
-            <span class="material-symbols-outlined text-[18px] text-zinc-700">redeem</span>
-            <span class="text-xs font-semibold text-zinc-900">Tặng thêm</span>
-          </label>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Giá trị giảm <span class="text-red-500">*</span></label>
-          <div class="relative">
-            <input type="number" placeholder="20" class="h-9 w-full pl-3 pr-10 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400">%</span>
-          </div>
-        </div>
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Đơn tối thiểu (đ)</label>
-          <input type="number" placeholder="100000" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
-      </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Giảm tối đa (đ) — bỏ trống nếu không giới hạn</label>
-        <input type="number" placeholder="200000" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-      </div>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Ngày bắt đầu <span class="text-red-500">*</span></label>
-          <input type="date" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
-        <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-medium text-zinc-700">Ngày kết thúc</label>
-          <input type="date" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-        </div>
-      </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Số lượt sử dụng tối đa — bỏ trống = không giới hạn</label>
-        <input type="number" placeholder="100" class="h-9 px-3 rounded-lg border border-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-400">
-      </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Áp dụng cho</label>
-        <div class="flex flex-wrap gap-2">
-          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="accent-zinc-900"><span class="text-sm text-zinc-700">Tất cả sân</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-zinc-900"><span class="text-sm text-zinc-700">Cầu lông</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-zinc-900"><span class="text-sm text-zinc-700">Bóng đá</span></label>
-          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-zinc-900"><span class="text-sm text-zinc-700">Tennis</span></label>
-        </div>
-      </div>
-      <div class="flex flex-col gap-1.5">
-        <label class="text-xs font-medium text-zinc-700">Mô tả ngắn</label>
-        <textarea rows="2" placeholder="Mô tả điều kiện áp dụng..." class="px-3 py-2 rounded-lg border border-zinc-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-zinc-400"></textarea>
-      </div>
-    </div>
-    <div class="px-6 py-4 border-t border-zinc-100 flex justify-end gap-2">
-      <button onclick="document.getElementById('promoModal').classList.add('hidden')" class="h-9 px-4 rounded-lg border border-zinc-200 text-sm text-zinc-700 hover:bg-zinc-50">Hủy</button>
-      <button class="h-9 px-4 rounded-lg bg-zinc-900 text-white text-sm font-medium hover:bg-zinc-800">Tạo khuyến mãi</button>
-    </div>
+  <div class="flex-1">
+    <p id="toastTitle" class="text-xs font-bold text-white">Thành công</p>
+    <p id="toastMessage" class="text-[11px] text-zinc-400 mt-0.5">Yêu cầu đã được thực hiện.</p>
   </div>
 </div>
 
-<script>
-document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('-translate-x-full'));
-);
-
-function filterPromo(el,filter){
-  document.querySelectorAll('.promo-tab').forEach(b=>{b.className='promo-tab px-3 py-1.5 text-zinc-500 hover:bg-zinc-50';});
-  el.className='promo-tab px-3 py-1.5 bg-zinc-900 text-white font-medium';
-}
-function togglePromoMenu(id){
-  document.querySelectorAll('[id^="pm"]').forEach(m=>{if(m.id!==id)m.classList.add('hidden');});
-  document.getElementById(id).classList.toggle('hidden');
-}
-document.addEventListener('click',e=>{if(!e.target.closest('[onclick^="togglePromoMenu"]')&&!e.target.closest('[id^="pm"]'))document.querySelectorAll('[id^="pm"]').forEach(m=>m.classList.add('hidden'));});
-</script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-function filterPromo(el,filter){
-  document.querySelectorAll('.promo-tab').forEach(b=>{b.className='promo-tab px-3 py-1.5 text-zinc-500 hover:bg-zinc-50';});
-  el.className='promo-tab px-3 py-1.5 bg-zinc-900 text-white font-medium';
-}
-function togglePromoMenu(id){
-  document.querySelectorAll('[id^="pm"]').forEach(m=>{if(m.id!==id)m.classList.add('hidden');});
-  document.getElementById(id).classList.toggle('hidden');
-}
-document.addEventListener('click',e=>{if(!e.target.closest('[onclick^="togglePromoMenu"]')&&!e.target.closest('[id^="pm"]'))document.querySelectorAll('[id^="pm"]').forEach(m=>m.classList.add('hidden'));});
-
-// Mock Data based on QuanLiSport_V4 Database Tables: Accounts, MonTheThao, LoaiSan, San, LichDatSan
-const mockCustomers = [
-  { id: 1, name: 'Nguyễn Văn Hùng', phone: '0909000123', email: 'hung.nv@gmail.com', elo: 1050, vip: 'VIP Đồng', avatar: 'https://i.pravatar.cc/80?img=11' },
-  { id: 2, name: 'Trần Thị Lan', phone: '0987654321', email: 'lan.tt@gmail.com', elo: 1120, vip: 'VIP Bạc', avatar: 'https://i.pravatar.cc/80?img=25' },
-  { id: 3, name: 'Lê Hoàng Việt', phone: '0912345678', email: 'viet.lh@gmail.com', elo: 980, vip: 'Thành viên', avatar: 'https://i.pravatar.cc/80?img=32' },
-  { id: 4, name: 'Phạm Minh Tuấn', phone: '0933344455', email: 'tuan.pm@gmail.com', elo: 1250, vip: 'VIP Vàng', avatar: 'https://i.pravatar.cc/80?img=58' },
-  { id: 5, name: 'Đỗ Thị Mai', phone: '0955566677', email: 'mai.dt@gmail.com', elo: 1020, vip: 'Thành viên', avatar: 'https://i.pravatar.cc/80?img=47' }
-];
-
-const mockSports = [
-  { id: 1, name: 'Bóng đá', icon: 'sports_soccer' },
-  { id: 2, name: 'Cầu lông', icon: 'sports_tennis' },
-  { id: 3, name: 'Pickleball', icon: 'sports_kabaddi' },
-  { id: 4, name: 'Tennis', icon: 'sports_tennis' }
-];
-
-const mockLoaiSan = [
-  { id: 1, sportId: 1, name: 'Sân bóng đá 5 người', priceNoLight: 150000, priceWithLight: 200000, lightStart: '17:30' },
-  { id: 2, sportId: 2, name: 'Sân Cầu lông thảm PVC', priceNoLight: 60000, priceWithLight: 60000, lightStart: '06:00' },
-  { id: 3, sportId: 3, name: 'Sân Pickleball chuẩn', priceNoLight: 80000, priceWithLight: 120000, lightStart: '17:00' },
-  { id: 4, sportId: 4, name: 'Sân Tennis tiêu chuẩn', priceNoLight: 180000, priceWithLight: 250000, lightStart: '18:00' }
-];
-
-const mockSan = [
-  // Bóng đá (LoaiSanId 1)
-  { id: 1, typeId: 1, name: 'Sân bóng A1', status: 'Sẵn sàng' },
-  { id: 2, typeId: 1, name: 'Sân bóng A2', status: 'Sẵn sàng' },
-  { id: 3, typeId: 1, name: 'Sân bóng A3', status: 'Sẵn sàng' },
-  { id: 4, typeId: 1, name: 'Sân bóng A4', status: 'Bảo trì' },
-  // Cầu lông (LoaiSanId 2)
-  { id: 5, typeId: 2, name: 'Sân cầu lông B1', status: 'Sẵn sàng' },
-  { id: 6, typeId: 2, name: 'Sân cầu lông B2', status: 'Sẵn sàng' },
-  { id: 7, typeId: 2, name: 'Sân cầu lông B3', status: 'Sẵn sàng' },
-  { id: 8, typeId: 2, name: 'Sân cầu lông B4', status: 'Đang hoạt động' },
-  // Pickleball (LoaiSanId 3)
-  { id: 9, typeId: 3, name: 'Sân Pickleball P1', status: 'Sẵn sàng' },
-  { id: 10, typeId: 3, name: 'Sân Pickleball P2', status: 'Đang hoạt động' },
-  { id: 11, typeId: 3, name: 'Sân Pickleball P3', status: 'Sẵn sàng' },
-  // Tennis (LoaiSanId 4)
-  { id: 12, typeId: 4, name: 'Sân Tennis T1', status: 'Sẵn sàng' },
-  { id: 13, typeId: 4, name: 'Sân Tennis T2', status: 'Bảo trì' }
-];
-
-// Elements
-const modal = document.getElementById('bookingModal');
-const modalCard = document.getElementById('bookingModalCard');
-const createBookingBtn = document.getElementById('createBookingBtn');
-const closeBtn = document.getElementById('closeBookingModalBtn');
-const cancelBtn = document.getElementById('cancelBookingBtn');
-const confirmBtn = document.getElementById('confirmBookingBtn');
-
-const btnCustVip = document.getElementById('btnCustVip');
-const btnCustWalkin = document.getElementById('btnCustWalkin');
-const custVipSection = document.getElementById('custVipSection');
-const custWalkinSection = document.getElementById('custWalkinSection');
-
-const custSearchInput = document.getElementById('custSearchInput');
-const custSuggestions = document.getElementById('custSuggestions');
-const selectedCustCard = document.getElementById('selectedCustCard');
-const removeSelectedCustBtn = document.getElementById('removeSelectedCustBtn');
-const clearSearchBtn = document.getElementById('clearCustSearchBtn');
-
-const selectSport = document.getElementById('selectSport');
-const selectLoaiSan = document.getElementById('selectLoaiSan');
-const courtGrid = document.getElementById('courtGrid');
-
-const bookingDate = document.getElementById('bookingDate');
-const timeStart = document.getElementById('timeStart');
-const timeEnd = document.getElementById('timeEnd');
-const toggleLight = document.getElementById('toggleLight');
-const lightInfoText = document.getElementById('lightInfoText');
-
-const summaryCourt = document.getElementById('summaryCourt');
-const summaryDuration = document.getElementById('summaryDuration');
-const summaryRate = document.getElementById('summaryRate');
-const summaryLightRow = document.getElementById('summaryLightRow');
-const summaryLightFee = document.getElementById('summaryLightFee');
-const summaryTotal = document.getElementById('summaryTotal');
-
-// Modal State
-let activeCustomerType = 'VIP'; // 'VIP' or 'Walkin'
-let selectedCustomer = null;
-let selectedSportId = 1;
-let selectedLoaiSan = null;
-let selectedCourt = null;
-let selectedSource = 'Walk-in';
-
-// Set current date
-bookingDate.valueAsDate = new Date();
-
-// Toggle customer types
-btnCustVip.addEventListener('click', () => setCustomerType('VIP'));
-btnCustWalkin.addEventListener('click', () => setCustomerType('Walkin'));
-
-function setCustomerType(type) {
-  activeCustomerType = type;
-  if(type === 'VIP') {
-    btnCustVip.className = 'px-3 py-1 rounded-md bg-white shadow-sm text-zinc-800 transition-all';
-    btnCustWalkin.className = 'px-3 py-1 rounded-md text-zinc-500 hover:text-zinc-800 transition-all';
-    custVipSection.classList.remove('hidden');
-    custWalkinSection.classList.add('hidden');
-  } else {
-    btnCustWalkin.className = 'px-3 py-1 rounded-md bg-white shadow-sm text-zinc-800 transition-all';
-    btnCustVip.className = 'px-3 py-1 rounded-md text-zinc-500 hover:text-zinc-800 transition-all';
-    custWalkinSection.classList.remove('hidden');
-    custVipSection.classList.add('hidden');
-    selectedCustomer = null;
-    updatePriceSummary();
-  }
-}
-
-// Search existing customer
-custSearchInput.addEventListener('input', () => {
-  const query = custSearchInput.value.toLowerCase().trim();
-  if(!query) {
-    custSuggestions.classList.add('hidden');
-    clearSearchBtn.classList.add('hidden');
-    return;
-  }
-  clearSearchBtn.classList.remove('hidden');
-
-  const filtered = mockCustomers.filter(c => c.name.toLowerCase().includes(query) || c.phone.includes(query));
-  
-  if(filtered.length === 0) {
-    custSuggestions.innerHTML = '<div class="p-3 text-xs text-zinc-400 text-center">Không tìm thấy khách hàng nào</div>';
-  } else {
-    custSuggestions.innerHTML = filtered.map(c => `
-      <div class="cust-suggest-item flex items-center justify-between p-2.5 hover:bg-zinc-50 cursor-pointer transition-colors" data-id="${c.id}">
-        <div class="flex items-center gap-2.5">
-          <img src="${c.avatar}" class="w-8 h-8 rounded-full object-cover">
-          <div>
-            <div class="flex items-center gap-1.5">
-              <span class="text-xs font-semibold text-zinc-800">${c.name}</span>
-              <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full ${c.vip === 'VIP Vàng' ? 'bg-amber-100 text-amber-700' : c.vip === 'VIP Bạc' ? 'bg-zinc-100 text-zinc-650' : c.vip === 'VIP Đồng' ? 'bg-orange-50 text-orange-700' : 'bg-blue-50 text-blue-700'}">${c.vip}</span>
-            </div>
-            <p class="text-[10px] text-zinc-500 mt-0.5">SĐT: ${c.phone} · ELO: ${c.elo}</p>
-          </div>
+<!-- Create/Edit Promo Modal -->
+<div id="promoModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closePromoModal()"></div>
+  <div id="promoModalCard" class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[500px] max-h-[90vh] overflow-y-auto z-10 border border-zinc-200">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-150">
+      <h2 id="modalPromoTitle" class="text-base font-bold text-zinc-900">Tạo khuyến mãi mới</h2>
+      <button onclick="closePromoModal()" class="p-1.5 rounded-lg hover:bg-zinc-100 flex items-center justify-center"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
+    </div>
+    <div class="px-6 py-4 flex flex-col gap-4 text-sm">
+      <input type="hidden" id="editPromoId">
+      
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-500">Mã khuyến mãi <span class="text-red-500">*</span></label>
+          <input type="text" id="promoCode" placeholder="KM008" class="h-9 px-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 uppercase font-mono font-bold">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-500">Tên chương trình <span class="text-red-500">*</span></label>
+          <input type="text" id="promoName" placeholder="VD: Khai trương sân mới" class="h-9 px-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400">
         </div>
       </div>
-    `).join('');
-
-    document.querySelectorAll('.cust-suggest-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const id = parseInt(item.getAttribute('data-id'));
-        selectCustomerProfile(id);
-      });
-    });
-  }
-  custSuggestions.classList.remove('hidden');
-});
-
-clearSearchBtn.addEventListener('click', () => {
-  custSearchInput.value = '';
-  custSuggestions.classList.add('hidden');
-  clearSearchBtn.classList.add('hidden');
-});
-
-function selectCustomerProfile(id) {
-  selectedCustomer = mockCustomers.find(c => c.id === id);
-  custSearchInput.classList.add('hidden');
-  custSuggestions.classList.add('hidden');
-  clearSearchBtn.classList.add('hidden');
-
-  document.getElementById('selectedCustAvatar').src = selectedCustomer.avatar;
-  document.getElementById('selectedCustName').innerText = selectedCustomer.name;
-  document.getElementById('selectedCustPhone').innerText = selectedCustomer.phone;
-  document.getElementById('selectedCustElo').innerText = selectedCustomer.elo;
-  
-  const vipBadge = document.getElementById('selectedCustVip');
-  vipBadge.innerText = selectedCustomer.vip;
-  vipBadge.className = 'badge text-[9px] ';
-  if(selectedCustomer.vip === 'VIP Vàng') vipBadge.classList.add('badge-amber');
-  else if(selectedCustomer.vip === 'VIP Bạc') vipBadge.classList.add('badge-gray');
-  else if(selectedCustomer.vip === 'VIP Đồng') vipBadge.classList.add('badge-amber');
-  else vipBadge.classList.add('badge-blue');
-
-  selectedCustCard.classList.remove('hidden');
-  updatePriceSummary();
-}
-
-removeSelectedCustBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  selectedCustomer = null;
-  selectedCustCard.classList.add('hidden');
-  custSearchInput.value = '';
-  custSearchInput.classList.remove('hidden');
-  custSearchInput.focus();
-  updatePriceSummary();
-});
-
-// Hide dropdown on click outside
-document.addEventListener('click', (e) => {
-  if(!custSearchInput.contains(e.target) && !custSuggestions.contains(e.target)) {
-    custSuggestions.classList.add('hidden');
-  }
-});
-
-// Sources chips
-document.querySelectorAll('.source-chip').forEach(chip => {
-  if(chip.getAttribute('data-source') === 'Walk-in') {
-    chip.classList.add('border-blue-600', 'bg-blue-50/50', 'text-blue-700');
-  }
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.source-chip').forEach(c => c.classList.remove('border-blue-600', 'bg-blue-50/50', 'text-blue-700'));
-    chip.classList.add('border-blue-600', 'bg-blue-50/50', 'text-blue-700');
-    selectedSource = chip.getAttribute('data-source');
-  });
-});
-
-// Load Sports & Types
-function initSports() {
-  selectSport.innerHTML = mockSports.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-  selectSport.removeEventListener('change', onSportChange);
-  selectSport.addEventListener('change', onSportChange);
-  loadLoaiSan(1);
-}
-
-function onSportChange() {
-  selectedSportId = parseInt(selectSport.value);
-  loadLoaiSan(selectedSportId);
-}
-
-function loadLoaiSan(sportId) {
-  const filtered = mockLoaiSan.filter(l => l.sportId === sportId);
-  selectLoaiSan.innerHTML = filtered.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
-  
-  selectLoaiSan.removeEventListener('change', onLoaiSanChange);
-  selectLoaiSan.addEventListener('change', onLoaiSanChange);
-
-  onLoaiSanChange();
-}
-
-function onLoaiSanChange() {
-  const loaiSanId = parseInt(selectLoaiSan.value);
-  selectedLoaiSan = mockLoaiSan.find(l => l.id === loaiSanId);
-  
-  if(selectedLoaiSan.lightStart === '06:00') {
-    lightInfoText.innerText = `💡 Đèn chiếu sáng bật cố định full-time (Không phụ thu)`;
-  } else {
-    lightInfoText.innerText = `💡 Hệ thống tự động tính phí đèn từ ${selectedLoaiSan.lightStart}`;
-  }
-
-  loadCourts(loaiSanId);
-  checkLightingTime();
-}
-
-function loadCourts(typeId) {
-  const filtered = mockSan.filter(s => s.typeId === typeId);
-  courtGrid.innerHTML = filtered.map(c => {
-    let statusClass = '';
-    let disabled = false;
-    let badge = '';
+      
+      <!-- Discount type -->
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-500">Loại giảm giá <span class="text-red-500">*</span></label>
+        <div class="grid grid-cols-3 gap-2" id="discountTypeGroup">
+          <label class="flex flex-col items-center gap-1.5 p-2.5 rounded-xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-zinc-900 has-[:checked]:bg-zinc-50/50 has-[:checked]:ring-2 has-[:checked]:ring-zinc-900/5 transition-all">
+            <input type="radio" name="discountType" value="Phần trăm" checked class="sr-only" onchange="toggleDiscountSymbol('%')">
+            <span class="material-symbols-outlined text-[18px] text-zinc-600">percent</span>
+            <span class="text-xs font-bold text-zinc-800">Phần trăm</span>
+          </label>
+          <label class="flex flex-col items-center gap-1.5 p-2.5 rounded-xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-zinc-900 has-[:checked]:bg-zinc-50/50 has-[:checked]:ring-2 has-[:checked]:ring-zinc-900/5 transition-all">
+            <input type="radio" name="discountType" value="Cố định" class="sr-only" onchange="toggleDiscountSymbol('đ')">
+            <span class="material-symbols-outlined text-[18px] text-zinc-600">payments</span>
+            <span class="text-xs font-bold text-zinc-800">Tiền mặt</span>
+          </label>
+          <label class="flex flex-col items-center gap-1.5 p-2.5 rounded-xl border border-zinc-200 cursor-pointer hover:bg-zinc-50 has-[:checked]:border-zinc-900 has-[:checked]:bg-zinc-50/50 has-[:checked]:ring-2 has-[:checked]:ring-zinc-900/5 transition-all">
+            <input type="radio" name="discountType" value="Tặng kèm" class="sr-only" onchange="toggleDiscountSymbol('giờ')">
+            <span class="material-symbols-outlined text-[18px] text-zinc-600">redeem</span>
+            <span class="text-xs font-bold text-zinc-800">Tặng kèm</span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-500">Giá trị giảm <span class="text-red-500">*</span></label>
+          <div class="relative">
+            <input type="number" id="promoVal" placeholder="20" class="h-9 w-full pl-3 pr-10 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 font-bold">
+            <span id="promoValSymbol" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-zinc-400">%</span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-500">Đơn tối thiểu (đ)</label>
+          <input type="number" id="promoMinBill" placeholder="100000" class="h-9 px-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+      </div>
+      
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-500">Giảm tối đa (đ) <span class="text-[10px] text-zinc-400 font-normal">(Chừa trống nếu không giới hạn)</span></label>
+        <input type="number" id="promoMaxDiscount" placeholder="100000" class="h-9 px-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-500">Ngày bắt đầu <span class="text-red-500">*</span></label>
+          <input type="date" id="promoStart" class="h-9 px-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-500">Ngày kết thúc <span class="text-red-500">*</span></label>
+          <input type="date" id="promoEnd" class="h-9 px-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-500">Tổng lượt tối đa</label>
+          <input type="number" id="promoLimit" placeholder="100" class="h-9 px-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400">
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-semibold text-zinc-500">Áp dụng cho bộ môn</label>
+          <select id="promoApplyGroup" class="h-9 px-3 rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 text-zinc-700 bg-white font-medium">
+            <option value="Tất cả sân">Tất cả bộ môn</option>
+            <option value="Cầu lông">Cầu lông</option>
+            <option value="Pickleball">Pickleball</option>
+            <option value="Bóng đá">Bóng đá</option>
+            <option value="Tennis">Tennis</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="flex flex-col gap-1.5">
+        <label class="text-xs font-semibold text-zinc-500">Mô tả điều kiện áp dụng</label>
+        <textarea id="promoDesc" rows="2" placeholder="Ví dụ: Chỉ áp dụng vào khung giờ vàng từ 17h đến 20h cuối tuần..." class="px-3 py-2 rounded-lg border border-zinc-200 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-zinc-400"></textarea>
+      </div>
+    </div>
     
-    if(c.status === 'Bảo trì') {
-      statusClass = 'border-amber-100 bg-amber-50/30 text-amber-600 cursor-not-allowed opacity-60';
-      disabled = true;
-      badge = '<span class="badge badge-amber text-[9px] py-0 px-1 mt-1">Bảo trì</span>';
-    } else if(c.status === 'Đang hoạt động') {
-      statusClass = 'border-red-100 bg-red-50/30 text-red-500 cursor-not-allowed opacity-60';
-      disabled = true;
-      badge = '<span class="badge badge-red text-[9px] py-0 px-1 mt-1">Đang bận</span>';
-    } else {
-      statusClass = 'border-zinc-200 bg-white hover:border-blue-300 hover:bg-blue-50/10 cursor-pointer';
-      badge = '<span class="badge badge-green text-[9px] py-0 px-1 mt-1">Trống</span>';
-    }
-
-    return `
-      <div class="court-card border rounded-xl p-3 flex flex-col justify-between h-20 transition-all ${statusClass}" data-id="${c.id}" data-disabled="${disabled}">
-        <div class="flex items-center justify-between">
-          <p class="text-xs font-bold text-zinc-800 name-text">${c.name}</p>
-          <span class="material-symbols-outlined text-[16px] text-blue-650 hidden check-icon">check_circle</span>
-        </div>
-        <div>
-          ${badge}
-        </div>
+    <div class="px-6 py-4 border-t border-zinc-150 bg-zinc-50 flex justify-between items-center">
+      <span class="text-[10px] text-zinc-450 font-bold font-mono uppercase tracking-wider text-zinc-400">Bảng KhuyenMai</span>
+      <div class="flex gap-2">
+        <button onclick="closePromoModal()" class="h-9 px-4 rounded-lg bg-zinc-200 hover:bg-zinc-300 text-zinc-700 text-xs font-bold transition-all">Hủy</button>
+        <button onclick="savePromoAction()" id="btnSubmitPromo" class="h-9 px-4 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 text-xs font-bold transition-all">Lưu khuyến mãi</button>
       </div>
-    `;
-  }).join('');
-
-  selectedCourt = null;
-  summaryCourt.innerText = '-';
-
-  document.querySelectorAll('.court-card').forEach(card => {
-    if(card.getAttribute('data-disabled') === 'true') return;
-
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.court-card').forEach(c => {
-        c.classList.remove('border-blue-600', 'bg-blue-50/30', 'ring-2', 'ring-blue-500/10');
-        c.querySelector('.check-icon').classList.add('hidden');
-        c.querySelector('.name-text').classList.remove('text-blue-700');
-      });
-
-      card.classList.add('border-blue-600', 'bg-blue-50/30', 'ring-2', 'ring-blue-500/10');
-      card.querySelector('.check-icon').classList.remove('hidden');
-      card.querySelector('.name-text').classList.add('text-blue-700');
-
-      const id = parseInt(card.getAttribute('data-id'));
-      selectedCourt = mockSan.find(s => s.id === id);
-      summaryCourt.innerText = selectedCourt.name;
-      updatePriceSummary();
-    });
-  });
-  
-  updatePriceSummary();
-}
-
-// Preset Durations
-document.querySelectorAll('.btn-duration').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.btn-duration').forEach(b => {
-      b.classList.remove('bg-blue-50', 'text-blue-700', 'border', 'border-blue-100');
-      b.classList.add('bg-zinc-100', 'text-zinc-700');
-    });
-    btn.classList.remove('bg-zinc-100', 'text-zinc-700');
-    btn.classList.add('bg-blue-50', 'text-blue-700', 'border', 'border-blue-100');
-
-    const duration = parseFloat(btn.getAttribute('data-duration'));
-    calculateEndTimeFromDuration(duration);
-  });
-});
-
-function calculateEndTimeFromDuration(hours) {
-  const startVal = timeStart.value;
-  if(!startVal) return;
-
-  const [h, m] = startVal.split(':').map(Number);
-  let totalMinutes = h * 60 + m + hours * 60;
-  
-  const endH = Math.floor(totalMinutes / 60) % 24;
-  const endM = totalMinutes % 60;
-  
-  timeEnd.value = `${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`;
-  checkLightingTime();
-  updatePriceSummary();
-}
-
-timeStart.addEventListener('change', () => {
-  checkLightingTime();
-  updatePriceSummary();
-});
-timeEnd.addEventListener('change', () => {
-  checkLightingTime();
-  updatePriceSummary();
-});
-toggleLight.addEventListener('change', () => {
-  updatePriceSummary();
-});
-
-// Check if booking overlaps with Lighting start hour
-function checkLightingTime() {
-  if(!selectedLoaiSan) return;
-  
-  const startVal = timeStart.value;
-  const endVal = timeEnd.value;
-  if(!startVal || !endVal) return;
-
-  // Cầu lông trong nhà bật đèn 100% full ca (Không phụ thu thêm hoặc đã tính thẳng vào giá)
-  if(selectedLoaiSan.lightStart === '06:00') {
-    toggleLight.checked = true;
-    toggleLight.disabled = true; // Fixed to active
-    return;
-  }
-  
-  toggleLight.disabled = false;
-
-  const [sh, sm] = startVal.split(':').map(Number);
-  const [eh, em] = endVal.split(':').map(Number);
-  const [lh, lm] = selectedLoaiSan.lightStart.split(':').map(Number);
-
-  const startMins = sh * 60 + sm;
-  const endMins = eh * 60 + em;
-  const lightMins = lh * 60 + lm;
-
-  // If end time is past light starting minutes, turn on light checkbox automatically
-  if (endMins > lightMins) {
-    toggleLight.checked = true;
-    lightInfoText.innerText = `💡 Tự động bật đèn (Khung giờ sau ${selectedLoaiSan.lightStart})`;
-  } else {
-    toggleLight.checked = false;
-    lightInfoText.innerText = `💡 Không phụ thu đèn (Khung giờ trước ${selectedLoaiSan.lightStart})`;
-  }
-}
-
-// Calculate hours and prices
-function updatePriceSummary() {
-  if(!selectedLoaiSan) return;
-
-  const startVal = timeStart.value;
-  const endVal = timeEnd.value;
-  if(!startVal || !endVal) return;
-
-  const [sh, sm] = startVal.split(':').map(Number);
-  const [eh, em] = endVal.split(':').map(Number);
-
-  let diffMins = (eh * 60 + em) - (sh * 60 + sm);
-  if(diffMins < 0) diffMins += 24 * 60; // Cross-midnight, though unlikely in a sports club
-
-  const totalHours = diffMins / 60;
-  summaryDuration.innerText = `${totalHours.toFixed(1)} giờ`;
-
-  const isLightApplied = toggleLight.checked;
-  let finalPrice = 0;
-  
-  // Calculate pricing breakdown
-  if(selectedLoaiSan.lightStart === '06:00') {
-    // Indoor Cầu Lông: static price
-    finalPrice = totalHours * selectedLoaiSan.priceNoLight;
-    summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ / giờ`;
-    summaryLightRow.classList.add('hidden');
-  } else {
-    const [lh, lm] = selectedLoaiSan.lightStart.split(':').map(Number);
-    const startMins = sh * 60 + sm;
-    const endMins = eh * 60 + em;
-    const lightMins = lh * 60 + lm;
-
-    if(isLightApplied) {
-      if(endMins > lightMins) {
-        // There is lighting overlap. Calculate exact hours split!
-        const normalMins = Math.max(0, lightMins - startMins);
-        const lightMinsDiff = Math.max(0, endMins - Math.max(startMins, lightMins));
-
-        const normalHours = normalMins / 60;
-        const lightHours = lightMinsDiff / 60;
-
-        const normalCost = normalHours * selectedLoaiSan.priceNoLight;
-        const lightCost = lightHours * selectedLoaiSan.priceWithLight;
-
-        finalPrice = normalCost + lightCost;
-        
-        summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ (Khung thường)`;
-        summaryLightRow.classList.remove('hidden');
-        summaryLightFee.innerText = `+${Math.round(lightCost).toLocaleString('vi-VN')}đ (${lightHours.toFixed(1)}h có đèn)`;
-      } else {
-        // Forced lighting check (even if before light start)
-        finalPrice = totalHours * selectedLoaiSan.priceWithLight;
-        summaryRate.innerText = `${selectedLoaiSan.priceWithLight.toLocaleString('vi-VN')}đ / giờ`;
-        summaryLightRow.classList.add('hidden');
-      }
-    } else {
-      finalPrice = totalHours * selectedLoaiSan.priceNoLight;
-      summaryRate.innerText = `${selectedLoaiSan.priceNoLight.toLocaleString('vi-VN')}đ / giờ`;
-      summaryLightRow.classList.add('hidden');
-    }
-  }
-
-  summaryTotal.innerText = `${Math.round(finalPrice).toLocaleString('vi-VN')}đ`;
-}
-
-// Modal open/close actions
-createBookingBtn.addEventListener('click', () => {
-  modal.classList.remove('pointer-events-none', 'opacity-0');
-  modalCard.classList.remove('scale-95');
-  modalCard.classList.add('scale-100');
-  initSports();
-});
-
-function closeModal() {
-  modal.classList.add('pointer-events-none', 'opacity-0');
-  modalCard.classList.remove('scale-100');
-  modalCard.classList.add('scale-95');
-  resetForm();
-}
-
-closeBtn.addEventListener('click', closeModal);
-cancelBtn.addEventListener('click', closeModal);
-
-modal.addEventListener('click', (e) => {
-  if(e.target === modal) closeModal();
-});
-
-function resetForm() {
-  selectedCustomer = null;
-  selectedCourt = null;
-  custSearchInput.value = '';
-  custSearchInput.classList.remove('hidden');
-  selectedCustCard.classList.add('hidden');
-  document.getElementById('walkinName').value = '';
-  document.getElementById('walkinPhone').value = '';
-  document.getElementById('bookingNotes').value = '';
-  setCustomerType('VIP');
-}
-
-// Confirm Booking Submission
-confirmBtn.addEventListener('click', () => {
-  // Validate Customer
-  let custName = '';
-  let custSourceBadge = 'Walk-in';
-  let custAvatar = 'https://i.pravatar.cc/40?img=9'; // Default avatar
-
-  if(activeCustomerType === 'VIP') {
-    if(!selectedCustomer) {
-      alert('Vui lòng tìm và chọn khách hàng thành viên!');
-      return;
-    }
-    custName = selectedCustomer.name;
-    custAvatar = selectedCustomer.avatar;
-  } else {
-    const walkinName = document.getElementById('walkinName').value.trim();
-    const walkinPhone = document.getElementById('walkinPhone').value.trim();
-    if(!walkinName || !walkinPhone) {
-      alert('Vui lòng nhập tên và số điện thoại khách vãng lai!');
-      return;
-    }
-    custName = walkinName;
-  }
-
-  // Validate Court
-  if(!selectedCourt) {
-    alert('Vui lòng chọn một sân trống thi đấu!');
-    return;
-  }
-
-  const sportName = selectSport.options[selectSport.selectedIndex].text;
-  const timeStartVal = timeStart.value;
-  const timeEndVal = timeEnd.value;
-  const totalCost = summaryTotal.innerText;
-
-  // Insert to the Dashboard booking list container!
-  const listContainer = document.getElementById('bookingsListContainer');
-  if(listContainer) {
-    const isZalo = selectedSource === 'Zalo';
-    const isApp = selectedSource === 'App';
-    const isCall = selectedSource === 'Call';
-    
-    let sourceBadgeClass = 'badge-gray';
-    if(isZalo) sourceBadgeClass = 'badge-purple';
-    if(isApp) sourceBadgeClass = 'badge-blue';
-    if(isCall) sourceBadgeClass = 'badge-amber';
-
-    const newBookingHtml = `
-      <div class="flex items-center gap-3 px-5 py-3 hover:bg-zinc-50/50 transition-colors animate-pop duration-300 bg-blue-50/20 border-l-4 border-blue-500">
-        <img src="${custAvatar}" class="w-10 h-10 rounded-full object-cover ring-2 ring-blue-100" alt="">
-        <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-2">
-            <p class="text-sm font-semibold text-zinc-900 truncate">${custName}</p>
-            <span class="badge ${sourceBadgeClass}">${selectedSource}</span>
-            ${activeCustomerType === 'VIP' ? '<span class="badge badge-amber text-[9px]">VIP</span>' : ''}
-          </div>
-          <div class="flex items-center gap-2 text-[11px] text-zinc-500 mt-0.5">
-            <span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[11px]">stadium</span>${selectedCourt.name} · ${sportName}</span>
-            <span class="text-zinc-300">·</span>
-            <span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[11px]">schedule</span>${timeStartVal}–${timeEndVal}</span>
-          </div>
-        </div>
-        <div class="text-right shrink-0">
-          <p class="text-sm font-bold text-zinc-900">${totalCost.replace(' VNĐ', '')}</p>
-          <span class="badge badge-green mt-0.5">Đã đặt</span>
-        </div>
-      </div>
-    `;
-    listContainer.insertAdjacentHTML('afterbegin', newBookingHtml);
-  }
-
-  // Increment KPI Dashboard Count
-  const kpiCount = document.getElementById('kpiBookingTodayCount');
-  if(kpiCount) {
-    const current = parseInt(kpiCount.innerText);
-    kpiCount.innerText = current + 1;
-    kpiCount.classList.add('scale-110', 'text-blue-600');
-    setTimeout(() => kpiCount.classList.remove('scale-110', 'text-blue-600'), 400);
-  }
-
-  // Insert recent activities
-  const actContainer = document.getElementById('recentActivitiesContainer');
-  if(actContainer) {
-    const newActHtml = `
-      <div class="flex items-start gap-3 animate-pop duration-300">
-        <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[14px] text-blue-700">event</span></div>
-        <div class="flex-1 min-w-0"><p class="text-xs text-zinc-700"><span class="font-semibold">${custName}</span> vừa được tạo lịch đặt sân <span class="font-semibold">${selectedCourt.name}</span></p><p class="text-[10px] text-zinc-400">Vừa xong</p></div>
-      </div>
-    `;
-    actContainer.insertAdjacentHTML('afterbegin', newActHtml);
-  }
-
-  // Show Toast
-  const toast = document.getElementById('successToast');
-  toast.classList.remove('opacity-0', 'translate-y-12');
-  toast.classList.add('opacity-100', 'translate-y-0');
-  
-  setTimeout(() => {
-    toast.classList.add('opacity-0', 'translate-y-12');
-    toast.classList.remove('opacity-100', 'translate-y-0');
-  }, 4000);
-
-  // Close and clean
-  closeModal();
-});
-
-// Original profile drop and menu logic
-document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('-translate-x-full'));
-);
-</script>
+    </div>
+  </div>
+</div>
 
 <!-- Edit Profile Modal -->
 <div id="editProfileModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center p-4">
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('editProfileModal').classList.add('hidden')"></div>
   <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[520px] max-h-[90vh] overflow-y-auto z-10 border border-zinc-200">
     <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
-      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] text-blue-700">manage_accounts</span><h3 class="text-base font-bold text-zinc-900">Hồ sơ cá nhân</h3></div>
+      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] text-blue-700">manage_accounts</span><h3 class="text-base font-bold text-zinc-900 font-sans">Hồ sơ cá nhân</h3></div>
       <button onclick="document.getElementById('editProfileModal').classList.add('hidden')" class="w-8 h-8 rounded-full hover:bg-zinc-100 flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
     </div>
     <div class="flex flex-col items-center gap-3 pt-6 pb-4 border-b border-zinc-100">
       <div class="relative"><img id="editAvatarPreview" class="w-20 h-20 rounded-full object-cover ring-2 ring-blue-600/30" src="https://i.pravatar.cc/80?img=68"><label for="avatarUpload" class="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-blue-700 text-white flex items-center justify-center cursor-pointer shadow hover:opacity-90 transition-opacity"><span class="material-symbols-outlined text-[14px]">photo_camera</span></label><input id="avatarUpload" type="file" accept="image/*" class="hidden" onchange="previewAvatar(this)"></div>
-      <p class="text-xs text-zinc-500">Nhấn biểu tượng máy ảnh để thay ảnh đại diện</p>
+      <p class="text-xs text-zinc-555 text-zinc-500">Nhấn biểu tượng máy ảnh để thay ảnh đại diện</p>
     </div>
     <div class="px-6 py-5">
       <p class="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-4">Thông tin chi tiết — <span class="text-blue-700">Bảng Accounts</span></p>
       <div class="grid grid-cols-2 gap-4">
-        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Họ và tên</label><input type="text" id="editFullName" value="Nguyễn Văn Quân" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"></div>
-        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Mã tài khoản</label><input type="text" value="MGR042" readonly class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none"></div>
-        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Email</label><input type="email" id="editEmail" value="quan.nv@vsport.vn" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"></div>
-        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Số điện thoại</label><input type="tel" id="editPhone" value="+84 912 345 678" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors"></div>
-        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Vai trò</label><input type="text" value="Quản lý chi nhánh" readonly class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none"></div>
-        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Chi nhánh</label><div class="relative"><input type="text" value="CS01 — V-Sport Vũng Tàu" readonly class="w-full h-10 px-3 pr-9 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none"><span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-zinc-400">lock</span></div></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Họ và tên</label><input type="text" id="editFullName" value="Nguyễn Văn Quân" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors font-medium"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Mã tài khoản</label><input type="text" value="MGR042" readonly class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none font-medium"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Email</label><input type="email" id="editEmail" value="quan.nv@vsport.vn" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors font-medium"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Số điện thoại</label><input type="tel" id="editPhone" value="+84 912 345 678" class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-white text-sm text-zinc-800 focus:border-blue-700 focus:outline-none transition-colors font-medium"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Vai trò</label><input type="text" value="Quản lý chi nhánh" readonly class="w-full h-10 px-3 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none font-medium"></div>
+        <div class="col-span-2 sm:col-span-1"><label class="block text-xs font-semibold text-zinc-500 mb-1.5">Chi nhánh</label><div class="relative"><input type="text" value="CS01 — V-Sport Vũng Tàu" readonly class="w-full h-10 px-3 pr-9 rounded-lg border border-zinc-200 bg-zinc-50 text-sm text-zinc-500 cursor-not-allowed focus:outline-none font-medium"><span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[16px] text-zinc-400">lock</span></div></div>
       </div>
       <p class="text-[11px] text-zinc-500 mt-4 italic">Dữ liệu được đồng bộ từ bảng <code class="font-mono bg-zinc-50 px-1 rounded">Accounts</code> của CSDL V-Sport V4</p>
     </div>
@@ -1460,7 +357,7 @@ document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.g
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="document.getElementById('changePwModal').classList.add('hidden')"></div>
   <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-[400px] z-10 border border-zinc-200">
     <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-200">
-      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] text-blue-700">lock_reset</span><h3 class="text-base font-bold text-zinc-900">Đổi mật khẩu</h3></div>
+      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[20px] text-blue-700">lock_reset</span><h3 class="text-base font-bold text-zinc-900 font-sans">Đổi mật khẩu</h3></div>
       <button onclick="document.getElementById('changePwModal').classList.add('hidden')" class="w-8 h-8 rounded-full hover:bg-zinc-100 flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px] text-zinc-500">close</span></button>
     </div>
     <div class="px-6 py-5 flex flex-col gap-4">
@@ -1476,64 +373,577 @@ document.getElementById('mobileMenuBtn').addEventListener('click',()=>document.g
 </div>
 
 <script>
-(function(){
-  const btn = document.getElementById('profileBtn');
-  const drop = document.getElementById('profileDrop');
-  const chev = document.getElementById('profileChevron');
-  if (btn && drop) {
-    function openDrop() {
-      drop.classList.remove('hidden');
-      drop.style.cssText = 'opacity:0;transform:translateY(-8px) scale(0.97);transition:opacity 0.18s ease,transform 0.18s ease';
-      requestAnimationFrame(() => {
-        drop.style.opacity = '1';
-        drop.style.transform = 'translateY(0) scale(1)';
-      });
-      if (chev) chev.style.transform = 'rotate(180deg)';
-    }
-    function closeDrop() {
-      drop.style.opacity = '0';
-      drop.style.transform = 'translateY(-8px) scale(0.97)';
-      setTimeout(() => {
-        drop.classList.add('hidden');
-        drop.style.cssText = '';
-      }, 180);
-      if (chev) chev.style.transform = '';
-    }
-    btn.addEventListener('click', e => {
-      e.stopPropagation();
-      drop.classList.contains('hidden') ? openDrop() : closeDrop();
-    });
-    document.addEventListener('click', e => {
-      if (!drop.classList.contains('hidden') && !btn.contains(e.target) && !drop.contains(e.target)) {
-        closeDrop();
-      }
-    });
+// Mock data aligning with database schema (KhuyenMai table + specific fields)
+let mockPromotions = [
+  {
+    KhuyenMaiID: 1,
+    MaCode: 'KM001',
+    TenKM: 'Giảm 20% cuối tuần',
+    MoTa: 'Giảm 20% cho tất cả sân vào T7, CN',
+    LoaiGiam: 'Phần trăm',
+    GiaTriGiam: 20,
+    NgayBatDau: '2026-05-01',
+    NgayKetThuc: '2026-05-31',
+    SoLanToiDa: 100,
+    SoLanDaDung: 47,
+    TrangThai: 'Đang chạy',
+    DonToiThieu: 0,
+    GiamToiDa: 100000,
+    ApDung: 'Tất cả sân'
+  },
+  {
+    KhuyenMaiID: 2,
+    MaCode: 'KM002',
+    TenKM: 'Mua 10 tặng 1',
+    MoTa: 'Đặt 10 giờ sân nhận 1 giờ miễn phí',
+    LoaiGiam: 'Tặng kèm',
+    GiaTriGiam: 1,
+    NgayBatDau: '2026-05-01',
+    NgayKetThuc: '2026-06-30',
+    SoLanToiDa: 50,
+    SoLanDaDung: 12,
+    TrangThai: 'Đang chạy',
+    DonToiThieu: 0,
+    GiamToiDa: 0,
+    ApDung: 'Cầu lông'
+  },
+  {
+    KhuyenMaiID: 3,
+    MaCode: 'KM003',
+    TenKM: 'Khách mới –50.000 đ',
+    MoTa: 'Giảm 50.000đ cho lần đặt đầu tiên',
+    LoaiGiam: 'Cố định',
+    GiaTriGiam: 50000,
+    NgayBatDau: '2026-01-01',
+    NgayKetThuc: '2026-12-31',
+    SoLanToiDa: null,
+    SoLanDaDung: 29,
+    TrangThai: 'Đang chạy',
+    DonToiThieu: 150000,
+    GiamToiDa: 50000,
+    ApDung: 'Tất cả sân'
+  },
+  {
+    KhuyenMaiID: 4,
+    MaCode: 'KM004',
+    TenKM: 'Flash Sale 6.6 — Giảm 30%',
+    MoTa: 'Giảm 30% tất cả sân · Flash Sale 24h',
+    LoaiGiam: 'Phần trăm',
+    GiaTriGiam: 30,
+    NgayBatDau: '2026-06-06',
+    NgayKetThuc: '2026-06-06',
+    SoLanToiDa: 100,
+    SoLanDaDung: 0,
+    TrangThai: 'Sắp diễn ra',
+    DonToiThieu: 0,
+    GiamToiDa: 200000,
+    ApDung: 'Tất cả sân'
+  },
+  {
+    KhuyenMaiID: 5,
+    MaCode: 'KM005',
+    TenKM: 'Combo gia đình cuối tuần',
+    MoTa: 'Đặt 2 sân liền kề: Giảm 25%',
+    LoaiGiam: 'Phần trăm',
+    GiaTriGiam: 25,
+    NgayBatDau: '2026-06-01',
+    NgayKetThuc: '2026-08-31',
+    SoLanToiDa: null,
+    SoLanDaDung: 0,
+    TrangThai: 'Sắp diễn ra',
+    DonToiThieu: 300000,
+    GiamToiDa: 150000,
+    ApDung: 'Tất cả sân'
+  },
+  {
+    KhuyenMaiID: 6,
+    MaCode: 'KM006',
+    TenKM: 'Khai trương tháng 4',
+    MoTa: 'Giảm 50% tháng khai trương, tối đa 100k',
+    LoaiGiam: 'Phần trăm',
+    GiaTriGiam: 50,
+    NgayBatDau: '2026-04-01',
+    NgayKetThuc: '2026-04-30',
+    SoLanToiDa: 200,
+    SoLanDaDung: 83,
+    TrangThai: 'Đã kết thúc',
+    DonToiThieu: 100000,
+    GiamToiDa: 100000,
+    ApDung: 'Tất cả sân'
   }
-})();
+];
 
-function showToast(msg) {
-  let t = document.createElement('div');
-  t.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-900 text-white px-5 py-2.5 rounded-full text-sm font-semibold z-[9999] shadow-lg flex items-center gap-2 border border-zinc-800';
-  t.innerHTML = '<span class="material-symbols-outlined text-[16px] text-blue-500" style="font-variation-settings:\'FILL\' 1">check_circle</span> ' + msg;
-  document.body.appendChild(t);
-  setTimeout(() => {
-    t.style.transition = 'opacity 0.3s';
-    t.style.opacity = '0';
-    setTimeout(() => { t.remove(); }, 350);
-  }, 2200);
+// Active state
+let currentTabFilter = 'all';
+const searchInput = document.getElementById('searchPromo');
+const promoGrid = document.getElementById('promoGrid');
+
+// Format Cash helper
+function formatVND(val) {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val).replace('₫', 'đ');
 }
 
+function formatDate(isoString) {
+  if (!isoString) return '-';
+  const parts = isoString.split('-');
+  return `${parts[2]}/${parts[1]}`;
+}
+
+// Accent / Diacritics remover utility (Insensitive Vietnamese search helper)
+function removeSign(str) {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D');
+}
+
+// Success toast
+function showToast(title, msg) {
+  const toast = document.getElementById('successToast');
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastMessage').textContent = msg;
+  toast.classList.remove('opacity-0', 'translate-y-12', 'pointer-events-none');
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'translate-y-12', 'pointer-events-none');
+  }, 4000);
+}
+
+// Tab Switching
+function switchFilterTab(tab) {
+  currentTabFilter = tab;
+  document.querySelectorAll('.promo-tab').forEach(btn => {
+    btn.className = 'promo-tab px-3.5 py-1.5 text-zinc-500 hover:bg-zinc-50 transition-all font-medium';
+  });
+  
+  if (tab === 'all') {
+    document.getElementById('tabFilterAll').className = 'promo-tab px-3.5 py-1.5 bg-zinc-900 text-white font-semibold transition-all';
+  } else if (tab === 'Đang chạy') {
+    document.getElementById('tabFilterActive').className = 'promo-tab px-3.5 py-1.5 bg-zinc-900 text-white font-semibold transition-all';
+  } else if (tab === 'Sắp diễn ra') {
+    document.getElementById('tabFilterUpcoming').className = 'promo-tab px-3.5 py-1.5 bg-zinc-900 text-white font-semibold transition-all';
+  } else {
+    document.getElementById('tabFilterExpired').className = 'promo-tab px-3.5 py-1.5 bg-zinc-900 text-white font-semibold transition-all';
+  }
+  
+  renderGrid();
+}
+
+// Dropdown Action toggler
+function togglePromoMenu(event, id) {
+  event.stopPropagation();
+  document.querySelectorAll('[id^="pm"]').forEach(m => {
+    if (m.id !== id) m.classList.add('hidden');
+  });
+  document.getElementById(id).classList.toggle('hidden');
+}
+
+// Setup global close actions for menus
+document.addEventListener('click', () => {
+  document.querySelectorAll('[id^="pm"]').forEach(m => m.classList.add('hidden'));
+});
+
+// Render dynamic stats bar
+function renderStats() {
+  const active = mockPromotions.filter(p => p.TrangThai === 'Đang chạy').length;
+  const upcoming = mockPromotions.filter(p => p.TrangThai === 'Sắp diễn ra').length;
+  const expired = mockPromotions.filter(p => p.TrangThai === 'Đã kết thúc' || p.TrangThai === 'Đã dừng').length;
+
+  document.getElementById('statActiveCount').textContent = active;
+  document.getElementById('statUpcomingCount').textContent = upcoming;
+  document.getElementById('statExpiredCount').textContent = expired;
+
+  // Compute actual savings in real-time
+  let totalSaved = 0;
+  mockPromotions.forEach(p => {
+    if (p.LoaiGiam === 'Phần trăm') {
+      totalSaved += p.SoLanDaDung * (p.GiaTriGiam * 1000); 
+    } else if (p.LoaiGiam === 'Cố định') {
+      totalSaved += p.SoLanDaDung * p.GiaTriGiam;
+    } else {
+      totalSaved += p.SoLanDaDung * 80000; 
+    }
+  });
+
+  document.getElementById('statTotalSaved').textContent = formatVND(totalSaved);
+}
+
+// Render dynamic card grid
+function renderGrid() {
+  const query = removeSign(searchInput.value.toLowerCase().trim());
+  promoGrid.innerHTML = '';
+
+  let filtered = mockPromotions.filter(p => {
+    const codeClean = removeSign(p.MaCode.toLowerCase());
+    const nameClean = removeSign(p.TenKM.toLowerCase());
+    const descClean = removeSign(p.MoTa.toLowerCase());
+
+    const matchesSearch = codeClean.includes(query) || 
+      nameClean.includes(query) || 
+      descClean.includes(query);
+
+    let matchesTab = true;
+    if (currentTabFilter !== 'all') {
+      if (currentTabFilter === 'Đã kết thúc') {
+        matchesTab = (p.TrangThai === 'Đã kết thúc' || p.TrangThai === 'Đã dừng');
+      } else {
+        matchesTab = (p.TrangThai === currentTabFilter);
+      }
+    }
+
+    return matchesSearch && matchesTab;
+  });
+
+  if (filtered.length === 0) {
+    promoGrid.innerHTML = `
+      <div class="col-span-1 md:col-span-2 xl:col-span-3 text-center py-12 text-zinc-400 text-sm font-medium">
+        Không tìm thấy chương trình khuyến mãi nào khớp với bộ lọc.
+      </div>
+    `;
+    return;
+  }
+
+  filtered.forEach((p, index) => {
+    const card = document.createElement('div');
+    card.className = `promo-card animate-fade-up ${p.TrangThai === 'Đã kết thúc' || p.TrangThai === 'Đã dừng' ? 'opacity-65' : ''}`;
+    card.style.animationDelay = `${index * 55}ms`;
+
+    let topBorderClass = 'h-2 bg-green-500';
+    let badgeClass = 'badge badge-green';
+    if (p.TrangThai === 'Sắp diễn ra') {
+      topBorderClass = 'h-2 bg-blue-500';
+      badgeClass = 'badge badge-blue';
+    } else if (p.TrangThai === 'Đã kết thúc' || p.TrangThai === 'Đã dừng') {
+      topBorderClass = 'h-2 bg-zinc-300';
+      badgeClass = 'badge badge-gray';
+    }
+
+    let leftBlock = '';
+    if (p.LoaiGiam === 'Phần trăm') {
+      leftBlock = `<span class="text-lg font-black text-green-600">${p.GiaTriGiam}%</span>`;
+    } else if (p.LoaiGiam === 'Cố định') {
+      leftBlock = `<span class="text-xs font-black text-green-600">-${p.GiaTriGiam / 1000}k</span>`;
+    } else {
+      leftBlock = `<span class="material-symbols-outlined text-[20px] text-green-600">redeem</span>`;
+    }
+
+    // Limit calculations
+    let limitText = 'Không giới hạn';
+    let progressPercent = 0;
+    if (p.SoLanToiDa) {
+      limitText = `${p.SoLanDaDung} / ${p.SoLanToiDa} lượt`;
+      progressPercent = (p.SoLanDaDung / p.SoLanToiDa) * 100;
+    }
+
+    // Days calculation
+    const today = new Date('2026-05-19');
+    const end = new Date(p.NgayKetThuc);
+    const start = new Date(p.NgayBatDau);
+    let remText = '';
+    if (p.TrangThai === 'Đang chạy') {
+      const diff = Math.ceil((end - today) / (1000 * 60 * 60 * 24));
+      remText = diff >= 0 ? `Còn ${diff} ngày` : 'Liên tục';
+    } else if (p.TrangThai === 'Sắp diễn ra') {
+      const diff = Math.ceil((start - today) / (1000 * 60 * 60 * 24));
+      remText = `Còn ${diff} ngày nữa`;
+    } else {
+      remText = 'Đã kết thúc';
+    }
+
+    // Simulated saved amount
+    let sumSaved = 0;
+    if (p.LoaiGiam === 'Phần trăm') {
+      sumSaved = p.SoLanDaDung * (p.GiaTriGiam * 1000);
+    } else if (p.LoaiGiam === 'Cố định') {
+      sumSaved = p.SoLanDaDung * p.GiaTriGiam;
+    } else {
+      sumSaved = p.SoLanDaDung * 80000;
+    }
+
+    card.innerHTML = `
+      <div class="${topBorderClass}"></div>
+      <div class="p-4 flex-1 flex flex-col justify-between">
+        <div>
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="${badgeClass}">${p.TrangThai}</span>
+                <span class="text-[10px] text-zinc-400 font-mono font-semibold">${p.MaCode}</span>
+              </div>
+              <h3 class="text-[14px] font-bold text-zinc-900 leading-tight">${p.TenKM}</h3>
+            </div>
+            <div class="relative shrink-0">
+              <button onclick="togglePromoMenu(event, 'pm${p.KhuyenMaiID}')" class="p-1 rounded-lg hover:bg-zinc-100 flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[16px] text-zinc-400 font-bold">more_vert</span></button>
+              <div id="pm${p.KhuyenMaiID}" class="hidden absolute right-0 top-full mt-1.5 w-[150px] bg-white rounded-xl shadow-xl border border-zinc-200 py-1.5 z-[70] overflow-hidden font-sans">
+                <button onclick="openEditPromoModal(${p.KhuyenMaiID})" class="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-zinc-700 hover:bg-zinc-50 transition-colors text-left"><span class="material-symbols-outlined text-[14px]">edit</span>Chỉnh sửa</button>
+                <button onclick="clonePromoAction(${p.KhuyenMaiID})" class="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-zinc-700 hover:bg-zinc-50 transition-colors text-left"><span class="material-symbols-outlined text-[14px]">content_copy</span>Nhân bản</button>
+                <button onclick="togglePromoStatus(${p.KhuyenMaiID})" class="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-zinc-700 hover:bg-zinc-50 transition-colors text-left font-medium">
+                  <span class="material-symbols-outlined text-[14px]">${p.TrangThai === 'Đang chạy' ? 'stop_circle' : 'play_circle'}</span>
+                  <span>${p.TrangThai === 'Đang chạy' ? 'Tạm dừng' : 'Kích hoạt'}</span>
+                </button>
+                <div class="border-t border-zinc-100 mt-1 pt-1"><button onclick="deletePromoAction(${p.KhuyenMaiID})" class="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-red-650 hover:bg-red-50 transition-colors text-left font-medium"><span class="material-symbols-outlined text-[14px]">delete</span>Xóa bỏ</button></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3 bg-zinc-50 p-2.5 rounded-xl border border-zinc-200/50 my-3">
+            <div class="w-12 h-12 rounded-lg bg-green-50/50 flex items-center justify-center shrink-0 border border-green-100/50">
+              ${leftBlock}
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-xs text-zinc-600 font-medium truncate">${p.MoTa}</p>
+              <p class="text-[10px] text-zinc-400 mt-0.5 font-medium">Áp dụng: <span class="font-bold text-zinc-500">${p.ApDung}</span>${p.DonToiThieu ? ` · Đơn ≥ ${formatVND(p.DonToiThieu)}` : ''}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          ${p.SoLanToiDa ? `
+            <div class="mb-3">
+              <div class="flex justify-between text-[10px] text-zinc-400 font-semibold mb-1">
+                <span>Lượt sử dụng</span>
+                <span>${limitText}</span>
+              </div>
+              <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden border border-zinc-200/30">
+                <div class="h-full bg-emerald-500 rounded-full transition-all" style="width:${progressPercent}%"></div>
+              </div>
+            </div>
+          ` : ''}
+          
+          <div class="flex items-center justify-between text-xs text-zinc-400 border-t border-zinc-100 pt-3 mt-1 font-medium">
+            <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">calendar_today</span>${formatDate(p.NgayBatDau)} – ${formatDate(p.NgayKetThuc)}</span>
+            <span class="font-bold ${p.TrangThai === 'Đang chạy' ? 'text-green-600' : p.TrangThai === 'Sắp diễn ra' ? 'text-blue-600' : 'text-zinc-500'}">${remText}</span>
+          </div>
+          ${p.SoLanDaDung > 0 ? `
+            <div class="flex items-center justify-between text-[10px] text-zinc-400 mt-1.5 font-medium">
+              <span>Đã tiết kiệm cho khách:</span>
+              <span class="font-semibold text-zinc-650">${formatVND(sumSaved)}</span>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+    promoGrid.appendChild(card);
+  });
+}
+
+// Modal handling
+function toggleDiscountSymbol(sym) {
+  document.getElementById('promoValSymbol').textContent = sym;
+}
+
+function closePromoModal() {
+  document.getElementById('promoModalCard').classList.remove('animate-scale-in');
+  document.getElementById('promoModal').classList.add('hidden');
+  resetPromoForm();
+}
+
+function resetPromoForm() {
+  document.getElementById('editPromoId').value = '';
+  document.getElementById('promoCode').value = '';
+  document.getElementById('promoName').value = '';
+  document.getElementById('promoVal').value = '';
+  document.getElementById('promoMinBill').value = '';
+  document.getElementById('promoMaxDiscount').value = '';
+  document.getElementById('promoStart').value = '';
+  document.getElementById('promoEnd').value = '';
+  document.getElementById('promoLimit').value = '';
+  document.getElementById('promoDesc').value = '';
+  document.getElementById('promoApplyGroup').value = 'Tất cả sân';
+  document.getElementById('modalPromoTitle').textContent = 'Tạo khuyến mãi mới';
+  document.getElementById('promoCode').disabled = false;
+  
+  // Reset radios
+  const radios = document.getElementsByName('discountType');
+  radios[0].checked = true;
+  toggleDiscountSymbol('%');
+}
+
+function openEditPromoModal(id) {
+  const promo = mockPromotions.find(p => p.KhuyenMaiID === id);
+  if (!promo) return;
+
+  document.getElementById('editPromoId').value = promo.KhuyenMaiID;
+  document.getElementById('promoCode').value = promo.MaCode;
+  document.getElementById('promoCode').disabled = true;
+  document.getElementById('promoName').value = promo.TenKM;
+  document.getElementById('promoVal').value = promo.GiaTriGiam;
+  document.getElementById('promoMinBill').value = promo.DonToiThieu || '';
+  document.getElementById('promoMaxDiscount').value = promo.GiamToiDa || '';
+  document.getElementById('promoStart').value = promo.NgayBatDau;
+  document.getElementById('promoEnd').value = promo.NgayKetThuc;
+  document.getElementById('promoLimit').value = promo.SoLanToiDa || '';
+  document.getElementById('promoDesc').value = promo.MoTa;
+  document.getElementById('promoApplyGroup').value = promo.ApDung;
+
+  const radios = document.getElementsByName('discountType');
+  radios.forEach(r => {
+    if (r.value === promo.LoaiGiam) {
+      r.checked = true;
+      const symbols = { 'Phần trăm': '%', 'Cố định': 'đ', 'Tặng kèm': 'giờ' };
+      toggleDiscountSymbol(symbols[promo.LoaiGiam]);
+    }
+  });
+
+  document.getElementById('modalPromoTitle').textContent = 'Chỉnh sửa khuyến mãi';
+  document.getElementById('promoModal').classList.remove('hidden');
+  document.getElementById('promoModalCard').classList.add('animate-scale-in');
+}
+
+function savePromoAction() {
+  const idVal = document.getElementById('editPromoId').value;
+  const code = document.getElementById('promoCode').value.toUpperCase().trim();
+  const name = document.getElementById('promoName').value.trim();
+  const val = parseFloat(document.getElementById('promoVal').value);
+  const start = document.getElementById('promoStart').value;
+  const end = document.getElementById('promoEnd').value;
+  const minBill = parseFloat(document.getElementById('promoMinBill').value) || 0;
+  const maxDisc = parseFloat(document.getElementById('promoMaxDiscount').value) || 0;
+  const limit = parseInt(document.getElementById('promoLimit').value) || null;
+  const desc = document.getElementById('promoDesc').value.trim();
+  const applyGroup = document.getElementById('promoApplyGroup').value;
+
+  if (!code || !name || isNaN(val) || !start || !end) {
+    alert('Vui lòng nhập đầy đủ các trường bắt buộc (*)');
+    return;
+  }
+
+  const selectedRadio = Array.from(document.getElementsByName('discountType')).find(r => r.checked);
+  const discountType = selectedRadio ? selectedRadio.value : 'Phần trăm';
+
+  const simulationToday = new Date('2026-05-19');
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  
+  let calculatedStatus = 'Đang chạy';
+  if (startDate > simulationToday) {
+    calculatedStatus = 'Sắp diễn ra';
+  } else if (endDate < simulationToday) {
+    calculatedStatus = 'Đã kết thúc';
+  }
+
+  if (idVal) {
+    // Edit existing promo
+    const promo = mockPromotions.find(p => p.KhuyenMaiID === parseInt(idVal));
+    if (promo) {
+      promo.TenKM = name;
+      promo.GiaTriGiam = val;
+      promo.LoaiGiam = discountType;
+      promo.DonToiThieu = minBill;
+      promo.GiamToiDa = maxDisc;
+      promo.NgayBatDau = start;
+      promo.NgayKetThuc = end;
+      promo.SoLanToiDa = limit;
+      promo.MoTa = desc || `Giảm giá theo chương trình ${name}`;
+      promo.ApDung = applyGroup;
+      promo.TrangThai = calculatedStatus;
+    }
+    showToast('Thành công', `Cập nhật khuyến mãi ${code} thành công.`);
+  } else {
+    // Add new promo
+    const existing = mockPromotions.find(p => p.MaCode === code);
+    if (existing) {
+      alert('Mã khuyến mãi này đã tồn tại trong hệ thống chi nhánh!');
+      return;
+    }
+
+    const newId = mockPromotions.length > 0 ? Math.max(...mockPromotions.map(p => p.KhuyenMaiID)) + 1 : 1;
+    mockPromotions.unshift({
+      KhuyenMaiID: newId,
+      MaCode: code,
+      TenKM: name,
+      MoTa: desc || `Giảm giá theo chương trình ${name}`,
+      LoaiGiam: discountType,
+      GiaTriGiam: val,
+      NgayBatDau: start,
+      NgayKetThuc: end,
+      SoLanToiDa: limit,
+      SoLanDaDung: 0,
+      TrangThai: calculatedStatus,
+      DonToiThieu: minBill,
+      GiamToiDa: maxDisc,
+      ApDung: applyGroup
+    });
+    showToast('Tạo thành công', `Đã tạo chương trình khuyến mãi ${code} mới.`);
+  }
+
+  closePromoModal();
+  renderAll();
+}
+
+function clonePromoAction(id) {
+  const promo = mockPromotions.find(p => p.KhuyenMaiID === id);
+  if (!promo) return;
+
+  const newId = mockPromotions.length > 0 ? Math.max(...mockPromotions.map(p => p.KhuyenMaiID)) + 1 : 1;
+  const newCode = `${promo.MaCode}_CLONE`;
+  
+  mockPromotions.unshift({
+    ...promo,
+    KhuyenMaiID: newId,
+    MaCode: newCode,
+    TenKM: `${promo.TenKM} - Sao bản`,
+    SoLanDaDung: 0
+  });
+
+  renderAll();
+  showToast('Đã nhân bản', `Đã nhân bản chương trình khuyến mãi thành mã mới: ${newCode}.`);
+}
+
+function togglePromoStatus(id) {
+  const promo = mockPromotions.find(p => p.KhuyenMaiID === id);
+  if (!promo) return;
+
+  if (promo.TrangThai === 'Đang chạy') {
+    promo.TrangThai = 'Đã dừng';
+    showToast('Tạm dừng', `Đã tạm dừng áp dụng khuyến mãi ${promo.MaCode}.`);
+  } else {
+    // Re-check dates
+    const simulationToday = new Date('2026-05-19');
+    const start = new Date(promo.NgayBatDau);
+    const end = new Date(promo.NgayKetThuc);
+    if (end < simulationToday) {
+      alert('Khuyến mãi này đã hết hạn, vui lòng chỉnh sửa lại thời gian trước khi kích hoạt!');
+      return;
+    }
+    promo.TrangThai = start > simulationToday ? 'Sắp diễn ra' : 'Đang chạy';
+    showToast('Đang chạy', `Đã kích hoạt hoạt động khuyến mãi ${promo.MaCode}.`);
+  }
+
+  renderAll();
+}
+
+function deletePromoAction(id) {
+  const index = mockPromotions.findIndex(p => p.KhuyenMaiID === id);
+  if (index === -1) return;
+  
+  const code = mockPromotions[index].MaCode;
+  if (confirm(`Bạn có chắc chắn muốn xóa bỏ chương trình khuyến mãi ${code} khỏi chi nhánh?`)) {
+    mockPromotions.splice(index, 1);
+    renderAll();
+    showToast('Đã xóa', `Đã xóa bỏ hoàn toàn khuyến mãi ${code}.`);
+  }
+}
+
+// Global refresh
+function renderAll() {
+  renderGrid();
+  renderStats();
+}
+
+// Profile Modal operations
 function saveProfileChanges() {
   document.getElementById('editProfileModal').classList.add('hidden');
-  showToast('Đã lưu thay đổi hồ sơ');
+  showToast('Thành công', 'Đã lưu thay đổi hồ sơ cá nhân.');
 }
+
 function savePassword() {
   const pw = document.getElementById('pwNew');
   const cf = document.getElementById('pwConfirm');
   if (!pw.value) return;
   if (pw.value !== cf.value) {
     cf.style.borderColor = '#ef4444';
-    setTimeout(() => { cf.style.borderColor = ''; }, 1500);
+    setTimeout(() => { cf.style.borderColor = ''; }, 1550);
     return;
   }
   document.getElementById('changePwModal').classList.add('hidden');
@@ -1546,8 +956,9 @@ function savePassword() {
   });
   const lbl = document.getElementById('pwStrengthLabel');
   if (lbl) lbl.textContent = '';
-  showToast('Đã đổi mật khẩu thành công');
+  showToast('Thành công', 'Đã đổi mật khẩu tài khoản.');
 }
+
 function togglePw(btn) {
   const inp = document.getElementById(btn.dataset.target);
   const ic = btn.querySelector('.material-symbols-outlined');
@@ -1559,6 +970,7 @@ function togglePw(btn) {
     ic.textContent = 'visibility_off';
   }
 }
+
 function updatePwStrength(inp) {
   const v = inp.value;
   let s = 0;
@@ -1575,6 +987,7 @@ function updatePwStrength(inp) {
   const lbl = document.getElementById('pwStrengthLabel');
   if (lbl) lbl.textContent = v.length ? labs[s] : '';
 }
+
 function previewAvatar(input) {
   if (input.files && input.files[0]) {
     const r = new FileReader();
@@ -1584,7 +997,62 @@ function previewAvatar(input) {
     r.readAsDataURL(input.files[0]);
   }
 }
+
+// DOM Setup
+document.addEventListener('DOMContentLoaded', () => {
+  searchInput.addEventListener('input', renderGrid);
+
+  // Mobile sidebar menu toggler
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const sidebar = document.getElementById('sidebar');
+  if (mobileMenuBtn && sidebar) {
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('-translate-x-full');
+    });
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        sidebar.classList.add('-translate-x-full');
+      }
+    });
+  }
+
+  // Profile toggler
+  const profileBtn = document.getElementById('profileBtn');
+  const profileDrop = document.getElementById('profileDrop');
+  const profileChevron = document.getElementById('profileChevron');
+  if (profileBtn && profileDrop) {
+    function openDrop() {
+      profileDrop.classList.remove('hidden');
+      profileDrop.style.cssText = 'opacity:0;transform:translateY(-8px) scale(0.97);transition:opacity 0.18s ease,transform 0.18s ease';
+      requestAnimationFrame(() => {
+        profileDrop.style.opacity = '1';
+        profileDrop.style.transform = 'translateY(0) scale(1)';
+      });
+      if (profileChevron) profileChevron.style.transform = 'rotate(180deg)';
+    }
+    function closeDrop() {
+      profileDrop.style.opacity = '0';
+      profileDrop.style.transform = 'translateY(-8px) scale(0.97)';
+      setTimeout(() => {
+        profileDrop.classList.add('hidden');
+        profileDrop.style.cssText = '';
+      }, 180);
+      if (profileChevron) profileChevron.style.transform = '';
+    }
+    profileBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      profileDrop.classList.contains('hidden') ? openDrop() : closeDrop();
+    });
+    document.addEventListener('click', e => {
+      if (!profileDrop.classList.contains('hidden') && !profileBtn.contains(e.target) && !profileDrop.contains(e.target)) {
+        closeDrop();
+      }
+    });
+  }
+
+  renderAll();
+});
 </script>
 </body>
-</html>
 </html>
